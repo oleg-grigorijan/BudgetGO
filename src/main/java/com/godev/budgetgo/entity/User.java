@@ -1,5 +1,7 @@
 package com.godev.budgetgo.entity;
 
+import com.godev.budgetgo.dto.UserDto;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -28,6 +30,15 @@ public class User {
 
     @Column(name = "is_email_public", nullable = false)
     private boolean emailPublic;
+
+    public void setPropertiesBy(UserDto userDto) {
+        id = userDto.getId();
+        login = userDto.getLogin();
+        email = userDto.getEmail();
+        name = userDto.getName();
+        surname = userDto.getSurname();
+        emailPublic = userDto.isEmailPublic();
+    }
 
     public Long getId() {
         return id;
