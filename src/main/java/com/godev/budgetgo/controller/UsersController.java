@@ -1,7 +1,8 @@
 package com.godev.budgetgo.controller;
 
-import com.godev.budgetgo.dto.UserDto;
-import com.godev.budgetgo.dto.UserPublicInfoDto;
+import com.godev.budgetgo.dto.UserCreationDto;
+import com.godev.budgetgo.dto.UserInfoDto;
+import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.UsersService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
-    private UsersService usersService;
+
+    private final UsersService usersService;
 
     public UsersController(UsersService userService) {
         this.usersService = userService;
@@ -20,15 +22,14 @@ public class UsersController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody UserDto newUser) {
-        newUser.setId(null);
+    public void create(HttpServletResponse response, @RequestBody UserCreationDto newUser) {
         Long newUserId = usersService.create(newUser).getId();
         response.addHeader("Location", "/api/users/" + newUserId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
-    public UserPublicInfoDto getByLogin(
+    public UserInfoDto getByLoginOrEmail(
             HttpServletResponse response,
             @RequestParam(required = false) String login,
             @RequestParam(required = false) String email
@@ -37,7 +38,7 @@ public class UsersController {
             throw new BadRequestException();
         }
 
-        UserPublicInfoDto foundUser = null;
+        UserInfoDto foundUser = null;
         if (login != null) foundUser = usersService.findByLogin(login);
         if (email != null) foundUser = usersService.findByEmail(email);
 
@@ -46,15 +47,14 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public UserPublicInfoDto getById(@PathVariable Long id) {
+    public UserInfoDto getById(@PathVariable Long id) {
         return usersService.findById(id);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Long id, @RequestBody UserDto updatedUser) {
-        updatedUser.setId(id);
-        usersService.update(updatedUser);
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserInfoDto patch(@PathVariable Long id, @RequestBody UserPatchesDto patches) {
+        return usersService.patch(id, patches);
     }
 
     @DeleteMapping("/{id}")

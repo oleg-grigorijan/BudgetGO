@@ -1,30 +1,24 @@
 package com.godev.budgetgo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.godev.budgetgo.entity.User;
 
-public class UserPublicInfoDto {
-    private Long id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserCreationDto {
     private String login;
     private String email;
     private String name;
     private String surname;
+    private String password;
 
-    public static UserPublicInfoDto from(User user) {
-        UserPublicInfoDto instance = new UserPublicInfoDto();
-        instance.id = user.getId();
-        instance.login = user.getLogin();
-        if (user.isEmailPublic()) instance.email = user.getEmail();
-        instance.name = user.getName();
-        instance.surname = user.getSurname();
-        return instance;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public User getUser() {
+        User user = new User();
+        user.setLogin(login);
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmailPublic(true);
+        return user;
     }
 
     public String getLogin() {
@@ -57,5 +51,13 @@ public class UserPublicInfoDto {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

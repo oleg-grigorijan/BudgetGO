@@ -1,8 +1,10 @@
 package com.godev.budgetgo.service.implementations;
 
-import com.godev.budgetgo.dto.UserDto;
-import com.godev.budgetgo.dto.UserPublicInfoDto;
+import com.godev.budgetgo.dto.UserCreationDto;
+import com.godev.budgetgo.dto.UserInfoDto;
+import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.entity.User;
+import com.godev.budgetgo.exception.NotFoundExcepion;
 import com.godev.budgetgo.exception.UserNotFoundException;
 import com.godev.budgetgo.repository.UsersRepository;
 import com.godev.budgetgo.service.UsersService;
@@ -18,52 +20,56 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserPublicInfoDto findByEmail(String email) {
+    public UserInfoDto findByEmail(String email) {
         return usersRepository
                 .findByEmail(email)
                 .filter(User::isEmailPublic)
-                .map(UserPublicInfoDto::from)
+                .map(UserInfoDto::publicInfoFrom)
                 .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public UserPublicInfoDto findByLogin(String login) {
+    public UserInfoDto findByLogin(String login) {
         return usersRepository
                 .findByLogin(login)
-                .map(UserPublicInfoDto::from)
+                .map(UserInfoDto::publicInfoFrom)
                 .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public UserPublicInfoDto findById(Long id) {
+    public UserInfoDto findById(Long id) {
         return usersRepository
                 .findById(id)
-                .map(UserPublicInfoDto::from)
+                .map(UserInfoDto::publicInfoFrom)
                 .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public UserDto create(UserDto entity) {
+    public UserInfoDto create(UserCreationDto creationDto) {
         // TODO: Validation
-        User user = new User();
-        user.setPropertiesBy(entity);
+        User user = creationDto.getUser();
         // TODO: Hashing
-        user.setPasswordHash(entity.getPassword());
+        user.setPasswordHash(creationDto.getPassword());
 
         usersRepository.add(user);
-        return UserDto.from(user);
+        return UserInfoDto.from(user);
     }
 
     @Override
-    public UserDto update(UserDto entity) {
+    public UserInfoDto patch(Long id, UserPatchesDto patchesDto) {
+        User user = usersRepository
+                .findById(id)
+                .orElseThrow(NotFoundExcepion::new);
+
         // TODO: Validation
-        User user = new User();
-        user.setPropertiesBy(entity);
+        patchesDto.applyPatchesTo(user);
         // TODO: Hashing
-        user.setPasswordHash(entity.getPassword());
+        if (patchesDto.getPassword() != null) {
+            user.setPasswordHash(patchesDto.getPassword());
+        }
 
         usersRepository.update(user);
-        return UserDto.from(user);
+        return UserInfoDto.from(user);
     }
 
     @Override

@@ -1,19 +1,20 @@
 package com.godev.budgetgo.service;
 
 
-import com.godev.budgetgo.dto.UserDto;
-import com.godev.budgetgo.dto.UserPublicInfoDto;
+import com.godev.budgetgo.dto.UserCreationDto;
+import com.godev.budgetgo.dto.UserInfoDto;
+import com.godev.budgetgo.dto.UserPatchesDto;
 
 public interface UsersService {
-    UserPublicInfoDto findById(Long id);
+    UserInfoDto findById(Long id);
 
-    UserPublicInfoDto findByEmail(String email);
+    UserInfoDto findByEmail(String email);
 
-    UserPublicInfoDto findByLogin(String login);
+    UserInfoDto findByLogin(String login);
 
-    UserDto create(UserDto entity);
+    UserInfoDto create(UserCreationDto creationDto);
 
-    UserDto update(UserDto entity);
+    UserInfoDto patch(Long id, UserPatchesDto patchesDto);
 
     void deleteById(Long id);
 }
