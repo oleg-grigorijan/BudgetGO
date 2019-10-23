@@ -5,7 +5,7 @@ import com.godev.budgetgo.repository.StoragesRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StoragesRepositoryImpl extends AbstractRepository<Storage> implements StoragesRepository {
+public class StoragesRepositoryImpl extends AbstractRepository<Storage, Long> implements StoragesRepository {
     public StoragesRepositoryImpl() {
         super(Storage.class);
     }

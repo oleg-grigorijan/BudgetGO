@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractRepository<E> implements Repository<E> {
+public abstract class AbstractRepository<E, K> implements Repository<E, K> {
     protected EntityManager entityManager;
     protected final Class<E> entityClass;
 
@@ -28,7 +28,7 @@ public abstract class AbstractRepository<E> implements Repository<E> {
     }
 
     @Override
-    public Optional<E> findById(Long id) {
+    public Optional<E> findById(K id) {
         E entity = entityManager.find(entityClass, id);
         return Optional.ofNullable(entity);
     }

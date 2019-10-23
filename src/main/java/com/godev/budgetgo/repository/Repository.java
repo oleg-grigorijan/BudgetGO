@@ -3,8 +3,8 @@ package com.godev.budgetgo.repository;
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository<E> {
-    Optional<E> findById(Long id);
+public interface Repository<E, K> {
+    Optional<E> findById(K id);
 
     List<E> findAll();
 
