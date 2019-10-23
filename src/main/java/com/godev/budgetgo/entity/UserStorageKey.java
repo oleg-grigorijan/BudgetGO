@@ -10,6 +10,14 @@ public class UserStorageKey implements Serializable {
 
     private Long storageId;
 
+    public UserStorageKey() {
+    }
+
+    public UserStorageKey(Long userId, Long storageId) {
+        this.userId = userId;
+        this.storageId = storageId;
+    }
+
     public Long getUserId() {
         return userId;
     }
