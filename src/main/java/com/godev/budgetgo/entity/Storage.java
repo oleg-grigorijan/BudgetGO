@@ -1,7 +1,6 @@
 package com.godev.budgetgo.entity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,9 +22,6 @@ public class Storage {
     @ManyToOne
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
-
-    @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL)
-    private List<UserStorageRelations> userStorageRelations;
 
     public Long getId() {
         return id;
@@ -67,14 +63,6 @@ public class Storage {
         this.currency = currency;
     }
 
-    public List<UserStorageRelations> getUserStorageRelations() {
-        return userStorageRelations;
-    }
-
-    public void setUserStorageRelations(List<UserStorageRelations> userStorageRelations) {
-        this.userStorageRelations = userStorageRelations;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,13 +72,12 @@ public class Storage {
                 id.equals(storage.id) &&
                 name.equals(storage.name) &&
                 description.equals(storage.description) &&
-                currency.equals(storage.currency) &&
-                userStorageRelations.equals(storage.userStorageRelations);
+                currency.equals(storage.currency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, balance, name, description, currency, userStorageRelations);
+        return Objects.hash(id, balance, name, description, currency);
     }
 
     @Override
@@ -101,7 +88,6 @@ public class Storage {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", currency=" + currency +
-                ", userStorageRelations=" + userStorageRelations +
                 '}';
     }
 }
