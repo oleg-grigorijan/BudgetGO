@@ -1,0 +1,23 @@
+package com.godev.budgetgo.repository.implementations;
+
+import com.godev.budgetgo.entity.UserStorageKey;
+import com.godev.budgetgo.entity.UserStorageRelations;
+import com.godev.budgetgo.repository.UsersStoragesRelationsRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class UsersStoragesRelationsRepositoryImpl extends AbstractRepository<UserStorageRelations, UserStorageKey> implements UsersStoragesRelationsRepository {
+    UsersStoragesRelationsRepositoryImpl() {
+        super(UserStorageRelations.class);
+    }
+
+    @Override
+    public List<UserStorageRelations> findByStorageId(Long storageId) {
+        return entityManager
+                .createQuery("SELECT r FROM UserStorageRelations r WHERE r.storage.id = :id", entityClass)
+                .setParameter("id", storageId)
+                .getResultList();
+    }
+}
