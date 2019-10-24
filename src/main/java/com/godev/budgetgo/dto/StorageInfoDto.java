@@ -1,7 +1,6 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.godev.budgetgo.entity.Storage;
 
 public class StorageInfoDto {
     private Long id;
@@ -10,16 +9,6 @@ public class StorageInfoDto {
     private long balance;
     @JsonProperty("currency")
     private CurrencyInfoDto currencyInfoDto;
-
-    public static StorageInfoDto from(Storage storage) {
-        StorageInfoDto dto = new StorageInfoDto();
-        dto.id = storage.getId();
-        dto.name = storage.getName();
-        dto.description = storage.getDescription();
-        dto.balance = storage.getBalance();
-        dto.currencyInfoDto = CurrencyInfoDto.from(storage.getCurrency());
-        return dto;
-    }
 
     public Long getId() {
         return id;

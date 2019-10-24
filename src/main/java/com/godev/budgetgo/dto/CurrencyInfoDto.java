@@ -1,23 +1,11 @@
 package com.godev.budgetgo.dto;
 
-import com.godev.budgetgo.entity.Currency;
-
 public class CurrencyInfoDto {
     private Long id;
     private String name;
     private String isoCode;
     private String symbol;
     private boolean symbolPrefixed;
-
-    public static CurrencyInfoDto from(Currency currency) {
-        CurrencyInfoDto dto = new CurrencyInfoDto();
-        dto.id = currency.getId();
-        dto.name = currency.getName();
-        dto.isoCode = currency.getIsoCode();
-        dto.symbol = currency.getSymbol();
-        dto.symbolPrefixed = currency.isSymbolPrefixed();
-        return dto;
-    }
 
     public Long getId() {
         return id;

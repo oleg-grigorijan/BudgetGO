@@ -4,7 +4,7 @@ import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
 import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.exception.BadRequestException;
-import com.godev.budgetgo.service.UsersService;
+import com.godev.budgetgo.service.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/users")
 public class UsersController {
 
-    private final UsersService usersService;
+    private final UsersRequestService usersService;
 
-    public UsersController(UsersService userService) {
+    public UsersController(UsersRequestService userService) {
         this.usersService = userService;
     }
 
@@ -39,8 +39,8 @@ public class UsersController {
         }
 
         UserInfoDto foundUser = null;
-        if (login != null) foundUser = usersService.findByLogin(login);
-        if (email != null) foundUser = usersService.findByEmail(email);
+        if (login != null) foundUser = usersService.getByLogin(login);
+        if (email != null) foundUser = usersService.getByEmail(email);
 
         response.addHeader("Location", "/api/users/" + foundUser.getId());
         return foundUser;
@@ -48,7 +48,7 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public UserInfoDto getById(@PathVariable Long id) {
-        return usersService.findById(id);
+        return usersService.getById(id);
     }
 
     @PatchMapping("/{id}")

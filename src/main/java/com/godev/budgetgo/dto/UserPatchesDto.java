@@ -1,9 +1,5 @@
 package com.godev.budgetgo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.godev.budgetgo.entity.User;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserPatchesDto {
     private String login;
     private String email;
@@ -11,14 +7,6 @@ public class UserPatchesDto {
     private String surname;
     private String password;
     private Boolean emailPublic;
-
-    public void applyPatchesTo(User user) {
-        if (login != null) user.setLogin(login);
-        if (email != null) user.setEmail(email);
-        if (name != null) user.setName(name);
-        if (surname != null) user.setSurname(surname);
-        if (emailPublic != null) user.setEmailPublic(emailPublic);
-    }
 
     public String getLogin() {
         return login;

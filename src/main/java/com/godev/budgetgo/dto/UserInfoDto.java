@@ -1,7 +1,6 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.godev.budgetgo.entity.User;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoDto {
@@ -10,29 +9,7 @@ public class UserInfoDto {
     private String email;
     private String name;
     private String surname;
-    private String password;
     private Boolean emailPublic;
-
-    public static UserInfoDto from(User user) {
-        UserInfoDto dto = new UserInfoDto();
-        dto.id = user.getId();
-        dto.login = user.getLogin();
-        dto.email = user.getEmail();
-        dto.name = user.getName();
-        dto.surname = user.getSurname();
-        dto.emailPublic = user.isEmailPublic();
-        return dto;
-    }
-
-    public static UserInfoDto publicInfoFrom(User user) {
-        UserInfoDto dto = new UserInfoDto();
-        dto.id = user.getId();
-        dto.login = user.getLogin();
-        if (user.isEmailPublic()) dto.email = user.getEmail();
-        dto.name = user.getName();
-        dto.surname = user.getSurname();
-        return dto;
-    }
 
     public Long getId() {
         return id;
@@ -74,15 +51,7 @@ public class UserInfoDto {
         this.surname = surname;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean isEmailPublic() {
+    public Boolean getEmailPublic() {
         return emailPublic;
     }
 

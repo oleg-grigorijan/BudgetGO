@@ -1,7 +1,6 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.godev.budgetgo.entity.UserStorageRelations;
 import com.godev.budgetgo.entity.UserStorageRole;
 
 public class UserStorageRelationsPatchDto {
@@ -9,11 +8,6 @@ public class UserStorageRelationsPatchDto {
     private UserStorageRole userRole;
     @JsonProperty("isIncludedInUserStatistics")
     private Boolean includedInUserStatistics;
-
-    public void applyPatchesTo(UserStorageRelations relations) {
-        if (userRole != null) relations.setUserRole(userRole);
-        if (includedInUserStatistics != null) relations.setIncludedInUserStatistics(includedInUserStatistics);
-    }
 
     public UserStorageRole getUserRole() {
         return userRole;
@@ -23,7 +17,7 @@ public class UserStorageRelationsPatchDto {
         this.userRole = userRole;
     }
 
-    public Boolean isIncludedInUserStatistics() {
+    public Boolean getIncludedInUserStatistics() {
         return includedInUserStatistics;
     }
 

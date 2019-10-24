@@ -4,7 +4,7 @@ import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
 import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
 import com.godev.budgetgo.entity.UserStorageKey;
-import com.godev.budgetgo.service.UsersStoragesRelationsService;
+import com.godev.budgetgo.service.request.UsersStoragesRelationsRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,16 +15,16 @@ import java.util.List;
 @RequestMapping("/api/storages/{storageId}/users")
 public class UsersStoragesRelationsController {
 
-    private final UsersStoragesRelationsService relationsService;
+    private final UsersStoragesRelationsRequestService relationsService;
 
-    public UsersStoragesRelationsController(UsersStoragesRelationsService relationsService) {
+    public UsersStoragesRelationsController(UsersStoragesRelationsRequestService relationsService) {
         this.relationsService = relationsService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserStorageRelationsInfoDto> getAll(@PathVariable Long storageId) {
-        return relationsService.findByStorageId(storageId);
+        return relationsService.getByStorageId(storageId);
     }
 
     @PostMapping
@@ -34,7 +34,8 @@ public class UsersStoragesRelationsController {
             @PathVariable Long storageId,
             @RequestBody UserStorageRelationsCreationDto creationDto
     ) {
-        relationsService.create(storageId, creationDto);
+        creationDto.setStorageId(storageId);
+        relationsService.create(creationDto);
         response.addHeader(
                 "Location",
                 "/api/storages/" + storageId
@@ -48,7 +49,7 @@ public class UsersStoragesRelationsController {
             @PathVariable Long storageId,
             @PathVariable Long userId
     ) {
-        return relationsService.findById(new UserStorageKey(userId, storageId));
+        return relationsService.getById(new UserStorageKey(userId, storageId));
     }
 
     @PatchMapping("/{userId}")

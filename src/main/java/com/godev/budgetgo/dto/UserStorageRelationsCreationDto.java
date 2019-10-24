@@ -1,30 +1,20 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.godev.budgetgo.entity.UserStorageRelations;
 import com.godev.budgetgo.entity.UserStorageRole;
 
 public class UserStorageRelationsCreationDto {
+    private Long storageId;
     private Long userId;
     @JsonProperty("userRole")
     private UserStorageRole userRole;
 
-    public UserStorageRelations getRelations() {
-        UserStorageRelations relations = new UserStorageRelations();
-        relations.setUserRole(userRole);
-        switch (userRole) {
-            case READER:
-                relations.setIncludedInUserStatistics(false);
-                break;
-            case CREATOR:
-            case ADMIN:
-            case EDITOR:
-                relations.setIncludedInUserStatistics(true);
-                break;
-            default:
-                throw new RuntimeException("No handler for UserStorageRole " + userRole.getValue());
-        }
-        return relations;
+    public Long getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(Long storageId) {
+        this.storageId = storageId;
     }
 
     public Long getUserId() {

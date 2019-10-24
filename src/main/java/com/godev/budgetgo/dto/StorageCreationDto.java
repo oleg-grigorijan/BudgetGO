@@ -1,20 +1,10 @@
 package com.godev.budgetgo.dto;
 
-import com.godev.budgetgo.entity.Storage;
-
 public class StorageCreationDto {
     private String name;
     private String description = "";
     private long initialBalance;
     private Long currencyId;
-
-    public Storage getStorage() {
-        Storage storage = new Storage();
-        storage.setName(name);
-        storage.setDescription(description);
-        storage.setBalance(initialBalance);
-        return storage;
-    }
 
     public String getName() {
         return name;

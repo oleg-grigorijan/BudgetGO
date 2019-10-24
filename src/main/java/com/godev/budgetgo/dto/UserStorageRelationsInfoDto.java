@@ -2,7 +2,6 @@ package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.godev.budgetgo.entity.UserStorageRelations;
 import com.godev.budgetgo.entity.UserStorageRole;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,19 +12,6 @@ public class UserStorageRelationsInfoDto {
     private UserStorageRole userRole;
     @JsonProperty("isIncludedInUserStatistics")
     private Boolean includedInUserStatistics;
-
-    public static UserStorageRelationsInfoDto from(UserStorageRelations relations) {
-        UserStorageRelationsInfoDto dto = publicInfoFrom(relations);
-        dto.includedInUserStatistics = relations.isIncludedInUserStatistics();
-        return dto;
-    }
-
-    public static UserStorageRelationsInfoDto publicInfoFrom(UserStorageRelations relations) {
-        UserStorageRelationsInfoDto dto = new UserStorageRelationsInfoDto();
-        dto.userInfoDto = UserInfoDto.publicInfoFrom(relations.getUser());
-        dto.userRole = relations.getUserRole();
-        return dto;
-    }
 
     public UserInfoDto getUserInfoDto() {
         return userInfoDto;
@@ -43,7 +29,7 @@ public class UserStorageRelationsInfoDto {
         this.userRole = userRole;
     }
 
-    public Boolean isIncludedInUserStatistics() {
+    public Boolean getIncludedInUserStatistics() {
         return includedInUserStatistics;
     }
 

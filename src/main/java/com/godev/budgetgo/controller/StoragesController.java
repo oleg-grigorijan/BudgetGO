@@ -3,7 +3,7 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.StorageCreationDto;
 import com.godev.budgetgo.dto.StorageInfoDto;
 import com.godev.budgetgo.dto.StoragePatchesDto;
-import com.godev.budgetgo.service.StoragesService;
+import com.godev.budgetgo.service.request.StoragesRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +14,16 @@ import java.util.List;
 @RequestMapping("/api/storages")
 public class StoragesController {
 
-    private final StoragesService storagesService;
+    private final StoragesRequestService storagesService;
 
-    public StoragesController(StoragesService storagesService) {
+    public StoragesController(StoragesRequestService storagesService) {
         this.storagesService = storagesService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<StorageInfoDto> getAll() {
-        return storagesService.findAll();
+        return storagesService.getAll();
     }
 
     @PostMapping
@@ -36,7 +36,7 @@ public class StoragesController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StorageInfoDto getById(@PathVariable Long id) {
-        return storagesService.findById(id);
+        return storagesService.getById(id);
     }
 
     @PatchMapping("/{id}")

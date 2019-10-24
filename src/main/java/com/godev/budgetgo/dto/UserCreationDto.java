@@ -1,7 +1,6 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.godev.budgetgo.entity.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserCreationDto {
@@ -10,16 +9,6 @@ public class UserCreationDto {
     private String name;
     private String surname;
     private String password;
-
-    public User getUser() {
-        User user = new User();
-        user.setLogin(login);
-        user.setEmail(email);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setEmailPublic(true);
-        return user;
-    }
 
     public String getLogin() {
         return login;
