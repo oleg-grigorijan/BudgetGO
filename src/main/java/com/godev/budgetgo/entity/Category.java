@@ -10,10 +10,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "creator_id", nullable = false)
-    private User creator;
-
     @Column(nullable = false)
     private String name;
 
@@ -23,14 +19,6 @@ public class Category {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
     }
 
     public String getName() {
@@ -47,20 +35,18 @@ public class Category {
         if (!(o instanceof Category)) return false;
         Category category = (Category) o;
         return id.equals(category.id) &&
-                creator.equals(category.creator) &&
                 name.equals(category.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, creator, name);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", creator=" + creator +
                 ", name='" + name + '\'' +
                 '}';
     }
