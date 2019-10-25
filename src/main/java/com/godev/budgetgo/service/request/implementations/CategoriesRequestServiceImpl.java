@@ -9,7 +9,9 @@ import com.godev.budgetgo.service.factory.CategoriesFactory;
 import com.godev.budgetgo.service.factory.CategoryDtoFactory;
 import com.godev.budgetgo.service.merger.CategoriesMerger;
 import com.godev.budgetgo.service.request.CategoriesRequestService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CategoriesRequestServiceImpl
         extends AbstractRequestService<Category, Long, CategoryInfoDto, CategoryCreationDto, CategoryPatchesDto>
         implements CategoriesRequestService {
