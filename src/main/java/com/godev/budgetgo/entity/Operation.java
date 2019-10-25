@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "operations")
 public class Operation {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

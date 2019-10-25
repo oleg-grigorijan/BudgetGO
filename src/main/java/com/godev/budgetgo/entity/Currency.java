@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name = "currencies")
 public class Currency {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
