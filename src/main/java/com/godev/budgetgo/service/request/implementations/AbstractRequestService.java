@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @param <V> entity creation DTO
  * @param <U> entity patches DTO
  */
-class AbstractRequestService<E, K, T, V, U> implements RequestService<K, T, V, U> {
+abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K, T, V, U> {
 
     private final DataService<E, K> dataService;
     private final ConverterFactory<V, E> entitiesFactory;
