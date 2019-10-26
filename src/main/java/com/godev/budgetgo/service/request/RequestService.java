@@ -16,6 +16,4 @@ public interface RequestService<K, T, V, U> {
     T create(V creationDto);
 
     T patch(K id, U patchesDto);
-
-    void deleteById(K id);
 }

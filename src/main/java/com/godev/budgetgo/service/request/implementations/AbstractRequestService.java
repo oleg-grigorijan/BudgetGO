@@ -63,10 +63,4 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
         dataService.update(entity);
         return dtoFactory.createFrom(entity);
     }
-
-    @Override
-    public void deleteById(K id) {
-        E entity = dataService.getById(id);
-        dataService.delete(entity);
-    }
 }
