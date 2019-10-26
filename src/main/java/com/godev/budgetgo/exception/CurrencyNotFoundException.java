@@ -1,4 +1,4 @@
 package com.godev.budgetgo.exception;
 
-public class CurrencyNotFoundException extends NotFoundExcepion {
+public class CurrencyNotFoundException extends NotFoundException {
 }

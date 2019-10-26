@@ -1,4 +1,4 @@
 package com.godev.budgetgo.exception;
 
-public class UserStorageRelationsNotFoundException extends NotFoundExcepion {
+public class UserStorageRelationsNotFoundException extends NotFoundException {
 }

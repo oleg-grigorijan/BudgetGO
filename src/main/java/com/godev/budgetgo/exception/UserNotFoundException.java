@@ -1,4 +1,4 @@
 package com.godev.budgetgo.exception;
 
-public class UserNotFoundException extends NotFoundExcepion {
+public class UserNotFoundException extends NotFoundException {
 }
