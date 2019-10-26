@@ -1,7 +1,7 @@
 package com.godev.budgetgo.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -23,13 +23,16 @@ public class Operation implements Cloneable {
     private Category category;
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
 
     @Column(nullable = false)
     private String description;
 
-    @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
+    @Column(name = "date_created", nullable = false)
+    private LocalDate dateCreated;
+
+    @Column(name = "date_modified", nullable = false)
+    private LocalDate dateModified;
 
     public Long getId() {
         return id;
@@ -63,11 +66,11 @@ public class Operation implements Cloneable {
         this.category = category;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -79,12 +82,20 @@ public class Operation implements Cloneable {
         this.description = description;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public LocalDate getDateCreated() {
+        return dateCreated;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setDateCreated(LocalDate creationDate) {
+        this.dateCreated = creationDate;
+    }
+
+    public LocalDate getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(LocalDate dateModified) {
+        this.dateModified = dateModified;
     }
 
     /**
@@ -111,12 +122,13 @@ public class Operation implements Cloneable {
                 category.equals(operation.category) &&
                 date.equals(operation.date) &&
                 description.equals(operation.description) &&
-                creationDate.equals(operation.creationDate);
+                dateCreated.equals(operation.dateCreated) &&
+                dateModified.equals(operation.dateModified);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storage, moneyDelta, category, date, description, creationDate);
+        return Objects.hash(id, storage, moneyDelta, category, date, description, dateCreated, dateModified);
     }
 
     @Override
@@ -128,7 +140,8 @@ public class Operation implements Cloneable {
                 ", category=" + category +
                 ", date=" + date +
                 ", description='" + description + '\'' +
-                ", creationDate=" + creationDate +
+                ", dateCreated=" + dateCreated +
+                ", dateModified=" + dateModified +
                 '}';
     }
 }
