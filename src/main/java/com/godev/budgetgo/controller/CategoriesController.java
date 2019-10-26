@@ -34,7 +34,7 @@ public class CategoriesController {
             @RequestBody CategoryCreationDto creationDto
     ) {
         Long newCategoryId = categoriesService.create(creationDto).getId();
-        response.addHeader("Location", "/api/categories" + newCategoryId);
+        response.addHeader("Location", "/api/categories/" + newCategoryId);
     }
 
     @GetMapping("/{id}")
