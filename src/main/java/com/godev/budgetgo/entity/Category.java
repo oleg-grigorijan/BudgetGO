@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +27,19 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

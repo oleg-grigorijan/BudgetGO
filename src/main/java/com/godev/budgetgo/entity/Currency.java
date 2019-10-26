@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "currencies")
-public class Currency {
+public class Currency implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,6 +60,19 @@ public class Currency {
 
     public void setSymbolPrefixed(boolean symbolPrefixed) {
         this.symbolPrefixed = symbolPrefixed;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public Currency clone() {
+        try {
+            return (Currency) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

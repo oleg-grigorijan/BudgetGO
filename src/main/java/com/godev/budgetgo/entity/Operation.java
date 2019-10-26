@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "operations")
-public class Operation {
+public class Operation implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -85,6 +85,19 @@ public class Operation {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public Operation clone() {
+        try {
+            return (Operation) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

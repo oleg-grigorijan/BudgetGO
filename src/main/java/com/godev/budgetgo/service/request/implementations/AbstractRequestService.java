@@ -59,8 +59,7 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     public T patch(K id, U patchesDto) {
         E entity = dataService.getById(id);
         // TODO: Validation
-        merger.merge(patchesDto, entity);
-        dataService.update(entity);
+        dataService.update(merger.merge(patchesDto, entity));
         return dtoFactory.createFrom(entity);
     }
 }
