@@ -41,4 +41,10 @@ class UsersStoragesRelationsRequestServiceImpl
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteById(UserStorageKey id) {
+        UserStorageRelations entity = dataService.getById(id);
+        dataService.delete(entity);
+    }
 }

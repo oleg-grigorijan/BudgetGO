@@ -44,10 +44,4 @@ public class StoragesController {
     public StorageInfoDto patch(@PathVariable Long id, @RequestBody StoragePatchesDto patches) {
         return storagesService.patch(id, patches);
     }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        storagesService.deleteById(id);
-    }
 }

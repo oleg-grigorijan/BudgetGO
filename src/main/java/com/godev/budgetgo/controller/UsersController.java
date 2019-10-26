@@ -56,10 +56,4 @@ public class UsersController {
     public UserInfoDto patch(@PathVariable Long id, @RequestBody UserPatchesDto patches) {
         return usersService.patch(id, patches);
     }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        usersService.deleteById(id);
-    }
 }
