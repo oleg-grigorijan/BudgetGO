@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoriesMergerImpl implements CategoriesMerger {
     @Override
-    public void merge(CategoryPatchesDto dto, Category e) {
+    public Category merge(CategoryPatchesDto dto, Category eOld) {
+        Category e = eOld.clone();
         e.setName(dto.getName());
+        return e;
     }
 }

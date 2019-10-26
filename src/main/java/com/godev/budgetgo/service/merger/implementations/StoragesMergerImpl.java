@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 class StoragesMergerImpl implements StoragesMerger {
     @Override
-    public void merge(StoragePatchesDto dto, Storage e) {
+    public Storage merge(StoragePatchesDto dto, Storage eOld) {
+        Storage e = eOld.clone();
         if (dto.getName() != null) e.setName(dto.getName());
         if (dto.getDescription() != null) e.setDescription(dto.getDescription());
+        return e;
     }
 }

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 class UsersMergerImpl implements UsersMerger {
     @Override
-    public void merge(UserPatchesDto dto, User e) {
+    public User merge(UserPatchesDto dto, User eOld) {
+        User e = eOld.clone();
         if (dto.getLogin() != null) e.setLogin(dto.getLogin());
         if (dto.getEmail() != null) e.setEmail(dto.getEmail());
         if (dto.getName() != null) e.setName(dto.getName());
         if (dto.getPassword() != null) e.setSurname(dto.getPassword());
         if (dto.getEmailPublic() != null) e.setEmailPublic(dto.getEmailPublic());
+        return e;
     }
 }
