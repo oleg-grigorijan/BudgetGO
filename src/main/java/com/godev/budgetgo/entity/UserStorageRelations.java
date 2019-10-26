@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user_storage_relations")
-public class UserStorageRelations {
+public class UserStorageRelations implements Cloneable {
     @EmbeddedId
     private UserStorageKey id;
 
@@ -64,6 +64,19 @@ public class UserStorageRelations {
 
     public void setUserRole(UserStorageRole userRole) {
         this.userRole = userRole;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public UserStorageRelations clone() {
+        try {
+            return (UserStorageRelations) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

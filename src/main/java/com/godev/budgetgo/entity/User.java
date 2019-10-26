@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -83,6 +83,19 @@ public class User {
 
     public void setEmailPublic(boolean emailPublic) {
         this.emailPublic = emailPublic;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public User clone() {
+        try {
+            return (User) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

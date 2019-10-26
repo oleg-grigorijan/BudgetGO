@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "storages")
-public class Storage {
+public class Storage implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -61,6 +61,19 @@ public class Storage {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    /**
+     * @return Shallow clone of instance
+     */
+    @Override
+    public Storage clone() {
+        try {
+            return (Storage) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
