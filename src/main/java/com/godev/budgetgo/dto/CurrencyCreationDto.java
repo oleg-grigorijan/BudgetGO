@@ -2,21 +2,12 @@ package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CurrencyInfoDto {
-    private Long id;
+public class CurrencyCreationDto {
     private String name;
     private String isoCode;
     private String symbol;
     @JsonProperty("isSymbolPrefixed")
     private boolean symbolPrefixed;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
