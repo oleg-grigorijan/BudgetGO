@@ -10,7 +10,7 @@ class UsersStoragesRelationsMergerImpl implements UsersStoragesRelationsMerger {
     @Override
     public UserStorageRelations merge(UserStorageRelationsPatchDto dto, UserStorageRelations eOld) {
         UserStorageRelations e = eOld.clone();
-        if (dto.getUserRole() != null) e.setUserRole(dto.getUserRole());
+        if (dto.getUserStorageRole() != null) e.setUserRole(dto.getUserStorageRole());
         if (dto.getIncludedInUserStatistics() != null) e.setIncludedInUserStatistics(dto.getIncludedInUserStatistics());
         return e;
     }

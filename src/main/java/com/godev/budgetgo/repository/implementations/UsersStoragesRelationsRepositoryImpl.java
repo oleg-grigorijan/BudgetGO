@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UsersStoragesRelationsRepositoryImpl extends AbstractRepository<UserStorageRelations, UserStorageKey> implements UsersStoragesRelationsRepository {
+class UsersStoragesRelationsRepositoryImpl
+        extends AbstractRepository<UserStorageRelations, UserStorageKey>
+        implements UsersStoragesRelationsRepository {
     UsersStoragesRelationsRepositoryImpl() {
         super(UserStorageRelations.class);
     }

@@ -5,16 +5,16 @@ import com.godev.budgetgo.entity.UserStorageRole;
 
 public class UserStorageRelationsPatchDto {
     @JsonProperty("userRole")
-    private UserStorageRole userRole;
+    private UserStorageRole userStorageRole;
     @JsonProperty("isIncludedInUserStatistics")
     private Boolean includedInUserStatistics;
 
-    public UserStorageRole getUserRole() {
-        return userRole;
+    public UserStorageRole getUserStorageRole() {
+        return userStorageRole;
     }
 
-    public void setUserRole(UserStorageRole userRole) {
-        this.userRole = userRole;
+    public void setUserStorageRole(UserStorageRole userStorageRole) {
+        this.userStorageRole = userStorageRole;
     }
 
     public Boolean getIncludedInUserStatistics() {

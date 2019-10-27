@@ -1,11 +1,14 @@
 package com.godev.budgetgo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserPatchesDto {
     private String login;
     private String email;
     private String name;
     private String surname;
     private String password;
+    @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
 
     public String getLogin() {

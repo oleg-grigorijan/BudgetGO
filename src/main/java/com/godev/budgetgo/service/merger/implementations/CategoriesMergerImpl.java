@@ -6,7 +6,7 @@ import com.godev.budgetgo.service.merger.CategoriesMerger;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriesMergerImpl implements CategoriesMerger {
+class CategoriesMergerImpl implements CategoriesMerger {
     @Override
     public Category merge(CategoryPatchesDto dto, Category eOld) {
         Category e = eOld.clone();

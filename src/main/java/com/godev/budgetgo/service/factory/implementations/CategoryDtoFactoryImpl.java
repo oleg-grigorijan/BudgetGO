@@ -6,7 +6,7 @@ import com.godev.budgetgo.service.factory.CategoryDtoFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryDtoFactoryImpl implements CategoryDtoFactory {
+class CategoryDtoFactoryImpl implements CategoryDtoFactory {
     @Override
     public CategoryInfoDto createFrom(Category e) {
         CategoryInfoDto dto = new CategoryInfoDto();

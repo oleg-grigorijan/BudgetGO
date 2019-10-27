@@ -14,34 +14,34 @@ import java.util.List;
 @RequestMapping("/api/currencies")
 public class CurrenciesController {
 
-    private final CurrenciesRequestService currenciesService;
+    private final CurrenciesRequestService requestService;
 
-    public CurrenciesController(CurrenciesRequestService currenciesService) {
-        this.currenciesService = currenciesService;
+    public CurrenciesController(CurrenciesRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CurrencyInfoDto> getAll() {
-        return currenciesService.getAll();
+        return requestService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(HttpServletResponse response, @RequestBody CurrencyCreationDto creationDto) {
-        Long newOperationId = currenciesService.create(creationDto).getId();
+        Long newOperationId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/currencies/" + newOperationId);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CurrencyInfoDto get(@PathVariable Long id) {
-        return currenciesService.getById(id);
+        return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CurrencyInfoDto patch(@PathVariable Long id, @RequestBody CurrencyPatchesDto patches) {
-        return currenciesService.patch(id, patches);
+        return requestService.patch(id, patches);
     }
 }

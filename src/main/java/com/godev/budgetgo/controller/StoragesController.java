@@ -14,34 +14,34 @@ import java.util.List;
 @RequestMapping("/api/storages")
 public class StoragesController {
 
-    private final StoragesRequestService storagesService;
+    private final StoragesRequestService requestService;
 
-    public StoragesController(StoragesRequestService storagesService) {
-        this.storagesService = storagesService;
+    public StoragesController(StoragesRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<StorageInfoDto> getAll() {
-        return storagesService.getAll();
+        return requestService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(HttpServletResponse response, @RequestBody StorageCreationDto creationDto) {
-        Long newStorageId = storagesService.create(creationDto).getId();
+        Long newStorageId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/storages/" + newStorageId);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StorageInfoDto getById(@PathVariable Long id) {
-        return storagesService.getById(id);
+        return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StorageInfoDto patch(@PathVariable Long id, @RequestBody StoragePatchesDto patches) {
-        return storagesService.patch(id, patches);
+        return requestService.patch(id, patches);
     }
 }

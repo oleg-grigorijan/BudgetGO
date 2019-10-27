@@ -19,7 +19,7 @@ class UserStorageRelationsDtoFactoryImpl implements UserStorageRelationsDtoFacto
     public UserStorageRelationsInfoDto createFrom(UserStorageRelations e) {
         UserStorageRelationsInfoDto dto = new UserStorageRelationsInfoDto();
         dto.setUserInfoDto(userDtoFactory.createFrom(e.getUser()));
-        dto.setUserRole(e.getUserRole());
+        dto.setUserStorageRole(e.getUserRole());
         dto.setIncludedInUserStatistics(e.isIncludedInUserStatistics());
         return dto;
     }

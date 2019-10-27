@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 abstract class AbstractDataService<E, K> implements DataService<E, K> {
 
     private final Repository<E, K> repository;
-    protected final Supplier<? extends NotFoundException> notFoundExceptionSupplier;
+    final Supplier<? extends NotFoundException> notFoundExceptionSupplier;
 
     public AbstractDataService(
             Repository<E, K> repository,

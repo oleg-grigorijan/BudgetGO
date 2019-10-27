@@ -15,16 +15,16 @@ import java.util.List;
 @RequestMapping("/api/storages/{storageId}/users")
 public class UsersStoragesRelationsController {
 
-    private final UsersStoragesRelationsRequestService relationsService;
+    private final UsersStoragesRelationsRequestService requestService;
 
-    public UsersStoragesRelationsController(UsersStoragesRelationsRequestService relationsService) {
-        this.relationsService = relationsService;
+    public UsersStoragesRelationsController(UsersStoragesRelationsRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserStorageRelationsInfoDto> getAll(@PathVariable Long storageId) {
-        return relationsService.getByStorageId(storageId);
+        return requestService.getByStorageId(storageId);
     }
 
     @PostMapping
@@ -35,7 +35,7 @@ public class UsersStoragesRelationsController {
             @RequestBody UserStorageRelationsCreationDto creationDto
     ) {
         creationDto.setStorageId(storageId);
-        relationsService.create(creationDto);
+        requestService.create(creationDto);
         response.addHeader(
                 "Location",
                 "/api/storages/" + storageId
@@ -49,7 +49,7 @@ public class UsersStoragesRelationsController {
             @PathVariable Long storageId,
             @PathVariable Long userId
     ) {
-        return relationsService.getById(new UserStorageKey(userId, storageId));
+        return requestService.getById(new UserStorageKey(userId, storageId));
     }
 
     @PatchMapping("/{userId}")
@@ -59,7 +59,7 @@ public class UsersStoragesRelationsController {
             @PathVariable Long userId,
             @RequestBody UserStorageRelationsPatchDto patchDto
     ) {
-        return relationsService.patch(
+        return requestService.patch(
                 new UserStorageKey(userId, storageId),
                 patchDto
         );
@@ -71,6 +71,6 @@ public class UsersStoragesRelationsController {
             @PathVariable Long storageId,
             @PathVariable Long userId
     ) {
-        relationsService.deleteById(new UserStorageKey(userId, storageId));
+        requestService.deleteById(new UserStorageKey(userId, storageId));
     }
 }

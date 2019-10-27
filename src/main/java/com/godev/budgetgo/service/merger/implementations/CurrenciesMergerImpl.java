@@ -6,7 +6,7 @@ import com.godev.budgetgo.service.merger.CurrenciesMerger;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CurrenciesMergerImpl implements CurrenciesMerger {
+class CurrenciesMergerImpl implements CurrenciesMerger {
     @Override
     public Currency merge(CurrencyPatchesDto dto, Currency eOld) {
         Currency e = eOld.clone();

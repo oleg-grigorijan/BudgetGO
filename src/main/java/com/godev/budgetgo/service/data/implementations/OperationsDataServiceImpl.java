@@ -6,6 +6,7 @@ import com.godev.budgetgo.exception.OperationNotFoundException;
 import com.godev.budgetgo.repository.OperationsRepository;
 import com.godev.budgetgo.service.data.OperationsDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,11 +14,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class OperationsDataServiceImpl
+class OperationsDataServiceImpl
         extends AbstractDataService<Operation, Long>
         implements OperationsDataService {
 
-    private OperationsRepository repository;
+    private final OperationsRepository repository;
     private StoragesDataService storagesDataService;
 
     public OperationsDataServiceImpl(OperationsRepository repository) {
@@ -25,6 +26,7 @@ public class OperationsDataServiceImpl
         this.repository = repository;
     }
 
+    @Autowired
     public void setStoragesDataService(StoragesDataService storagesDataService) {
         this.storagesDataService = storagesDataService;
     }

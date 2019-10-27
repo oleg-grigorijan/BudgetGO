@@ -27,8 +27,8 @@ class UsersStoragesRelationsFactoryImpl implements UsersStoragesRelationsFactory
         e.setStorage(storagesDataService.getById(dto.getStorageId()));
         e.setUser(usersDataService.getById(dto.getUserId()));
         e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
-        e.setUserRole(dto.getUserRole());
-        switch (dto.getUserRole()) {
+        e.setUserRole(dto.getUserStorageRole());
+        switch (dto.getUserStorageRole()) {
             case READER:
                 e.setIncludedInUserStatistics(false);
                 break;
@@ -38,7 +38,7 @@ class UsersStoragesRelationsFactoryImpl implements UsersStoragesRelationsFactory
                 e.setIncludedInUserStatistics(true);
                 break;
             default:
-                throw new RuntimeException("No handler for UserStorageRole " + dto.getUserRole().getValue());
+                throw new RuntimeException("No handler for UserStorageRole " + dto.getUserStorageRole().getValue());
         }
         return e;
     }

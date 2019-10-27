@@ -5,7 +5,10 @@ import com.godev.budgetgo.repository.CurrenciesRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CurrenciesRepositoryImpl extends AbstractRepository<Currency, Long> implements CurrenciesRepository {
+class CurrenciesRepositoryImpl
+        extends AbstractRepository<Currency, Long>
+        implements CurrenciesRepository {
+
     CurrenciesRepositoryImpl() {
         super(Currency.class);
     }

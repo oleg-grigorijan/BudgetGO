@@ -7,7 +7,7 @@ public class UserStorageRelationsCreationDto {
     private Long storageId;
     private Long userId;
     @JsonProperty("userRole")
-    private UserStorageRole userRole;
+    private UserStorageRole userStorageRole;
 
     public Long getStorageId() {
         return storageId;
@@ -25,11 +25,11 @@ public class UserStorageRelationsCreationDto {
         this.userId = userId;
     }
 
-    public UserStorageRole getUserRole() {
-        return userRole;
+    public UserStorageRole getUserStorageRole() {
+        return userStorageRole;
     }
 
-    public void setUserRole(UserStorageRole userRole) {
-        this.userRole = userRole;
+    public void setUserStorageRole(UserStorageRole userStorageRole) {
+        this.userStorageRole = userStorageRole;
     }
 }

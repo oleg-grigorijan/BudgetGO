@@ -14,17 +14,17 @@ import java.util.List;
 @RequestMapping("/api/categories")
 public class CategoriesController {
 
-    private final CategoriesRequestService categoriesService;
+    private final CategoriesRequestService requestService;
 
     public CategoriesController(
-            CategoriesRequestService categoriesService) {
-        this.categoriesService = categoriesService;
+            CategoriesRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryInfoDto> getAll() {
-        return categoriesService.getAll();
+        return requestService.getAll();
     }
 
     @PostMapping
@@ -33,14 +33,14 @@ public class CategoriesController {
             HttpServletResponse response,
             @RequestBody CategoryCreationDto creationDto
     ) {
-        Long newCategoryId = categoriesService.create(creationDto).getId();
+        Long newCategoryId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/categories/" + newCategoryId);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryInfoDto get(@PathVariable Long id) {
-        return categoriesService.getById(id);
+        return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
@@ -49,6 +49,6 @@ public class CategoriesController {
             @PathVariable Long id,
             @RequestBody CategoryPatchesDto patchesDto
     ) {
-        return categoriesService.patch(id, patchesDto);
+        return requestService.patch(id, patchesDto);
     }
 }

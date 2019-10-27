@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/users")
 public class UsersController {
 
-    private final UsersRequestService usersService;
+    private final UsersRequestService requestService;
 
-    public UsersController(UsersRequestService userService) {
-        this.usersService = userService;
+    public UsersController(UsersRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(HttpServletResponse response, @RequestBody UserCreationDto newUser) {
-        Long newUserId = usersService.create(newUser).getId();
+        Long newUserId = requestService.create(newUser).getId();
         response.addHeader("Location", "/api/users/" + newUserId);
     }
 
@@ -39,8 +39,8 @@ public class UsersController {
         }
 
         UserInfoDto foundUser = null;
-        if (login != null) foundUser = usersService.getByLogin(login);
-        if (email != null) foundUser = usersService.getByEmail(email);
+        if (login != null) foundUser = requestService.getByLogin(login);
+        if (email != null) foundUser = requestService.getByEmail(email);
 
         response.addHeader("Location", "/api/users/" + foundUser.getId());
         return foundUser;
@@ -48,12 +48,12 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public UserInfoDto getById(@PathVariable Long id) {
-        return usersService.getById(id);
+        return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserInfoDto patch(@PathVariable Long id, @RequestBody UserPatchesDto patches) {
-        return usersService.patch(id, patches);
+        return requestService.patch(id, patches);
     }
 }

@@ -1,6 +1,7 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoDto {
@@ -9,6 +10,7 @@ public class UserInfoDto {
     private String email;
     private String name;
     private String surname;
+    @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
 
     public Long getId() {

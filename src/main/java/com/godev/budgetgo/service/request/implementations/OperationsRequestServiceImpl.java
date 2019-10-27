@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OperationsRequestServiceImpl
+class OperationsRequestServiceImpl
         extends AbstractRequestService<Operation, Long, OperationInfoDto, OperationCreationDto, OperationPatchesDto>
         implements OperationsRequestService {
 

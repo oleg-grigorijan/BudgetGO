@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/operations")
 public class OperationsController {
 
-    private final OperationsRequestService operationsService;
+    private final OperationsRequestService requestService;
 
-    public OperationsController(OperationsRequestService storagesService) {
-        this.operationsService = storagesService;
+    public OperationsController(OperationsRequestService requestService) {
+        this.requestService = requestService;
     }
 
     @GetMapping
@@ -30,34 +30,34 @@ public class OperationsController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
     ) {
         if (storageId == null) {
-            return operationsService.getByDateBetween(dateFrom, dateTo);
+            return requestService.getByDateBetween(dateFrom, dateTo);
         } else {
-            return operationsService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
+            return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
         }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(HttpServletResponse response, @RequestBody OperationCreationDto creationDto) {
-        Long newOperationId = operationsService.create(creationDto).getId();
+        Long newOperationId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/operations/" + newOperationId);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OperationInfoDto getById(@PathVariable Long id) {
-        return operationsService.getById(id);
+        return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OperationInfoDto patch(@PathVariable Long id, @RequestBody OperationPatchesDto patches) {
-        return operationsService.patch(id, patches);
+        return requestService.patch(id, patches);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        operationsService.deleteById(id);
+        requestService.deleteById(id);
     }
 }

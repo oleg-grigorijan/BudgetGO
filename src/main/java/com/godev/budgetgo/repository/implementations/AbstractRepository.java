@@ -7,9 +7,9 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractRepository<E, K> implements Repository<E, K> {
-    protected EntityManager entityManager;
-    protected final Class<E> entityClass;
+abstract class AbstractRepository<E, K> implements Repository<E, K> {
+    EntityManager entityManager;
+    final Class<E> entityClass;
 
     AbstractRepository(Class<E> entityClass) {
         this.entityClass = entityClass;

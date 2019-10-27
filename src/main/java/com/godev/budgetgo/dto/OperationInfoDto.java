@@ -1,5 +1,6 @@
 package com.godev.budgetgo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.godev.budgetgo.json.LocalDateSerializer;
 
@@ -7,9 +8,11 @@ import java.time.LocalDate;
 
 public class OperationInfoDto {
     private Long id;
-    private StorageInfoDto storage;
+    @JsonProperty("storage")
+    private StorageInfoDto storageInfoDto;
     private long moneyDelta;
-    private CategoryInfoDto category;
+    @JsonProperty("category")
+    private CategoryInfoDto categoryInfoDto;
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
     private String description;
@@ -26,12 +29,12 @@ public class OperationInfoDto {
         this.id = id;
     }
 
-    public StorageInfoDto getStorage() {
-        return storage;
+    public StorageInfoDto getStorageInfoDto() {
+        return storageInfoDto;
     }
 
-    public void setStorage(StorageInfoDto storage) {
-        this.storage = storage;
+    public void setStorageInfoDto(StorageInfoDto storageInfoDto) {
+        this.storageInfoDto = storageInfoDto;
     }
 
     public long getMoneyDelta() {
@@ -42,12 +45,12 @@ public class OperationInfoDto {
         this.moneyDelta = moneyDelta;
     }
 
-    public CategoryInfoDto getCategory() {
-        return category;
+    public CategoryInfoDto getCategoryInfoDto() {
+        return categoryInfoDto;
     }
 
-    public void setCategory(CategoryInfoDto category) {
-        this.category = category;
+    public void setCategoryInfoDto(CategoryInfoDto categoryInfoDto) {
+        this.categoryInfoDto = categoryInfoDto;
     }
 
     public LocalDate getDate() {

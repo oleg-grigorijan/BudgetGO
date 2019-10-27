@@ -1,7 +1,7 @@
 package com.godev.budgetgo.dto;
 
 public class CategoryPatchesDto {
-    public String name;
+    private String name;
 
     public String getName() {
         return name;

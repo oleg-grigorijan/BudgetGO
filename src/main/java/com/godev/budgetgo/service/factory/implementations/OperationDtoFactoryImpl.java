@@ -23,8 +23,8 @@ class OperationDtoFactoryImpl implements OperationDtoFactory {
     public OperationInfoDto createFrom(Operation e) {
         OperationInfoDto dto = new OperationInfoDto();
         dto.setId(e.getId());
-        dto.setStorage(storageDtoFactory.createFrom(e.getStorage()));
-        dto.setCategory(categoryDtoFactory.createFrom(e.getCategory()));
+        dto.setStorageInfoDto(storageDtoFactory.createFrom(e.getStorage()));
+        dto.setCategoryInfoDto(categoryDtoFactory.createFrom(e.getCategory()));
         dto.setMoneyDelta(e.getMoneyDelta());
         dto.setDate(e.getDate());
         dto.setDescription(e.getDescription());

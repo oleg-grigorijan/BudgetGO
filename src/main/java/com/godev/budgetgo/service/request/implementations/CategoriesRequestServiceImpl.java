@@ -12,7 +12,7 @@ import com.godev.budgetgo.service.request.CategoriesRequestService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriesRequestServiceImpl
+class CategoriesRequestServiceImpl
         extends AbstractRequestService<Category, Long, CategoryInfoDto, CategoryCreationDto, CategoryPatchesDto>
         implements CategoriesRequestService {
 
