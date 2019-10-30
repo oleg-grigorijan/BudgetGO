@@ -17,6 +17,7 @@ class UserDetailsImpl implements UserDetails {
         username = entity.getLogin();
         password = entity.getPasswordHash();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if (entity.isAdmin()) authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     @Override

@@ -27,7 +27,10 @@ public class User implements Cloneable {
     private String passwordHash;
 
     @Column(name = "is_email_public", nullable = false)
-    private boolean emailPublic;
+    private boolean isEmailPublic;
+
+    @Column(name = "is_admin", nullable = false)
+    private boolean isAdmin;
 
     public Long getId() {
         return id;
@@ -78,11 +81,19 @@ public class User implements Cloneable {
     }
 
     public boolean isEmailPublic() {
-        return emailPublic;
+        return isEmailPublic;
     }
 
     public void setEmailPublic(boolean emailPublic) {
-        this.emailPublic = emailPublic;
+        isEmailPublic = emailPublic;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     /**
@@ -103,7 +114,8 @@ public class User implements Cloneable {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return emailPublic == user.emailPublic &&
+        return isEmailPublic == user.isEmailPublic &&
+                isAdmin == user.isAdmin &&
                 id.equals(user.id) &&
                 login.equals(user.login) &&
                 email.equals(user.email) &&
@@ -114,7 +126,7 @@ public class User implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, email, name, surname, passwordHash, emailPublic);
+        return Objects.hash(id, login, email, name, surname, passwordHash, isEmailPublic, isAdmin);
     }
 
     @Override
@@ -126,7 +138,8 @@ public class User implements Cloneable {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
-                ", emailPublic=" + emailPublic +
+                ", isEmailPublic=" + isEmailPublic +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }
