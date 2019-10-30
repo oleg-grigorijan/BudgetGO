@@ -6,6 +6,7 @@ import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ public class UsersController {
     }
 
     @GetMapping
+    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.FOUND)
     public UserInfoDto getByLoginOrEmail(
             HttpServletResponse response,
@@ -47,11 +49,13 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
+    @Secured("ROLE_USER")
     public UserInfoDto getById(@PathVariable Long id) {
         return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
+    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public UserInfoDto patch(@PathVariable Long id, @RequestBody UserPatchesDto patches) {
         return requestService.patch(id, patches);

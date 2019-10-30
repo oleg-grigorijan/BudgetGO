@@ -5,6 +5,7 @@ import com.godev.budgetgo.dto.CurrencyInfoDto;
 import com.godev.budgetgo.dto.CurrencyPatchesDto;
 import com.godev.budgetgo.service.request.CurrenciesRequestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,14 @@ public class CurrenciesController {
     }
 
     @GetMapping
+    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public List<CurrencyInfoDto> getAll() {
         return requestService.getAll();
     }
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(HttpServletResponse response, @RequestBody CurrencyCreationDto creationDto) {
         Long newOperationId = requestService.create(creationDto).getId();
@@ -34,12 +37,14 @@ public class CurrenciesController {
     }
 
     @GetMapping("/{id}")
+    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public CurrencyInfoDto get(@PathVariable Long id) {
         return requestService.getById(id);
     }
 
     @PatchMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
     public CurrencyInfoDto patch(@PathVariable Long id, @RequestBody CurrencyPatchesDto patches) {
         return requestService.patch(id, patches);

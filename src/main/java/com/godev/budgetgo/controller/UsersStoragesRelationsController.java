@@ -6,6 +6,7 @@ import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
 import com.godev.budgetgo.entity.UserStorageKey;
 import com.godev.budgetgo.service.request.UsersStoragesRelationsRequestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/storages/{storageId}/users")
+@Secured("ROLE_USER")
 public class UsersStoragesRelationsController {
 
     private final UsersStoragesRelationsRequestService requestService;
