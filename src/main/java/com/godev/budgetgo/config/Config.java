@@ -1,4 +1,4 @@
-package com.godev.budgetgo;
+package com.godev.budgetgo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
