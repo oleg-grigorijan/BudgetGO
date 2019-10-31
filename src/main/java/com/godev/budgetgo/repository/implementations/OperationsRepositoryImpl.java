@@ -37,11 +37,9 @@ class OperationsRepositoryImpl
 
     @Override
     public void deleteByStorage(Storage storage) {
-        entityManager.getTransaction().begin();
         entityManager
                 .createQuery("DELETE FROM Operation o WHERE o.storage.id = :storageId")
                 .setParameter("storageId", storage.getId())
                 .executeUpdate();
-        entityManager.getTransaction().commit();
     }
 }

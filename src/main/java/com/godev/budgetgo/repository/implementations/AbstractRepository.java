@@ -1,23 +1,19 @@
 package com.godev.budgetgo.repository.implementations;
 
 import com.godev.budgetgo.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
 abstract class AbstractRepository<E, K> implements Repository<E, K> {
+    @PersistenceContext
     EntityManager entityManager;
     final Class<E> entityClass;
 
     AbstractRepository(Class<E> entityClass) {
         this.entityClass = entityClass;
-    }
-
-    @Autowired
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 
     @Override
@@ -35,24 +31,18 @@ abstract class AbstractRepository<E, K> implements Repository<E, K> {
 
     @Override
     public E add(E entity) {
-        entityManager.getTransaction().begin();
         entityManager.persist(entity);
-        entityManager.getTransaction().commit();
         return entity;
     }
 
     @Override
     public E update(E entity) {
-        entityManager.getTransaction().begin();
         entityManager.merge(entity);
-        entityManager.getTransaction().commit();
         return entity;
     }
 
     @Override
     public void delete(E entity) {
-        entityManager.getTransaction().begin();
         entityManager.remove(entity);
-        entityManager.getTransaction().commit();
     }
 }

@@ -8,8 +8,8 @@ import com.godev.budgetgo.service.data.OperationsDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,11 +67,13 @@ class OperationsDataServiceImpl
         super.delete(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Operation> getByDateBetween(LocalDate from, LocalDate to) {
         return repository.findByDateBetween(from, to);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Operation> getByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to) {
         return repository.findByStorageAndDateBetween(storage, from, to);

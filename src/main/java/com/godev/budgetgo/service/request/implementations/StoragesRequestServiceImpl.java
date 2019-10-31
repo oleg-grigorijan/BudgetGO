@@ -12,6 +12,7 @@ import com.godev.budgetgo.service.factory.StoragesFactory;
 import com.godev.budgetgo.service.merger.StoragesMerger;
 import com.godev.budgetgo.service.request.StoragesRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 class StoragesRequestServiceImpl
@@ -37,6 +38,7 @@ class StoragesRequestServiceImpl
         this.authenticationFacade = authenticationFacade;
     }
 
+    @Transactional
     @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
         // TODO: Validation

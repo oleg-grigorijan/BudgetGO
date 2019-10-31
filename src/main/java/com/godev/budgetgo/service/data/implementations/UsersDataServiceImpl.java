@@ -5,6 +5,7 @@ import com.godev.budgetgo.exception.UserNotFoundException;
 import com.godev.budgetgo.repository.UsersRepository;
 import com.godev.budgetgo.service.data.UsersDataService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 class UsersDataServiceImpl
@@ -18,6 +19,7 @@ class UsersDataServiceImpl
         this.repository = repository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public User getByEmail(String email) {
         return repository
@@ -25,6 +27,7 @@ class UsersDataServiceImpl
                 .orElseThrow(notFoundExceptionSupplier);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public User getByLogin(String login) {
         return repository
