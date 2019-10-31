@@ -10,7 +10,11 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{Config.class, SecurityConfig.class};
+        return new Class[]{
+                Config.class,
+                PersistenceConfig.class,
+                SecurityConfig.class
+        };
     }
 
     @Override
