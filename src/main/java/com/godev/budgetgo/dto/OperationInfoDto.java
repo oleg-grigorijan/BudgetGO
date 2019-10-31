@@ -20,6 +20,10 @@ public class OperationInfoDto {
     private LocalDate dateCreated;
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateModified;
+    @JsonProperty("lastEditor")
+    private UserInfoDto lastEditorInfoDto;
+    @JsonProperty("creator")
+    private UserInfoDto creatorInfoDto;
 
     public Long getId() {
         return id;
@@ -83,5 +87,21 @@ public class OperationInfoDto {
 
     public void setDateModified(LocalDate dateModified) {
         this.dateModified = dateModified;
+    }
+
+    public UserInfoDto getLastEditorInfoDto() {
+        return lastEditorInfoDto;
+    }
+
+    public void setLastEditorInfoDto(UserInfoDto lastEditorInfoDto) {
+        this.lastEditorInfoDto = lastEditorInfoDto;
+    }
+
+    public UserInfoDto getCreatorInfoDto() {
+        return creatorInfoDto;
+    }
+
+    public void setCreatorInfoDto(UserInfoDto creatorInfoDto) {
+        this.creatorInfoDto = creatorInfoDto;
     }
 }

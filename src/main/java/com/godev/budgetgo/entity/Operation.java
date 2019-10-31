@@ -34,6 +34,14 @@ public class Operation implements Cloneable {
     @Column(name = "date_modified", nullable = false)
     private LocalDate dateModified;
 
+    @ManyToOne
+    @JoinColumn(name = "creator_id", nullable = false)
+    private User creator;
+
+    @ManyToOne
+    @JoinColumn(name = "last_editor_id", nullable = false)
+    private User lastEditor;
+
     public Long getId() {
         return id;
     }
@@ -98,6 +106,22 @@ public class Operation implements Cloneable {
         this.dateModified = dateModified;
     }
 
+    public User getLastEditor() {
+        return lastEditor;
+    }
+
+    public void setLastEditor(User lastEditor) {
+        this.lastEditor = lastEditor;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
     /**
      * @return Shallow clone of instance
      */
@@ -123,12 +147,14 @@ public class Operation implements Cloneable {
                 date.equals(operation.date) &&
                 description.equals(operation.description) &&
                 dateCreated.equals(operation.dateCreated) &&
-                dateModified.equals(operation.dateModified);
+                dateModified.equals(operation.dateModified) &&
+                creator.equals(operation.creator) &&
+                lastEditor.equals(operation.lastEditor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storage, moneyDelta, category, date, description, dateCreated, dateModified);
+        return Objects.hash(id, storage, moneyDelta, category, date, description, dateCreated, dateModified, creator, lastEditor);
     }
 
     @Override
@@ -142,6 +168,8 @@ public class Operation implements Cloneable {
                 ", description='" + description + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", dateModified=" + dateModified +
+                ", creator=" + creator +
+                ", lastEditor=" + lastEditor +
                 '}';
     }
 }
