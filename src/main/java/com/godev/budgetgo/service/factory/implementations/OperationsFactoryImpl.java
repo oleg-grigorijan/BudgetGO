@@ -1,5 +1,6 @@
 package com.godev.budgetgo.service.factory.implementations;
 
+import com.godev.budgetgo.auth.AuthenticationFacade;
 import com.godev.budgetgo.dto.OperationCreationDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.service.data.CategoriesDataService;
@@ -13,12 +14,15 @@ import java.time.LocalDate;
 class OperationsFactoryImpl implements OperationsFactory {
     private final CategoriesDataService categoriesDataService;
     private final StoragesDataService storagesDataService;
+    private final AuthenticationFacade authenticationFacade;
 
     public OperationsFactoryImpl(
             CategoriesDataService categoriesDataService,
-            StoragesDataService storagesDataService) {
+            StoragesDataService storagesDataService,
+            AuthenticationFacade authenticationFacade) {
         this.categoriesDataService = categoriesDataService;
         this.storagesDataService = storagesDataService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @Override
@@ -31,6 +35,8 @@ class OperationsFactoryImpl implements OperationsFactory {
         e.setDescription(dto.getDescription());
         e.setDateCreated(LocalDate.now());
         e.setDateModified(LocalDate.now());
+        e.setCreator(authenticationFacade.getAuthenticatedUser());
+        e.setLastEditor(e.getCreator());
         return e;
     }
 }

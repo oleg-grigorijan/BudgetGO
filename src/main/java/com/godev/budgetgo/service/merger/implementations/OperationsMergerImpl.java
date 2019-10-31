@@ -1,5 +1,6 @@
 package com.godev.budgetgo.service.merger.implementations;
 
+import com.godev.budgetgo.auth.AuthenticationFacade;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.service.data.CategoriesDataService;
@@ -12,9 +13,13 @@ import java.time.LocalDate;
 class OperationsMergerImpl implements OperationsMerger {
 
     private final CategoriesDataService categoriesDataService;
+    private final AuthenticationFacade authenticationFacade;
 
-    public OperationsMergerImpl(CategoriesDataService categoriesDataService) {
+    public OperationsMergerImpl(
+            CategoriesDataService categoriesDataService,
+            AuthenticationFacade authenticationFacade) {
         this.categoriesDataService = categoriesDataService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @Override
@@ -27,6 +32,7 @@ class OperationsMergerImpl implements OperationsMerger {
         if (dto.getDate() != null) e.setDate(dto.getDate());
         if (dto.getDescription() != null) e.setDescription(dto.getDescription());
         e.setDateModified(LocalDate.now());
+        e.setLastEditor(authenticationFacade.getAuthenticatedUser());
         return e;
     }
 }
