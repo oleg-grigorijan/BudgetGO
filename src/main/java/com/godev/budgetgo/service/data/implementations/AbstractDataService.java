@@ -3,8 +3,8 @@ package com.godev.budgetgo.service.data.implementations;
 import com.godev.budgetgo.exception.NotFoundException;
 import com.godev.budgetgo.repository.Repository;
 import com.godev.budgetgo.service.data.DataService;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -21,6 +21,7 @@ abstract class AbstractDataService<E, K> implements DataService<E, K> {
         this.notFoundExceptionSupplier = notFoundExceptionSupplier;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public E getById(K id) {
         return repository
@@ -28,6 +29,8 @@ abstract class AbstractDataService<E, K> implements DataService<E, K> {
                 .orElseThrow(notFoundExceptionSupplier);
     }
 
+
+    @Transactional(readOnly = true)
     @Override
     public List<E> getAll() {
         return repository.findAll();

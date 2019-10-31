@@ -8,8 +8,8 @@ import com.godev.budgetgo.repository.UsersStoragesRelationsRepository;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
