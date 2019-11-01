@@ -58,8 +58,7 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     public T create(V creationDto) {
         authorizationService.authorizeCreate(creationDto);
         // TODO: Validation
-        E entity = entitiesFactory.createFrom(creationDto);
-        dataService.add(entity);
+        E entity = dataService.add(entitiesFactory.createFrom(creationDto));
         return dtoFactory.createFrom(entity);
     }
 
@@ -68,7 +67,7 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
         E entity = dataService.getById(id);
         authorizationService.authorizePatch(entity, patchesDto);
         // TODO: Validation
-        dataService.update(merger.merge(patchesDto, entity));
-        return dtoFactory.createFrom(entity);
+        E patchedEntity = dataService.update(merger.merge(patchesDto, entity));
+        return dtoFactory.createFrom(patchedEntity);
     }
 }
