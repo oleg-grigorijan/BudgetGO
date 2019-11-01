@@ -31,11 +31,6 @@ class UsersRequestServiceImpl
     }
 
     @Override
-    public UserInfoDto getByEmail(String email) {
-        return dtoFactory.createFrom(dataService.getByEmail(email));
-    }
-
-    @Override
     public UserInfoDto getByLogin(String login) {
         return dtoFactory.createFrom(dataService.getByLogin(login));
     }
