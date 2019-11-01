@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 class UsersStoragesRelationsDataServiceImpl
@@ -28,6 +29,13 @@ class UsersStoragesRelationsDataServiceImpl
         this.storagesDataService = storagesDataService;
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<UserStorageRelations> findById(UserStorageKey id) {
+        return repository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
     @Override
     public List<UserStorageRelations> getByStorage(Storage storage) {
         return repository.findByStorage(storage);

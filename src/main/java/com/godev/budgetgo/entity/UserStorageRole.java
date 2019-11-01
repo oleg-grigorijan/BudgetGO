@@ -18,4 +18,12 @@ public enum UserStorageRole {
     public String getValue() {
         return value;
     }
+
+    public boolean canModifyStorage() {
+        return this != READER;
+    }
+
+    public boolean canBeModifiedBy(UserStorageRole anotherRole) {
+        return anotherRole == CREATOR || (anotherRole == ADMIN && this != CREATOR);
+    }
 }
