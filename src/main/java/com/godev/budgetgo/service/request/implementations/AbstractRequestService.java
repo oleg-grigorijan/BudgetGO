@@ -4,6 +4,7 @@ import com.godev.budgetgo.service.data.DataService;
 import com.godev.budgetgo.service.factory.ConverterFactory;
 import com.godev.budgetgo.service.merger.Merger;
 import com.godev.budgetgo.service.request.RequestService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,19 +48,20 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public T create(V creationDto) {
         // TODO: Validation
-        E entity = entitiesFactory.createFrom(creationDto);
-        dataService.add(entity);
+        E entity = dataService.add(entitiesFactory.createFrom(creationDto));
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional
     @Override
     public T patch(K id, U patchesDto) {
         E entity = dataService.getById(id);
         // TODO: Validation
-        dataService.update(merger.merge(patchesDto, entity));
-        return dtoFactory.createFrom(entity);
+        E patchedEntity = dataService.update(merger.merge(patchesDto, entity));
+        return dtoFactory.createFrom(patchedEntity);
     }
 }

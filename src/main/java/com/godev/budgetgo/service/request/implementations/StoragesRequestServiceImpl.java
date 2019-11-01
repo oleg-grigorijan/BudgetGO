@@ -42,9 +42,11 @@ class StoragesRequestServiceImpl
     @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
         // TODO: Validation
-        Storage entity = entitiesFactory.createFrom(creationDto);
         User creator = authenticationFacade.getAuthenticatedUser();
-        dataService.addWithCreator(entity, creator);
+        Storage entity = dataService.addWithCreator(
+                entitiesFactory.createFrom(creationDto),
+                creator
+        );
         return dtoFactory.createFrom(entity);
     }
 }

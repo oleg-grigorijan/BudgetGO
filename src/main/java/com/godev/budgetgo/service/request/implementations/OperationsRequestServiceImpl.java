@@ -12,6 +12,7 @@ import com.godev.budgetgo.service.factory.OperationsFactory;
 import com.godev.budgetgo.service.merger.OperationsMerger;
 import com.godev.budgetgo.service.request.OperationsRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -55,6 +56,7 @@ class OperationsRequestServiceImpl
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Operation entity = dataService.getById(id);
