@@ -1,5 +1,6 @@
 package com.godev.budgetgo.service.request.implementations;
 
+import com.godev.budgetgo.service.authorization.AuthorizationService;
 import com.godev.budgetgo.service.data.DataService;
 import com.godev.budgetgo.service.factory.ConverterFactory;
 import com.godev.budgetgo.service.merger.Merger;
@@ -21,27 +22,33 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     private final ConverterFactory<V, E> entitiesFactory;
     private final ConverterFactory<E, T> dtoFactory;
     private final Merger<U, E> merger;
+    private final AuthorizationService<E, V, U> authorizationService;
 
     public AbstractRequestService(
             DataService<E, K> dataService,
             ConverterFactory<V, E> entitiesFactory,
             ConverterFactory<E, T> dtoFactory,
-            Merger<U, E> merger) {
+            Merger<U, E> merger,
+            AuthorizationService<E, V, U> authorizationService
+    ) {
         this.dataService = dataService;
         this.entitiesFactory = entitiesFactory;
         this.dtoFactory = dtoFactory;
         this.merger = merger;
+        this.authorizationService = authorizationService;
     }
 
     @Override
     public T getById(K id) {
-        return dtoFactory.createFrom(dataService.getById(id));
+        E entity = dataService.getById(id);
+        authorizationService.authorizeGet(entity);
+        return dtoFactory.createFrom(entity);
     }
 
     @Override
     public List<T> getAll() {
-        return dataService
-                .getAll()
+        return authorizationService
+                .getAllAuthorizedEntities()
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
@@ -49,6 +56,7 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
 
     @Override
     public T create(V creationDto) {
+        authorizationService.authorizeCreate(creationDto);
         // TODO: Validation
         E entity = entitiesFactory.createFrom(creationDto);
         dataService.add(entity);
@@ -58,6 +66,7 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     @Override
     public T patch(K id, U patchesDto) {
         E entity = dataService.getById(id);
+        authorizationService.authorizePatch(entity, patchesDto);
         // TODO: Validation
         dataService.update(merger.merge(patchesDto, entity));
         return dtoFactory.createFrom(entity);

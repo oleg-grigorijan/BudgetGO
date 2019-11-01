@@ -4,6 +4,7 @@ import com.godev.budgetgo.dto.CategoryCreationDto;
 import com.godev.budgetgo.dto.CategoryInfoDto;
 import com.godev.budgetgo.dto.CategoryPatchesDto;
 import com.godev.budgetgo.entity.Category;
+import com.godev.budgetgo.service.authorization.CategoriesAuthorizationService;
 import com.godev.budgetgo.service.data.CategoriesDataService;
 import com.godev.budgetgo.service.factory.CategoriesFactory;
 import com.godev.budgetgo.service.factory.CategoryDtoFactory;
@@ -20,7 +21,8 @@ class CategoriesRequestServiceImpl
             CategoriesDataService dataService,
             CategoriesFactory entitiesFactory,
             CategoryDtoFactory dtoFactory,
-            CategoriesMerger merger) {
-        super(dataService, entitiesFactory, dtoFactory, merger);
+            CategoriesMerger merger,
+            CategoriesAuthorizationService authorizationService) {
+        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
     }
 }

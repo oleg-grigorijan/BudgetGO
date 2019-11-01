@@ -5,6 +5,7 @@ import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
 import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
 import com.godev.budgetgo.entity.UserStorageKey;
 import com.godev.budgetgo.entity.UserStorageRelations;
+import com.godev.budgetgo.service.authorization.UsersStoragesRelationsAuthorizationService;
 import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
 import com.godev.budgetgo.service.factory.UserStorageRelationsDtoFactory;
 import com.godev.budgetgo.service.factory.UsersStoragesRelationsFactory;
@@ -22,19 +23,23 @@ class UsersStoragesRelationsRequestServiceImpl
 
     private final UsersStoragesRelationsDataService dataService;
     private final UserStorageRelationsDtoFactory dtoFactory;
+    private final UsersStoragesRelationsAuthorizationService authorizationService;
 
     public UsersStoragesRelationsRequestServiceImpl(
             UsersStoragesRelationsDataService dataService,
             UsersStoragesRelationsFactory entitiesFactory,
             UserStorageRelationsDtoFactory dtoFactory,
-            UsersStoragesRelationsMerger merger) {
-        super(dataService, entitiesFactory, dtoFactory, merger);
+            UsersStoragesRelationsMerger merger,
+            UsersStoragesRelationsAuthorizationService authorizationService) {
+        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
         this.dataService = dataService;
         this.dtoFactory = dtoFactory;
+        this.authorizationService = authorizationService;
     }
 
     @Override
     public List<UserStorageRelationsInfoDto> getByStorageId(Long storageId) {
+        // TODO: Authorization
         return dataService
                 .getByStorageId(storageId)
                 .stream()
@@ -45,6 +50,7 @@ class UsersStoragesRelationsRequestServiceImpl
     @Override
     public void deleteById(UserStorageKey id) {
         UserStorageRelations entity = dataService.getById(id);
+        authorizationService.authorizeDelete(entity);
         dataService.delete(entity);
     }
 }

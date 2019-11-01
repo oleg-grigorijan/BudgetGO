@@ -6,6 +6,7 @@ import com.godev.budgetgo.dto.StorageInfoDto;
 import com.godev.budgetgo.dto.StoragePatchesDto;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.User;
+import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.factory.StorageDtoFactory;
 import com.godev.budgetgo.service.factory.StoragesFactory;
@@ -29,9 +30,10 @@ class StoragesRequestServiceImpl
             StoragesFactory entitiesFactory,
             StorageDtoFactory dtoFactory,
             StoragesMerger merger,
+            StoragesAuthorizationService authorizationService,
             AuthenticationFacade authenticationFacade
     ) {
-        super(dataService, entitiesFactory, dtoFactory, merger);
+        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
         this.dataService = dataService;
         this.entitiesFactory = entitiesFactory;
         this.dtoFactory = dtoFactory;
