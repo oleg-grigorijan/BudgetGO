@@ -29,8 +29,8 @@ class UsersStoragesRelationsDataServiceImpl
     }
 
     @Override
-    public List<UserStorageRelations> getByStorageId(Long storageId) {
-        return repository.findByStorageId(storageId);
+    public List<UserStorageRelations> getByStorage(Storage storage) {
+        return repository.findByStorage(storage);
     }
 
     @Transactional
@@ -38,7 +38,7 @@ class UsersStoragesRelationsDataServiceImpl
     public void delete(UserStorageRelations entity) {
         super.delete(entity);
         Storage storage = entity.getStorage();
-        if (getByStorageId(storage.getId()).isEmpty()) {
+        if (getByStorage(storage).isEmpty()) {
             storagesDataService.delete(storage);
         }
     }
