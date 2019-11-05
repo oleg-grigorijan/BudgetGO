@@ -23,6 +23,10 @@ public enum UserStorageRole {
         return this != READER;
     }
 
+    public boolean canBeCreatedBy(UserStorageRole anotherRole) {
+        return this != CREATOR && (anotherRole == CREATOR || anotherRole == ADMIN);
+    }
+
     public boolean canBeModifiedBy(UserStorageRole anotherRole) {
         return anotherRole == CREATOR || (anotherRole == ADMIN && this != CREATOR);
     }

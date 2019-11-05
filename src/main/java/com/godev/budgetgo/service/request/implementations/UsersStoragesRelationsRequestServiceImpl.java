@@ -15,6 +15,7 @@ import com.godev.budgetgo.service.factory.UsersStoragesRelationsFactory;
 import com.godev.budgetgo.service.merger.UsersStoragesRelationsMerger;
 import com.godev.budgetgo.service.request.UsersStoragesRelationsRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,6 +58,7 @@ class UsersStoragesRelationsRequestServiceImpl
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteById(UserStorageKey id) {
         UserStorageRelations entity = dataService.getById(id);
