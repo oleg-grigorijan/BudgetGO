@@ -17,11 +17,10 @@ class OperationsRepositoryImpl
     }
 
     @Override
-    public List<Operation> findByDateBetween(LocalDate from, LocalDate to) {
+    public List<Operation> findByStorage(Storage storage) {
         return entityManager
-                .createQuery("SELECT o FROM Operation o WHERE o.date >= :dateFrom AND o.date <= :dateTo", entityClass)
-                .setParameter("dateFrom", from)
-                .setParameter("dateTo", to)
+                .createQuery("SELECT o FROM Operation o WHERE o.storage.id = :storageId", entityClass)
+                .setParameter("storageId", storage.getId())
                 .getResultList();
     }
 

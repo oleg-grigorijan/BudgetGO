@@ -1,5 +1,6 @@
 package com.godev.budgetgo.repository.implementations;
 
+import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.UserStorageKey;
 import com.godev.budgetgo.entity.UserStorageRelations;
 import com.godev.budgetgo.repository.UsersStoragesRelationsRepository;
@@ -16,10 +17,10 @@ class UsersStoragesRelationsRepositoryImpl
     }
 
     @Override
-    public List<UserStorageRelations> findByStorageId(Long storageId) {
+    public List<UserStorageRelations> findByStorage(Storage storage) {
         return entityManager
                 .createQuery("SELECT r FROM UserStorageRelations r WHERE r.storage.id = :id", entityClass)
-                .setParameter("id", storageId)
+                .setParameter("id", storage.getId())
                 .getResultList();
     }
 }

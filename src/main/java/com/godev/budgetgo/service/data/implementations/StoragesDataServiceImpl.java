@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 class StoragesDataServiceImpl
         extends AbstractDataService<Storage, Long>
         implements StoragesDataService {
 
+    private final StoragesRepository repository;
     private final OperationsDataService operationsDataService;
     private UsersStoragesRelationsDataService relationsDataService;
 
@@ -22,12 +25,19 @@ class StoragesDataServiceImpl
             StoragesRepository repository,
             OperationsDataService operationsDataService) {
         super(repository, StorageNotFoundException::new);
+        this.repository = repository;
         this.operationsDataService = operationsDataService;
     }
 
     @Autowired
     public void setRelationsDataService(UsersStoragesRelationsDataService relationsDataService) {
         this.relationsDataService = relationsDataService;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Storage> getByUser(User user) {
+        return repository.findByUser(user);
     }
 
     @Transactional

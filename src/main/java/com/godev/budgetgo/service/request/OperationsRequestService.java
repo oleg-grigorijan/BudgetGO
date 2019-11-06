@@ -10,7 +10,7 @@ import java.util.List;
 public interface OperationsRequestService
         extends RequestService<Long, OperationInfoDto, OperationCreationDto, OperationPatchesDto> {
 
-    List<OperationInfoDto> getByDateBetween(LocalDate from, LocalDate to);
+    List<OperationInfoDto> getByStorageId(Long storageId);
 
     List<OperationInfoDto> getByStorageIdAndDateBetween(Long storageId, LocalDate from, LocalDate to);
 

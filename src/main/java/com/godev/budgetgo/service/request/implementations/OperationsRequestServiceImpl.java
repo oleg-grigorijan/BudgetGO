@@ -5,6 +5,7 @@ import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.Storage;
+import com.godev.budgetgo.service.authorization.OperationsAuthorizationService;
 import com.godev.budgetgo.service.data.OperationsDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.factory.OperationDtoFactory;
@@ -26,22 +27,27 @@ class OperationsRequestServiceImpl
     private final OperationsDataService dataService;
     private final OperationDtoFactory dtoFactory;
     private final StoragesDataService storagesDataService;
+    private final OperationsAuthorizationService authorizationService;
 
     public OperationsRequestServiceImpl(
             OperationsDataService dataService,
             OperationsFactory entitiesFactory,
             OperationDtoFactory dtoFactory,
             OperationsMerger merger,
+            OperationsAuthorizationService authorizationService,
             StoragesDataService storagesDataService) {
-        super(dataService, entitiesFactory, dtoFactory, merger);
+        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
         this.dataService = dataService;
         this.dtoFactory = dtoFactory;
         this.storagesDataService = storagesDataService;
+        this.authorizationService = authorizationService;
     }
 
     @Override
-    public List<OperationInfoDto> getByDateBetween(LocalDate from, LocalDate to) {
-        return dataService.getByDateBetween(from, to)
+    public List<OperationInfoDto> getByStorageId(Long storageId) {
+        Storage storage = storagesDataService.getById(storageId);
+        return authorizationService
+                .getAuthorizedEntitiesByStorage(storage)
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
@@ -50,7 +56,8 @@ class OperationsRequestServiceImpl
     @Override
     public List<OperationInfoDto> getByStorageIdAndDateBetween(Long storageId, LocalDate from, LocalDate to) {
         Storage storage = storagesDataService.getById(storageId);
-        return dataService.getByStorageAndDateBetween(storage, from, to)
+        return authorizationService
+                .getAuthorizedEntitiesByStorageAndDateBetween(storage, from, to)
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
@@ -60,6 +67,7 @@ class OperationsRequestServiceImpl
     @Override
     public void deleteById(Long id) {
         Operation entity = dataService.getById(id);
+        authorizationService.authorizeDelete(entity);
         dataService.delete(entity);
     }
 }

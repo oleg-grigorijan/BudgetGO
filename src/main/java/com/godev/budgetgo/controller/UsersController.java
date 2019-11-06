@@ -3,7 +3,6 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
 import com.godev.budgetgo.dto.UserPatchesDto;
-import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -31,21 +30,11 @@ public class UsersController {
     @GetMapping
     @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.FOUND)
-    public UserInfoDto getByLoginOrEmail(
+    public void getByLogin(
             HttpServletResponse response,
-            @RequestParam(required = false) String login,
-            @RequestParam(required = false) String email
+            @RequestParam String login
     ) {
-        if ((login == null && email == null) || (login != null && email != null)) {
-            throw new BadRequestException();
-        }
-
-        UserInfoDto foundUser = null;
-        if (login != null) foundUser = requestService.getByLogin(login);
-        if (email != null) foundUser = requestService.getByEmail(email);
-
-        response.addHeader("Location", "/api/users/" + foundUser.getId());
-        return foundUser;
+        response.addHeader("Location", "/api/users/" + requestService.getByLogin(login).getId());
     }
 
     @GetMapping("/{id}")

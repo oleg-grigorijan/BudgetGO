@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface OperationsRepository extends Repository<Operation, Long> {
-    List<Operation> findByDateBetween(LocalDate from, LocalDate to);
+    List<Operation> findByStorage(Storage storage);
 
     List<Operation> findByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to);
 
