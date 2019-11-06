@@ -2,7 +2,7 @@ package com.godev.budgetgo.service.request.implementations;
 
 import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
-import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
+import com.godev.budgetgo.dto.UserStorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.UserStorageKey;
 import com.godev.budgetgo.entity.UserStorageRelations;
@@ -21,36 +21,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-class UsersStoragesRelationsRequestServiceImpl
-        extends AbstractRequestService<UserStorageRelations, UserStorageKey, UserStorageRelationsInfoDto, UserStorageRelationsCreationDto, UserStorageRelationsPatchDto>
-        implements UsersStoragesRelationsRequestService {
+class UsersStoragesRelationsRequestServiceImpl implements UsersStoragesRelationsRequestService {
 
     private final UsersStoragesRelationsDataService dataService;
-    private final UserStorageRelationsDtoFactory dtoFactory;
-    private final UsersStoragesRelationsAuthorizationService authorizationService;
     private final StoragesDataService storagesDataService;
+    private final UsersStoragesRelationsFactory entitiesFactory;
+    private final UserStorageRelationsDtoFactory dtoFactory;
+    private final UsersStoragesRelationsMerger merger;
+    private final UsersStoragesRelationsAuthorizationService authorizationService;
     private final StoragesAuthorizationService storagesAuthorizationService;
 
     public UsersStoragesRelationsRequestServiceImpl(
             UsersStoragesRelationsDataService dataService,
+            StoragesDataService storagesDataService,
             UsersStoragesRelationsFactory entitiesFactory,
             UserStorageRelationsDtoFactory dtoFactory,
             UsersStoragesRelationsMerger merger,
             UsersStoragesRelationsAuthorizationService authorizationService,
-            StoragesDataService storagesDataService,
-            StoragesAuthorizationService storagesAuthorizationService) {
-        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
+            StoragesAuthorizationService storagesAuthorizationService
+    ) {
         this.dataService = dataService;
-        this.dtoFactory = dtoFactory;
-        this.authorizationService = authorizationService;
         this.storagesDataService = storagesDataService;
+        this.entitiesFactory = entitiesFactory;
+        this.dtoFactory = dtoFactory;
+        this.merger = merger;
+        this.authorizationService = authorizationService;
         this.storagesAuthorizationService = storagesAuthorizationService;
     }
 
     @Override
     public List<UserStorageRelationsInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
-        storagesAuthorizationService.authorizeGet(storage);
+        storagesAuthorizationService.authorizeAccess(storage);
         return dataService
                 .getByStorage(storage)
                 .stream()
@@ -58,11 +60,39 @@ class UsersStoragesRelationsRequestServiceImpl
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserStorageRelationsInfoDto getById(UserStorageKey id) {
+        UserStorageRelations entity = dataService.getById(id);
+        storagesAuthorizationService.authorizeAccess(entity.getStorage());
+        return dtoFactory.createFrom(entity);
+    }
+
+    @Transactional
+    @Override
+    public UserStorageRelationsInfoDto create(UserStorageRelationsCreationDto creationDto) {
+        UserStorageRelations entity = entitiesFactory.createFrom(creationDto);
+        authorizationService.authorizeCreation(entity);
+        // TODO: Validation
+        UserStorageRelations savedEntity = dataService.add(entity);
+        return dtoFactory.createFrom(savedEntity);
+    }
+
+    @Transactional
+    @Override
+    public UserStorageRelationsInfoDto patch(UserStorageKey id, UserStorageRelationsPatchesDto patchesDto) {
+        UserStorageRelations entity = dataService.getById(id);
+        UserStorageRelations patchedEntity = merger.merge(patchesDto, entity);
+        authorizationService.authorizeModification(entity, patchesDto);
+        // TODO: Validation
+        UserStorageRelations savedEntity = dataService.update(patchedEntity);
+        return dtoFactory.createFrom(savedEntity);
+    }
+
     @Transactional
     @Override
     public void deleteById(UserStorageKey id) {
         UserStorageRelations entity = dataService.getById(id);
-        authorizationService.authorizeDelete(entity);
+        authorizationService.authorizeDeletionAccess(entity);
         dataService.delete(entity);
     }
 }

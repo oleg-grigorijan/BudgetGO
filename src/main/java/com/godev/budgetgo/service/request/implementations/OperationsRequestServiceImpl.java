@@ -5,7 +5,7 @@ import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.Storage;
-import com.godev.budgetgo.service.authorization.OperationsAuthorizationService;
+import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.data.OperationsDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.factory.OperationDtoFactory;
@@ -20,34 +20,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-class OperationsRequestServiceImpl
-        extends AbstractRequestService<Operation, Long, OperationInfoDto, OperationCreationDto, OperationPatchesDto>
-        implements OperationsRequestService {
+class OperationsRequestServiceImpl implements OperationsRequestService {
 
     private final OperationsDataService dataService;
+    private final OperationsFactory entitiesFactory;
     private final OperationDtoFactory dtoFactory;
+    private final OperationsMerger merger;
     private final StoragesDataService storagesDataService;
-    private final OperationsAuthorizationService authorizationService;
+    private final StoragesAuthorizationService storagesAuthorizationService;
 
     public OperationsRequestServiceImpl(
             OperationsDataService dataService,
+            StoragesDataService storagesDataService,
             OperationsFactory entitiesFactory,
             OperationDtoFactory dtoFactory,
             OperationsMerger merger,
-            OperationsAuthorizationService authorizationService,
-            StoragesDataService storagesDataService) {
-        super(dataService, entitiesFactory, dtoFactory, merger, authorizationService);
+            StoragesAuthorizationService storagesAuthorizationService
+    ) {
         this.dataService = dataService;
+        this.entitiesFactory = entitiesFactory;
         this.dtoFactory = dtoFactory;
+        this.merger = merger;
         this.storagesDataService = storagesDataService;
-        this.authorizationService = authorizationService;
+        this.storagesAuthorizationService = storagesAuthorizationService;
+    }
+
+    @Override
+    public OperationInfoDto getById(Long id) {
+        Operation entity = dataService.getById(id);
+        storagesAuthorizationService.authorizeAccess(entity.getStorage());
+        return dtoFactory.createFrom(entity);
     }
 
     @Override
     public List<OperationInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
-        return authorizationService
-                .getAuthorizedEntitiesByStorage(storage)
+        storagesAuthorizationService.authorizeAccess(storage);
+        return dataService
+                .getByStorage(storage)
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
@@ -56,8 +66,9 @@ class OperationsRequestServiceImpl
     @Override
     public List<OperationInfoDto> getByStorageIdAndDateBetween(Long storageId, LocalDate from, LocalDate to) {
         Storage storage = storagesDataService.getById(storageId);
-        return authorizationService
-                .getAuthorizedEntitiesByStorageAndDateBetween(storage, from, to)
+        storagesAuthorizationService.authorizeAccess(storage);
+        return dataService
+                .getByStorageAndDateBetween(storage, from, to)
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());
@@ -65,9 +76,30 @@ class OperationsRequestServiceImpl
 
     @Transactional
     @Override
+    public OperationInfoDto create(OperationCreationDto creationDto) {
+        Operation entity = entitiesFactory.createFrom(creationDto);
+        storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
+        // TODO: Validation
+        Operation savedEntity = dataService.add(entity);
+        return dtoFactory.createFrom(savedEntity);
+    }
+
+    @Transactional
+    @Override
+    public OperationInfoDto patch(Long id, OperationPatchesDto patchesDto) {
+        Operation entity = dataService.getById(id);
+        Operation patchedEntity = merger.merge(patchesDto, entity);
+        storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
+        // TODO: Validation
+        Operation savedEntity = dataService.update(patchedEntity);
+        return dtoFactory.createFrom(savedEntity);
+    }
+
+    @Transactional
+    @Override
     public void deleteById(Long id) {
         Operation entity = dataService.getById(id);
-        authorizationService.authorizeDelete(entity);
+        storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
         dataService.delete(entity);
     }
 }

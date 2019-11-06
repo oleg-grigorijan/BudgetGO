@@ -2,7 +2,7 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
-import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
+import com.godev.budgetgo.dto.UserStorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.UserStorageKey;
 import com.godev.budgetgo.service.request.UsersStoragesRelationsRequestService;
 import org.springframework.http.HttpStatus;
@@ -59,7 +59,7 @@ public class UsersStoragesRelationsController {
     public UserStorageRelationsInfoDto patch(
             @PathVariable Long storageId,
             @PathVariable Long userId,
-            @RequestBody UserStorageRelationsPatchDto patchDto
+            @RequestBody UserStorageRelationsPatchesDto patchDto
     ) {
         return requestService.patch(
                 new UserStorageKey(userId, storageId),

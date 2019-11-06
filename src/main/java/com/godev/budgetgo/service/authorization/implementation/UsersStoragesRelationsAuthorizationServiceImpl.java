@@ -1,14 +1,13 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
+import com.godev.budgetgo.dto.UserStorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.*;
 import com.godev.budgetgo.exception.StorageAccessDeniedException;
 import com.godev.budgetgo.exception.UserStorageRelationsAccessDeniedException;
 import com.godev.budgetgo.service.authorization.UsersStoragesRelationsAuthorizationService;
 import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRelationsAuthorizationService {
@@ -25,10 +24,9 @@ class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRel
     }
 
     @Override
-    public void authorizeDelete(UserStorageRelations entity) {
+    public void authorizeDeletionAccess(UserStorageRelations entity) {
         if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
             UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
-
             if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
                 throw new UserStorageRelationsAccessDeniedException();
             }
@@ -36,19 +34,7 @@ class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRel
     }
 
     @Override
-    public List<UserStorageRelations> getAllAuthorizedEntities() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void authorizeGet(UserStorageRelations entity) {
-        if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
-            getAuthenticatedUserRelations(entity.getStorage());
-        }
-    }
-
-    @Override
-    public void authorizeCreate(UserStorageRelations entity) {
+    public void authorizeCreation(UserStorageRelations entity) {
         UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
         if (!entity.getUserRole().canBeCreatedBy(authUserRole)) {
             throw new UserStorageRelationsAccessDeniedException();
@@ -56,16 +42,13 @@ class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRel
     }
 
     @Override
-    public void authorizePatch(UserStorageRelations entity, UserStorageRelations patchedEntity) {
-        UserStorageRelations relations = getAuthenticatedUserRelations(entity.getStorage());
-        UserStorageRole authUserRole = relations.getUserRole();
-        if (patchedEntity.getUserRole() != null
-                && (!entity.getUserRole().canBeModifiedBy(authUserRole)
-                || !patchedEntity.getUserRole().canBeModifiedBy(authUserRole))) {
+    public void authorizeModification(UserStorageRelations entity, UserStorageRelationsPatchesDto patchesDto) {
+        UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
+        if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
             throw new UserStorageRelationsAccessDeniedException();
         }
-        if (entity.isIncludedInUserStatistics() != patchedEntity.isIncludedInUserStatistics()
-                && !entity.getUser().getId().equals(relations.getUser().getId())) {
+        if (patchesDto.getUserRole() != null
+                && !patchesDto.getUserRole().canBeCreatedBy(authUserRole)) {
             throw new UserStorageRelationsAccessDeniedException();
         }
     }

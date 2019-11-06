@@ -35,20 +35,11 @@ class StoragesAuthorizationServiceImpl implements StoragesAuthorizationService {
     }
 
     @Override
-    public void authorizeGet(Storage entity) {
+    public void authorizeAccess(Storage entity) {
         User user = authenticationFacade.getAuthenticatedUser();
         relationsDataService
                 .findById(new UserStorageKey(user.getId(), entity.getId()))
                 .orElseThrow(StorageAccessDeniedException::new);
-    }
-
-    @Override
-    public void authorizeCreate(Storage entity) {
-    }
-
-    @Override
-    public void authorizePatch(Storage entity, Storage patchedEntity) {
-        authorizeModificationAccess(entity);
     }
 
     @Override
