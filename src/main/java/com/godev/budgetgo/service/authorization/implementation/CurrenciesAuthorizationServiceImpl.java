@@ -1,7 +1,5 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
-import com.godev.budgetgo.dto.CurrencyCreationDto;
-import com.godev.budgetgo.dto.CurrencyPatchesDto;
 import com.godev.budgetgo.entity.Currency;
 import com.godev.budgetgo.service.authorization.CurrenciesAuthorizationService;
 import org.springframework.stereotype.Service;
@@ -21,12 +19,12 @@ class CurrenciesAuthorizationServiceImpl implements CurrenciesAuthorizationServi
     }
 
     @Override
-    public void authorizeCreate(CurrencyCreationDto creationDto) {
+    public void authorizeCreate(Currency entity) {
 
     }
 
     @Override
-    public void authorizePatch(Currency entity, CurrencyPatchesDto patchesDto) {
+    public void authorizePatch(Currency entity, Currency patchedEntity) {
 
     }
 }

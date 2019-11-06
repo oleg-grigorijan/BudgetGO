@@ -1,7 +1,5 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
-import com.godev.budgetgo.dto.CategoryCreationDto;
-import com.godev.budgetgo.dto.CategoryPatchesDto;
 import com.godev.budgetgo.entity.Category;
 import com.godev.budgetgo.service.authorization.CategoriesAuthorizationService;
 import org.springframework.stereotype.Service;
@@ -21,12 +19,12 @@ class CategoriesAuthorizationServiceImpl implements CategoriesAuthorizationServi
     }
 
     @Override
-    public void authorizeCreate(CategoryCreationDto creationDto) {
+    public void authorizeCreate(Category entity) {
 
     }
 
     @Override
-    public void authorizePatch(Category entity, CategoryPatchesDto patchesDto) {
+    public void authorizePatch(Category entity, Category patchedEntity) {
 
     }
 }

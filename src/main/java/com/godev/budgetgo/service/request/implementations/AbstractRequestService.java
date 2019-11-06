@@ -23,14 +23,14 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     private final ConverterFactory<V, E> entitiesFactory;
     private final ConverterFactory<E, T> dtoFactory;
     private final Merger<U, E> merger;
-    private final AuthorizationService<E, V, U> authorizationService;
+    private final AuthorizationService<E> authorizationService;
 
     public AbstractRequestService(
             DataService<E, K> dataService,
             ConverterFactory<V, E> entitiesFactory,
             ConverterFactory<E, T> dtoFactory,
             Merger<U, E> merger,
-            AuthorizationService<E, V, U> authorizationService
+            AuthorizationService<E> authorizationService
     ) {
         this.dataService = dataService;
         this.entitiesFactory = entitiesFactory;
@@ -58,19 +58,21 @@ abstract class AbstractRequestService<E, K, T, V, U> implements RequestService<K
     @Transactional
     @Override
     public T create(V creationDto) {
-        authorizationService.authorizeCreate(creationDto);
+        E entity = entitiesFactory.createFrom(creationDto);
+        authorizationService.authorizeCreate(entity);
         // TODO: Validation
-        E entity = dataService.add(entitiesFactory.createFrom(creationDto));
-        return dtoFactory.createFrom(entity);
+        E savedEntity = dataService.add(entity);
+        return dtoFactory.createFrom(savedEntity);
     }
 
     @Transactional
     @Override
     public T patch(K id, U patchesDto) {
         E entity = dataService.getById(id);
-        authorizationService.authorizePatch(entity, patchesDto);
+        E patchedEntity = merger.merge(patchesDto, entity);
+        authorizationService.authorizePatch(entity, patchedEntity);
         // TODO: Validation
-        E patchedEntity = dataService.update(merger.merge(patchesDto, entity));
-        return dtoFactory.createFrom(patchedEntity);
+        E savedEntity = dataService.update(patchedEntity);
+        return dtoFactory.createFrom(savedEntity);
     }
 }

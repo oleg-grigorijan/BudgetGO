@@ -69,8 +69,8 @@ class OperationsDataServiceImpl
 
     @Transactional(readOnly = true)
     @Override
-    public List<Operation> getByDateBetween(LocalDate from, LocalDate to) {
-        return repository.findByDateBetween(from, to);
+    public List<Operation> getByStorage(Storage storage) {
+        return repository.findByStorage(storage);
     }
 
     @Transactional(readOnly = true)

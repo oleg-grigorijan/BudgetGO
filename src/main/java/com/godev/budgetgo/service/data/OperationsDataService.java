@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface OperationsDataService extends DataService<Operation, Long> {
-    List<Operation> getByDateBetween(LocalDate from, LocalDate to);
+    List<Operation> getByStorage(Storage storage);
 
     List<Operation> getByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to);
 

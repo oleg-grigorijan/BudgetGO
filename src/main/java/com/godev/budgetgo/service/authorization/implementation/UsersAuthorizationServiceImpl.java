@@ -1,8 +1,6 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.UserCreationDto;
-import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.exception.UserAccessDeniedException;
 import com.godev.budgetgo.service.authorization.UsersAuthorizationService;
@@ -29,11 +27,11 @@ class UsersAuthorizationServiceImpl implements UsersAuthorizationService {
     }
 
     @Override
-    public void authorizeCreate(UserCreationDto creationDto) {
+    public void authorizeCreate(User entity) {
     }
 
     @Override
-    public void authorizePatch(User entity, UserPatchesDto patchesDto) {
+    public void authorizePatch(User entity, User patchedEntity) {
         if (!entity.getLogin().equals(authenticationFacade.getAuthentication().getName())) {
             throw new UserAccessDeniedException();
         }

@@ -43,9 +43,10 @@ class OperationsRequestServiceImpl
     }
 
     @Override
-    public List<OperationInfoDto> getByDateBetween(LocalDate from, LocalDate to) {
+    public List<OperationInfoDto> getByStorageId(Long storageId) {
+        Storage storage = storagesDataService.getById(storageId);
         return authorizationService
-                .getAuthorizedEntitiesByDateBetween(from, to)
+                .getAuthorizedEntitiesByStorage(storage)
                 .stream()
                 .map(dtoFactory::createFrom)
                 .collect(Collectors.toList());

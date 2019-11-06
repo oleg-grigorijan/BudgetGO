@@ -1,8 +1,6 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.StorageCreationDto;
-import com.godev.budgetgo.dto.StoragePatchesDto;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.entity.UserStorageKey;
@@ -45,11 +43,16 @@ class StoragesAuthorizationServiceImpl implements StoragesAuthorizationService {
     }
 
     @Override
-    public void authorizeCreate(StorageCreationDto creationDto) {
+    public void authorizeCreate(Storage entity) {
     }
 
     @Override
-    public void authorizePatch(Storage entity, StoragePatchesDto patchesDto) {
+    public void authorizePatch(Storage entity, Storage patchedEntity) {
+        authorizeModificationAccess(entity);
+    }
+
+    @Override
+    public void authorizeModificationAccess(Storage entity) {
         User user = authenticationFacade.getAuthenticatedUser();
         UserStorageRole role = relationsDataService
                 .findById(new UserStorageKey(user.getId(), entity.getId()))

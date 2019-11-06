@@ -3,6 +3,7 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.OperationCreationDto;
 import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
+import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.request.OperationsRequestService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -27,15 +28,17 @@ public class OperationsController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<OperationInfoDto> getByDate(
-            @RequestParam(required = false) Long storageId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
+            @RequestParam Long storageId,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
     ) {
-        if (storageId == null) {
-            return requestService.getByDateBetween(dateFrom, dateTo);
-        } else {
+        if (dateFrom == null && dateTo == null) {
+            return requestService.getByStorageId(storageId);
+        }
+        if (dateFrom != null && dateTo != null) {
             return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
         }
+        throw new BadRequestException();
     }
 
     @PostMapping

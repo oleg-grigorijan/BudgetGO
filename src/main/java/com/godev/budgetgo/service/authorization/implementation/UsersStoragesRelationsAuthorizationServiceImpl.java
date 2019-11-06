@@ -1,12 +1,7 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
-import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
-import com.godev.budgetgo.entity.User;
-import com.godev.budgetgo.entity.UserStorageKey;
-import com.godev.budgetgo.entity.UserStorageRelations;
-import com.godev.budgetgo.entity.UserStorageRole;
+import com.godev.budgetgo.entity.*;
 import com.godev.budgetgo.exception.StorageAccessDeniedException;
 import com.godev.budgetgo.exception.UserStorageRelationsAccessDeniedException;
 import com.godev.budgetgo.service.authorization.UsersStoragesRelationsAuthorizationService;
@@ -32,7 +27,7 @@ class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRel
     @Override
     public void authorizeDelete(UserStorageRelations entity) {
         if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
-            UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getId().getStorageId()).getUserRole();
+            UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
 
             if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
                 throw new UserStorageRelationsAccessDeniedException();
@@ -48,37 +43,37 @@ class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRel
     @Override
     public void authorizeGet(UserStorageRelations entity) {
         if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
-            getAuthenticatedUserRelations(entity.getId().getStorageId());
+            getAuthenticatedUserRelations(entity.getStorage());
         }
     }
 
     @Override
-    public void authorizeCreate(UserStorageRelationsCreationDto creationDto) {
-        UserStorageRole authUserRole = getAuthenticatedUserRelations(creationDto.getStorageId()).getUserRole();
-        if (!creationDto.getUserStorageRole().canBeCreatedBy(authUserRole)) {
+    public void authorizeCreate(UserStorageRelations entity) {
+        UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
+        if (!entity.getUserRole().canBeCreatedBy(authUserRole)) {
             throw new UserStorageRelationsAccessDeniedException();
         }
     }
 
     @Override
-    public void authorizePatch(UserStorageRelations entity, UserStorageRelationsPatchDto patchesDto) {
-        UserStorageRelations relations = getAuthenticatedUserRelations(entity.getId().getStorageId());
+    public void authorizePatch(UserStorageRelations entity, UserStorageRelations patchedEntity) {
+        UserStorageRelations relations = getAuthenticatedUserRelations(entity.getStorage());
         UserStorageRole authUserRole = relations.getUserRole();
-        if (patchesDto.getUserStorageRole() != null
+        if (patchedEntity.getUserRole() != null
                 && (!entity.getUserRole().canBeModifiedBy(authUserRole)
-                || !patchesDto.getUserStorageRole().canBeModifiedBy(authUserRole))) {
+                || !patchedEntity.getUserRole().canBeModifiedBy(authUserRole))) {
             throw new UserStorageRelationsAccessDeniedException();
         }
-        if (patchesDto.getIncludedInUserStatistics() != null
+        if (entity.isIncludedInUserStatistics() != patchedEntity.isIncludedInUserStatistics()
                 && !entity.getUser().getId().equals(relations.getUser().getId())) {
             throw new UserStorageRelationsAccessDeniedException();
         }
     }
 
-    private UserStorageRelations getAuthenticatedUserRelations(Long storageId) {
+    private UserStorageRelations getAuthenticatedUserRelations(Storage storage) {
         User user = authenticationFacade.getAuthenticatedUser();
         return relationsDataService
-                .findById(new UserStorageKey(user.getId(), storageId))
+                .findById(new UserStorageKey(user.getId(), storage.getId()))
                 .orElseThrow(StorageAccessDeniedException::new);
     }
 }

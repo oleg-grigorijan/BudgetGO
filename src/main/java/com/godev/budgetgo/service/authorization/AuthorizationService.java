@@ -4,15 +4,13 @@ import java.util.List;
 
 /**
  * @param <E> entity
- * @param <V> entity creation DTO
- * @param <U> entity patches DTO
  */
-public interface AuthorizationService<E, V, U> {
+public interface AuthorizationService<E> {
     List<E> getAllAuthorizedEntities();
 
     void authorizeGet(E entity);
 
-    void authorizeCreate(V creationDto);
+    void authorizeCreate(E entity);
 
-    void authorizePatch(E entity, U patchesDto);
+    void authorizePatch(E entity, E patchedEntity);
 }
