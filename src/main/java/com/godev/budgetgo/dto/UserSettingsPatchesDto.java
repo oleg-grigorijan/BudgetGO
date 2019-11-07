@@ -10,6 +10,7 @@ public class UserSettingsPatchesDto {
     private String password;
     @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
+    private Long mainCurrencyId;
 
     public String getLogin() {
         return login;
@@ -57,5 +58,13 @@ public class UserSettingsPatchesDto {
 
     public void setEmailPublic(Boolean emailPublic) {
         this.emailPublic = emailPublic;
+    }
+
+    public Long getMainCurrencyId() {
+        return mainCurrencyId;
+    }
+
+    public void setMainCurrencyId(Long mainCurrencyId) {
+        this.mainCurrencyId = mainCurrencyId;
     }
 }

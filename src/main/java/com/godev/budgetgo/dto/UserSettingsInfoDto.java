@@ -10,6 +10,8 @@ public class UserSettingsInfoDto {
     private String surname;
     @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
+    @JsonProperty("mainCurrency")
+    private CurrencyInfoDto mainCurrencyInfoDto;
 
     public Long getId() {
         return id;
@@ -57,5 +59,14 @@ public class UserSettingsInfoDto {
 
     public void setEmailPublic(Boolean isEmailPublic) {
         this.emailPublic = isEmailPublic;
+    }
+
+
+    public CurrencyInfoDto getMainCurrencyInfoDto() {
+        return mainCurrencyInfoDto;
+    }
+
+    public void setMainCurrencyInfoDto(CurrencyInfoDto mainCurrencyInfoDto) {
+        this.mainCurrencyInfoDto = mainCurrencyInfoDto;
     }
 }

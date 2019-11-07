@@ -12,6 +12,7 @@ public class UserCreationDto {
     private String password;
     @JsonProperty("isEmailPublic")
     private boolean emailPublic = true;
+    private Long mainCurrencyId;
 
     public String getLogin() {
         return login;
@@ -59,5 +60,13 @@ public class UserCreationDto {
 
     public void setEmailPublic(boolean emailPublic) {
         this.emailPublic = emailPublic;
+    }
+
+    public Long getMainCurrencyId() {
+        return mainCurrencyId;
+    }
+
+    public void setMainCurrencyId(Long mainCurrencyId) {
+        this.mainCurrencyId = mainCurrencyId;
     }
 }
