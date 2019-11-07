@@ -63,7 +63,6 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
     @Override
     public StorageRelationsInfoDto getById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);
-        storagesAuthorizationService.authorizeAccess(entity.getStorage());
         return dtoFactory.createFrom(entity);
     }
 
