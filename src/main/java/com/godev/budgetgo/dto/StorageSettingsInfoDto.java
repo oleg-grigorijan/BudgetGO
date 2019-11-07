@@ -7,6 +7,10 @@ public class StorageSettingsInfoDto {
     private UserStorageRole userRole;
     @JsonProperty("isIncludedInUserStatistics")
     private boolean includedInUserStatistics;
+    @JsonProperty("inviter")
+    private UserInfoDto inviterInfoDto;
+    @JsonProperty("isInvitation")
+    private boolean invitation;
 
     public UserStorageRole getUserRole() {
         return userRole;
@@ -22,5 +26,21 @@ public class StorageSettingsInfoDto {
 
     public void setIncludedInUserStatistics(boolean includedInUserStatistics) {
         this.includedInUserStatistics = includedInUserStatistics;
+    }
+
+    public UserInfoDto getInviterInfoDto() {
+        return inviterInfoDto;
+    }
+
+    public void setInviterInfoDto(UserInfoDto inviterInfoDto) {
+        this.inviterInfoDto = inviterInfoDto;
+    }
+
+    public boolean getInvitation() {
+        return invitation;
+    }
+
+    public void setInvitation(boolean invitation) {
+        this.invitation = invitation;
     }
 }

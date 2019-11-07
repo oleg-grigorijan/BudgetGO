@@ -7,6 +7,8 @@ public class StorageRelationsInfoDto {
     @JsonProperty("user")
     private UserInfoDto userInfoDto;
     private UserStorageRole userRole;
+    @JsonProperty("inviter")
+    private UserInfoDto inviterInfoDto;
 
     public UserInfoDto getUserInfoDto() {
         return userInfoDto;
@@ -22,5 +24,13 @@ public class StorageRelationsInfoDto {
 
     public void setUserRole(UserStorageRole userRole) {
         this.userRole = userRole;
+    }
+
+    public UserInfoDto getInviterInfoDto() {
+        return inviterInfoDto;
+    }
+
+    public void setInviterInfoDto(UserInfoDto inviterInfoDto) {
+        this.inviterInfoDto = inviterInfoDto;
     }
 }

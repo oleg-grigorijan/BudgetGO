@@ -26,6 +26,13 @@ public class StorageRelations implements Cloneable {
     @Enumerated(EnumType.STRING)
     private UserStorageRole userRole;
 
+    @ManyToOne
+    @JoinColumn(name = "inviter_id", nullable = false)
+    private User inviter;
+
+    @Column(name = "is_invitation", nullable = false)
+    private boolean invitation;
+
     public UserStorageKey getId() {
         return id;
     }
@@ -66,6 +73,22 @@ public class StorageRelations implements Cloneable {
         this.userRole = userRole;
     }
 
+    public User getInviter() {
+        return inviter;
+    }
+
+    public void setInviter(User inviter) {
+        this.inviter = inviter;
+    }
+
+    public boolean isInvitation() {
+        return invitation;
+    }
+
+    public void setInvitation(boolean invitation) {
+        this.invitation = invitation;
+    }
+
     /**
      * @return Shallow clone of instance
      */
@@ -83,17 +106,19 @@ public class StorageRelations implements Cloneable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof StorageRelations)) return false;
-        StorageRelations that = (StorageRelations) o;
-        return includedInUserStatistics == that.includedInUserStatistics &&
-                id.equals(that.id) &&
-                user.equals(that.user) &&
-                storage.equals(that.storage) &&
-                userRole == that.userRole;
+        StorageRelations relations = (StorageRelations) o;
+        return includedInUserStatistics == relations.includedInUserStatistics &&
+                invitation == relations.invitation &&
+                id.equals(relations.id) &&
+                user.equals(relations.user) &&
+                storage.equals(relations.storage) &&
+                userRole == relations.userRole &&
+                inviter.equals(relations.inviter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, storage, includedInUserStatistics, userRole);
+        return Objects.hash(id, user, storage, includedInUserStatistics, userRole, inviter, invitation);
     }
 
     @Override
@@ -104,6 +129,8 @@ public class StorageRelations implements Cloneable {
                 ", storage=" + storage +
                 ", includedInUserStatistics=" + includedInUserStatistics +
                 ", userRole=" + userRole +
+                ", inviter=" + inviter +
+                ", invitation=" + invitation +
                 '}';
     }
 }

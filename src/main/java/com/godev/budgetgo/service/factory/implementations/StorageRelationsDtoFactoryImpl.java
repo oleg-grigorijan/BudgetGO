@@ -20,6 +20,7 @@ class StorageRelationsDtoFactoryImpl implements StorageRelationsDtoFactory {
         StorageRelationsInfoDto dto = new StorageRelationsInfoDto();
         dto.setUserInfoDto(userDtoFactory.createFrom(e.getUser()));
         dto.setUserRole(e.getUserRole());
+        dto.setInviterInfoDto(userDtoFactory.createFrom(e.getInviter()));
         return dto;
     }
 }

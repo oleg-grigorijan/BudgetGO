@@ -32,6 +32,8 @@ class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
         e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
         e.setUserRole(dto.getUserRole());
         e.setIncludedInUserStatistics(getDefaultIncludedInUserStatistics(e.getUserRole()));
+        e.setInviter(authenticationFacade.getAuthenticatedUser());
+        e.setInvitation(true);
         return e;
     }
 
@@ -52,6 +54,8 @@ class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
         e.setId(new UserStorageKey(user.getId(), storage.getId()));
         e.setUserRole(UserStorageRole.CREATOR);
         e.setIncludedInUserStatistics(getDefaultIncludedInUserStatistics(e.getUserRole()));
+        e.setInviter(user);
+        e.setInvitation(false);
         return e;
     }
 

@@ -11,6 +11,7 @@ class StoragesSettingsMergerImpl implements StoragesSettingsMerger {
     public StorageRelations merge(StorageSettingsPatchesDto dto, StorageRelations eOld) {
         StorageRelations e = eOld.clone();
         if (dto.getIncludedInUserStatistics() != null) e.setIncludedInUserStatistics(dto.getIncludedInUserStatistics());
+        if (dto.getInvitation() != null) e.setInvitation(dto.getInvitation());
         return e;
     }
 }
