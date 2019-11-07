@@ -1,21 +1,21 @@
 package com.godev.budgetgo.service.merger.implementations;
 
-import com.godev.budgetgo.dto.UserPatchesDto;
+import com.godev.budgetgo.dto.UserSettingsPatchesDto;
 import com.godev.budgetgo.entity.User;
-import com.godev.budgetgo.service.merger.UsersMerger;
+import com.godev.budgetgo.service.merger.UsersSettingsMerger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersMergerImpl implements UsersMerger {
+class UsersSettingsMergerImpl implements UsersSettingsMerger {
     private final PasswordEncoder passwordEncoder;
 
-    public UsersMergerImpl(PasswordEncoder passwordEncoder) {
+    public UsersSettingsMergerImpl(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User merge(UserPatchesDto dto, User eOld) {
+    public User merge(UserSettingsPatchesDto dto, User eOld) {
         User e = eOld.clone();
         if (dto.getLogin() != null) e.setLogin(dto.getLogin());
         if (dto.getEmail() != null) e.setEmail(dto.getEmail());

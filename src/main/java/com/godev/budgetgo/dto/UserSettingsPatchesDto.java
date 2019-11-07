@@ -1,17 +1,15 @@
 package com.godev.budgetgo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserCreationDto {
+public class UserSettingsPatchesDto {
     private String login;
     private String email;
     private String name;
     private String surname;
     private String password;
     @JsonProperty("isEmailPublic")
-    private boolean emailPublic = true;
+    private Boolean emailPublic;
 
     public String getLogin() {
         return login;
@@ -53,11 +51,11 @@ public class UserCreationDto {
         this.password = password;
     }
 
-    public boolean isEmailPublic() {
+    public Boolean getEmailPublic() {
         return emailPublic;
     }
 
-    public void setEmailPublic(boolean emailPublic) {
+    public void setEmailPublic(Boolean emailPublic) {
         this.emailPublic = emailPublic;
     }
 }

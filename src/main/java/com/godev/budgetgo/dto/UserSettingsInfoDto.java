@@ -2,14 +2,22 @@ package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserPatchesDto {
+public class UserSettingsInfoDto {
+    private Long id;
     private String login;
     private String email;
     private String name;
     private String surname;
-    private String password;
     @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
@@ -43,19 +51,11 @@ public class UserPatchesDto {
         this.surname = surname;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Boolean getEmailPublic() {
         return emailPublic;
     }
 
-    public void setEmailPublic(Boolean emailPublic) {
-        this.emailPublic = emailPublic;
+    public void setEmailPublic(Boolean isEmailPublic) {
+        this.emailPublic = isEmailPublic;
     }
 }

@@ -22,7 +22,7 @@ class UsersFactoryImpl implements UsersFactory {
         user.setName(dto.getName());
         user.setSurname(dto.getSurname());
         user.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        user.setEmailPublic(true);
+        user.setEmailPublic(dto.isEmailPublic());
         return user;
     }
 }
