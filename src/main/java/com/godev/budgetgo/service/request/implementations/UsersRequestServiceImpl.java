@@ -2,7 +2,6 @@ package com.godev.budgetgo.service.request.implementations;
 
 import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
-import com.godev.budgetgo.dto.UserSettingsPatchesDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.service.data.UsersDataService;
 import com.godev.budgetgo.service.factory.UserDtoFactory;
@@ -62,17 +61,6 @@ class UsersRequestServiceImpl implements UsersRequestService {
         User entity = entitiesFactory.createFrom(creationDto);
         // TODO: Validation
         User savedEntity = dataService.add(entity);
-        return dtoFactory.createFrom(savedEntity);
-    }
-
-    // TODO: Move to UserSettingsRequestService
-    @Transactional
-    @Override
-    public UserInfoDto patch(Long id, UserSettingsPatchesDto patchesDto) {
-        User entity = dataService.getById(id);
-        User patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
-        User savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }
 }

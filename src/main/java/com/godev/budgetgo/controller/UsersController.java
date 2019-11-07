@@ -2,7 +2,6 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
-import com.godev.budgetgo.dto.UserSettingsPatchesDto;
 import com.godev.budgetgo.service.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -39,14 +38,8 @@ public class UsersController {
 
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
+    @ResponseStatus(HttpStatus.OK)
     public UserInfoDto getById(@PathVariable Long id) {
         return requestService.getById(id);
-    }
-
-    @PatchMapping("/{id}")
-    @Secured("ROLE_USER")
-    @ResponseStatus(HttpStatus.OK)
-    public UserInfoDto patch(@PathVariable Long id, @RequestBody UserSettingsPatchesDto patches) {
-        return requestService.patch(id, patches);
     }
 }
