@@ -1,23 +1,23 @@
 package com.godev.budgetgo.service.factory.implementations;
 
-import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
-import com.godev.budgetgo.entity.UserStorageRelations;
+import com.godev.budgetgo.dto.StorageRelationsInfoDto;
+import com.godev.budgetgo.entity.StorageRelations;
+import com.godev.budgetgo.service.factory.StorageRelationsDtoFactory;
 import com.godev.budgetgo.service.factory.UserDtoFactory;
-import com.godev.budgetgo.service.factory.UserStorageRelationsDtoFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-class UserStorageRelationsDtoFactoryImpl implements UserStorageRelationsDtoFactory {
+class StorageRelationsDtoFactoryImpl implements StorageRelationsDtoFactory {
 
     private final UserDtoFactory userDtoFactory;
 
-    public UserStorageRelationsDtoFactoryImpl(UserDtoFactory userDtoFactory) {
+    public StorageRelationsDtoFactoryImpl(UserDtoFactory userDtoFactory) {
         this.userDtoFactory = userDtoFactory;
     }
 
     @Override
-    public UserStorageRelationsInfoDto createFrom(UserStorageRelations e) {
-        UserStorageRelationsInfoDto dto = new UserStorageRelationsInfoDto();
+    public StorageRelationsInfoDto createFrom(StorageRelations e) {
+        StorageRelationsInfoDto dto = new StorageRelationsInfoDto();
         dto.setUserInfoDto(userDtoFactory.createFrom(e.getUser()));
         dto.setUserStorageRole(e.getUserRole());
         dto.setIncludedInUserStatistics(e.isIncludedInUserStatistics());

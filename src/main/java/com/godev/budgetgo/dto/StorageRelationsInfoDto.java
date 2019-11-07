@@ -3,18 +3,28 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.UserStorageRole;
 
-public class UserStorageRelationsPatchesDto {
+public class StorageRelationsInfoDto {
+    @JsonProperty("user")
+    private UserInfoDto userInfoDto;
     @JsonProperty("userRole")
-    private UserStorageRole userRole;
+    private UserStorageRole userStorageRole;
     @JsonProperty("isIncludedInUserStatistics")
     private Boolean includedInUserStatistics;
 
-    public UserStorageRole getUserRole() {
-        return userRole;
+    public UserInfoDto getUserInfoDto() {
+        return userInfoDto;
     }
 
-    public void setUserRole(UserStorageRole userRole) {
-        this.userRole = userRole;
+    public void setUserInfoDto(UserInfoDto userInfoDto) {
+        this.userInfoDto = userInfoDto;
+    }
+
+    public UserStorageRole getUserStorageRole() {
+        return userStorageRole;
+    }
+
+    public void setUserStorageRole(UserStorageRole userStorageRole) {
+        this.userStorageRole = userStorageRole;
     }
 
     public Boolean getIncludedInUserStatistics() {

@@ -1,21 +1,21 @@
 package com.godev.budgetgo.service.factory.implementations;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
+import com.godev.budgetgo.dto.StorageRelationsCreationDto;
 import com.godev.budgetgo.entity.*;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.data.UsersDataService;
-import com.godev.budgetgo.service.factory.UsersStoragesRelationsFactory;
+import com.godev.budgetgo.service.factory.StoragesRelationsFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersStoragesRelationsFactoryImpl implements UsersStoragesRelationsFactory {
+class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
 
     private final StoragesDataService storagesDataService;
     private final UsersDataService usersDataService;
     private final AuthenticationFacade authenticationFacade;
 
-    public UsersStoragesRelationsFactoryImpl(
+    public StoragesRelationsFactoryImpl(
             StoragesDataService storagesDataService,
             UsersDataService usersDataService,
             AuthenticationFacade authenticationFacade) {
@@ -25,18 +25,18 @@ class UsersStoragesRelationsFactoryImpl implements UsersStoragesRelationsFactory
     }
 
     @Override
-    public UserStorageRelations createFrom(UserStorageRelationsCreationDto dto) {
-        UserStorageRelations e = new UserStorageRelations();
+    public StorageRelations createFrom(StorageRelationsCreationDto dto) {
+        StorageRelations e = new StorageRelations();
         e.setStorage(storagesDataService.getById(dto.getStorageId()));
         e.setUser(usersDataService.getById(dto.getUserId()));
         e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
-        e.setUserRole(dto.getUserStorageRole());
+        e.setUserRole(dto.getUserRole());
         e.setIncludedInUserStatistics(getDefaultIncludedInUserStatistics(e.getUserRole()));
         return e;
     }
 
     /**
-     * Creates an instance of {@link UserStorageRelations} with the given storage,
+     * Creates an instance of {@link StorageRelations} with the given storage,
      * authenticated user and {@link UserStorageRole#CREATOR} role.
      * Other parameters are set by default.
      *
@@ -44,8 +44,8 @@ class UsersStoragesRelationsFactoryImpl implements UsersStoragesRelationsFactory
      * @return created instance
      */
     @Override
-    public UserStorageRelations generateCreatorEntityForStorage(Storage storage) {
-        UserStorageRelations e = new UserStorageRelations();
+    public StorageRelations generateCreatorEntityForStorage(Storage storage) {
+        StorageRelations e = new StorageRelations();
         e.setStorage(storage);
         User user = authenticationFacade.getAuthenticatedUser();
         e.setUser(user);

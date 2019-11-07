@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_storage_relations")
-public class UserStorageRelations implements Cloneable {
+@Table(name = "storages_relations")
+public class StorageRelations implements Cloneable {
     @EmbeddedId
     private UserStorageKey id;
 
@@ -70,9 +70,9 @@ public class UserStorageRelations implements Cloneable {
      * @return Shallow clone of instance
      */
     @Override
-    public UserStorageRelations clone() {
+    public StorageRelations clone() {
         try {
-            return (UserStorageRelations) super.clone();
+            return (StorageRelations) super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -82,8 +82,8 @@ public class UserStorageRelations implements Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserStorageRelations)) return false;
-        UserStorageRelations that = (UserStorageRelations) o;
+        if (!(o instanceof StorageRelations)) return false;
+        StorageRelations that = (StorageRelations) o;
         return includedInUserStatistics == that.includedInUserStatistics &&
                 id.equals(that.id) &&
                 user.equals(that.user) &&
@@ -98,7 +98,7 @@ public class UserStorageRelations implements Cloneable {
 
     @Override
     public String toString() {
-        return "UserStorageRelations{" +
+        return "StorageRelations{" +
                 "id=" + id +
                 ", user=" + user +
                 ", storage=" + storage +

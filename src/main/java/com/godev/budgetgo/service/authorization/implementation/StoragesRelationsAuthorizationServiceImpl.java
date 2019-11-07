@@ -1,59 +1,59 @@
 package com.godev.budgetgo.service.authorization.implementation;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.UserStorageRelationsPatchesDto;
+import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.*;
 import com.godev.budgetgo.exception.StorageAccessDeniedException;
-import com.godev.budgetgo.exception.UserStorageRelationsAccessDeniedException;
-import com.godev.budgetgo.service.authorization.UsersStoragesRelationsAuthorizationService;
-import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
+import com.godev.budgetgo.exception.StorageRelationsAccessDeniedException;
+import com.godev.budgetgo.service.authorization.StoragesRelationsAuthorizationService;
+import com.godev.budgetgo.service.data.StoragesRelationsDataService;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersStoragesRelationsAuthorizationServiceImpl implements UsersStoragesRelationsAuthorizationService {
+class StoragesRelationsAuthorizationServiceImpl implements StoragesRelationsAuthorizationService {
 
     private final AuthenticationFacade authenticationFacade;
-    private final UsersStoragesRelationsDataService relationsDataService;
+    private final StoragesRelationsDataService relationsDataService;
 
-    public UsersStoragesRelationsAuthorizationServiceImpl(
+    public StoragesRelationsAuthorizationServiceImpl(
             AuthenticationFacade authenticationFacade,
-            UsersStoragesRelationsDataService relationsDataService
+            StoragesRelationsDataService relationsDataService
     ) {
         this.authenticationFacade = authenticationFacade;
         this.relationsDataService = relationsDataService;
     }
 
     @Override
-    public void authorizeDeletionAccess(UserStorageRelations entity) {
+    public void authorizeDeletionAccess(StorageRelations entity) {
         if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
             UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
             if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
-                throw new UserStorageRelationsAccessDeniedException();
+                throw new StorageRelationsAccessDeniedException();
             }
         }
     }
 
     @Override
-    public void authorizeCreation(UserStorageRelations entity) {
+    public void authorizeCreation(StorageRelations entity) {
         UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
         if (!entity.getUserRole().canBeCreatedBy(authUserRole)) {
-            throw new UserStorageRelationsAccessDeniedException();
+            throw new StorageRelationsAccessDeniedException();
         }
     }
 
     @Override
-    public void authorizeModification(UserStorageRelations entity, UserStorageRelationsPatchesDto patchesDto) {
+    public void authorizeModification(StorageRelations entity, StorageRelationsPatchesDto patchesDto) {
         UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
         if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
-            throw new UserStorageRelationsAccessDeniedException();
+            throw new StorageRelationsAccessDeniedException();
         }
         if (patchesDto.getUserRole() != null
                 && !patchesDto.getUserRole().canBeCreatedBy(authUserRole)) {
-            throw new UserStorageRelationsAccessDeniedException();
+            throw new StorageRelationsAccessDeniedException();
         }
     }
 
-    private UserStorageRelations getAuthenticatedUserRelations(Storage storage) {
+    private StorageRelations getAuthenticatedUserRelations(Storage storage) {
         User user = authenticationFacade.getAuthenticatedUser();
         return relationsDataService
                 .findById(new UserStorageKey(user.getId(), storage.getId()))
