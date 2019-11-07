@@ -6,10 +6,7 @@ import com.godev.budgetgo.entity.UserStorageRole;
 public class StorageRelationsInfoDto {
     @JsonProperty("user")
     private UserInfoDto userInfoDto;
-    @JsonProperty("userRole")
-    private UserStorageRole userStorageRole;
-    @JsonProperty("isIncludedInUserStatistics")
-    private Boolean includedInUserStatistics;
+    private UserStorageRole userRole;
 
     public UserInfoDto getUserInfoDto() {
         return userInfoDto;
@@ -19,19 +16,11 @@ public class StorageRelationsInfoDto {
         this.userInfoDto = userInfoDto;
     }
 
-    public UserStorageRole getUserStorageRole() {
-        return userStorageRole;
+    public UserStorageRole getUserRole() {
+        return userRole;
     }
 
-    public void setUserStorageRole(UserStorageRole userStorageRole) {
-        this.userStorageRole = userStorageRole;
-    }
-
-    public Boolean getIncludedInUserStatistics() {
-        return includedInUserStatistics;
-    }
-
-    public void setIncludedInUserStatistics(Boolean includedInUserStatistics) {
-        this.includedInUserStatistics = includedInUserStatistics;
+    public void setUserRole(UserStorageRole userRole) {
+        this.userRole = userRole;
     }
 }
