@@ -32,6 +32,10 @@ public class User implements Cloneable {
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
 
+    @ManyToOne
+    @JoinColumn(name = "main_currency_id", nullable = false)
+    private Currency mainCurrency;
+
     public Long getId() {
         return id;
     }
@@ -96,6 +100,14 @@ public class User implements Cloneable {
         isAdmin = admin;
     }
 
+    public Currency getMainCurrency() {
+        return mainCurrency;
+    }
+
+    public void setMainCurrency(Currency mainCurrency) {
+        this.mainCurrency = mainCurrency;
+    }
+
     /**
      * @return Shallow clone of instance
      */
@@ -121,12 +133,13 @@ public class User implements Cloneable {
                 email.equals(user.email) &&
                 name.equals(user.name) &&
                 surname.equals(user.surname) &&
-                passwordHash.equals(user.passwordHash);
+                passwordHash.equals(user.passwordHash) &&
+                mainCurrency.equals(user.mainCurrency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, email, name, surname, passwordHash, isEmailPublic, isAdmin);
+        return Objects.hash(id, login, email, name, surname, passwordHash, isEmailPublic, isAdmin, mainCurrency);
     }
 
     @Override
@@ -140,6 +153,7 @@ public class User implements Cloneable {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", isEmailPublic=" + isEmailPublic +
                 ", isAdmin=" + isAdmin +
+                ", mainCurrency=" + mainCurrency +
                 '}';
     }
 }
