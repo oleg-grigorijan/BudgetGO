@@ -3,11 +3,11 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.UserStorageRole;
 
-public class UserStorageRelationsCreationDto {
+public class StorageRelationsCreationDto {
     private Long storageId;
     private Long userId;
     @JsonProperty("userRole")
-    private UserStorageRole userStorageRole;
+    private UserStorageRole userRole;
 
     public Long getStorageId() {
         return storageId;
@@ -25,11 +25,11 @@ public class UserStorageRelationsCreationDto {
         this.userId = userId;
     }
 
-    public UserStorageRole getUserStorageRole() {
-        return userStorageRole;
+    public UserStorageRole getUserRole() {
+        return userRole;
     }
 
-    public void setUserStorageRole(UserStorageRole userStorageRole) {
-        this.userStorageRole = userStorageRole;
+    public void setUserRole(UserStorageRole userRole) {
+        this.userRole = userRole;
     }
 }

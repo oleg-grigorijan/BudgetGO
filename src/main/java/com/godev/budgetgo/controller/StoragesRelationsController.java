@@ -1,10 +1,10 @@
 package com.godev.budgetgo.controller;
 
-import com.godev.budgetgo.dto.UserStorageRelationsCreationDto;
-import com.godev.budgetgo.dto.UserStorageRelationsInfoDto;
-import com.godev.budgetgo.dto.UserStorageRelationsPatchDto;
+import com.godev.budgetgo.dto.StorageRelationsCreationDto;
+import com.godev.budgetgo.dto.StorageRelationsInfoDto;
+import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.UserStorageKey;
-import com.godev.budgetgo.service.request.UsersStoragesRelationsRequestService;
+import com.godev.budgetgo.service.request.StoragesRelationsRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/storages/{storageId}/users")
 @Secured("ROLE_USER")
-public class UsersStoragesRelationsController {
+public class StoragesRelationsController {
 
-    private final UsersStoragesRelationsRequestService requestService;
+    private final StoragesRelationsRequestService requestService;
 
-    public UsersStoragesRelationsController(UsersStoragesRelationsRequestService requestService) {
+    public StoragesRelationsController(StoragesRelationsRequestService requestService) {
         this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserStorageRelationsInfoDto> getAll(@PathVariable Long storageId) {
+    public List<StorageRelationsInfoDto> getAll(@PathVariable Long storageId) {
         return requestService.getByStorageId(storageId);
     }
 
@@ -34,7 +34,7 @@ public class UsersStoragesRelationsController {
     public void create(
             HttpServletResponse response,
             @PathVariable Long storageId,
-            @RequestBody UserStorageRelationsCreationDto creationDto
+            @RequestBody StorageRelationsCreationDto creationDto
     ) {
         creationDto.setStorageId(storageId);
         requestService.create(creationDto);
@@ -47,7 +47,7 @@ public class UsersStoragesRelationsController {
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserStorageRelationsInfoDto get(
+    public StorageRelationsInfoDto get(
             @PathVariable Long storageId,
             @PathVariable Long userId
     ) {
@@ -56,10 +56,10 @@ public class UsersStoragesRelationsController {
 
     @PatchMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserStorageRelationsInfoDto patch(
+    public StorageRelationsInfoDto patch(
             @PathVariable Long storageId,
             @PathVariable Long userId,
-            @RequestBody UserStorageRelationsPatchDto patchDto
+            @RequestBody StorageRelationsPatchesDto patchDto
     ) {
         return requestService.patch(
                 new UserStorageKey(userId, storageId),

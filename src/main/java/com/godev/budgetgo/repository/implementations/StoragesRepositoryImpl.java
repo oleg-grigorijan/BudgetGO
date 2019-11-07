@@ -21,7 +21,7 @@ class StoragesRepositoryImpl
         return entityManager
                 .createQuery(
                         "SELECT s FROM Storage s WHERE s IN (" +
-                                "SELECT r.storage FROM UserStorageRelations r WHERE r.user.id = :userId" +
+                                "SELECT r.storage FROM StorageRelations r WHERE r.user.id = :userId" +
                                 ")", entityClass
                 )
                 .setParameter("userId", user.getId())

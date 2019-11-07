@@ -8,7 +8,7 @@ import com.godev.budgetgo.entity.UserStorageRole;
 import com.godev.budgetgo.exception.StorageAccessDeniedException;
 import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.data.StoragesDataService;
-import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
+import com.godev.budgetgo.service.data.StoragesRelationsDataService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +18,12 @@ class StoragesAuthorizationServiceImpl implements StoragesAuthorizationService {
 
     private final AuthenticationFacade authenticationFacade;
     private final StoragesDataService storagesDataService;
-    private final UsersStoragesRelationsDataService relationsDataService;
+    private final StoragesRelationsDataService relationsDataService;
 
     public StoragesAuthorizationServiceImpl(
             AuthenticationFacade authenticationFacade,
             StoragesDataService storagesDataService,
-            UsersStoragesRelationsDataService relationsDataService) {
+            StoragesRelationsDataService relationsDataService) {
         this.authenticationFacade = authenticationFacade;
         this.storagesDataService = storagesDataService;
         this.relationsDataService = relationsDataService;
@@ -35,20 +35,11 @@ class StoragesAuthorizationServiceImpl implements StoragesAuthorizationService {
     }
 
     @Override
-    public void authorizeGet(Storage entity) {
+    public void authorizeAccess(Storage entity) {
         User user = authenticationFacade.getAuthenticatedUser();
         relationsDataService
                 .findById(new UserStorageKey(user.getId(), entity.getId()))
                 .orElseThrow(StorageAccessDeniedException::new);
-    }
-
-    @Override
-    public void authorizeCreate(Storage entity) {
-    }
-
-    @Override
-    public void authorizePatch(Storage entity, Storage patchedEntity) {
-        authorizeModificationAccess(entity);
     }
 
     @Override
