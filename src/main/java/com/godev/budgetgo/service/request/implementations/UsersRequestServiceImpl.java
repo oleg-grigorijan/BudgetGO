@@ -2,12 +2,11 @@ package com.godev.budgetgo.service.request.implementations;
 
 import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
-import com.godev.budgetgo.dto.UserPatchesDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.service.data.UsersDataService;
 import com.godev.budgetgo.service.factory.UserDtoFactory;
 import com.godev.budgetgo.service.factory.UsersFactory;
-import com.godev.budgetgo.service.merger.UsersMerger;
+import com.godev.budgetgo.service.merger.UsersSettingsMerger;
 import com.godev.budgetgo.service.request.UsersRequestService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +20,13 @@ class UsersRequestServiceImpl implements UsersRequestService {
     private final UsersDataService dataService;
     private final UsersFactory entitiesFactory;
     private final UserDtoFactory dtoFactory;
-    private final UsersMerger merger;
+    private final UsersSettingsMerger merger;
 
     public UsersRequestServiceImpl(
             UsersDataService dataService,
             UsersFactory entitiesFactory,
             UserDtoFactory dtoFactory,
-            UsersMerger merger
+            UsersSettingsMerger merger
     ) {
         this.dataService = dataService;
         this.entitiesFactory = entitiesFactory;
@@ -62,17 +61,6 @@ class UsersRequestServiceImpl implements UsersRequestService {
         User entity = entitiesFactory.createFrom(creationDto);
         // TODO: Validation
         User savedEntity = dataService.add(entity);
-        return dtoFactory.createFrom(savedEntity);
-    }
-
-    // TODO: Move to UserSettingsRequestService
-    @Transactional
-    @Override
-    public UserInfoDto patch(Long id, UserPatchesDto patchesDto) {
-        User entity = dataService.getById(id);
-        User patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
-        User savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }
 }

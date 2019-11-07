@@ -11,7 +11,6 @@ class StoragesRelationsMergerImpl implements StoragesRelationsMerger {
     public StorageRelations merge(StorageRelationsPatchesDto dto, StorageRelations eOld) {
         StorageRelations e = eOld.clone();
         if (dto.getUserRole() != null) e.setUserRole(dto.getUserRole());
-        if (dto.getIncludedInUserStatistics() != null) e.setIncludedInUserStatistics(dto.getIncludedInUserStatistics());
         return e;
     }
 }
