@@ -1,15 +1,16 @@
 package com.godev.budgetgo.service.request.implementations;
 
-import com.godev.budgetgo.auth.AuthenticationFacade;
 import com.godev.budgetgo.dto.StorageCreationDto;
 import com.godev.budgetgo.dto.StorageInfoDto;
 import com.godev.budgetgo.dto.StoragePatchesDto;
 import com.godev.budgetgo.entity.Storage;
-import com.godev.budgetgo.entity.User;
+import com.godev.budgetgo.entity.UserStorageRelations;
 import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.data.StoragesDataService;
+import com.godev.budgetgo.service.data.UsersStoragesRelationsDataService;
 import com.godev.budgetgo.service.factory.StorageDtoFactory;
 import com.godev.budgetgo.service.factory.StoragesFactory;
+import com.godev.budgetgo.service.factory.UsersStoragesRelationsFactory;
 import com.godev.budgetgo.service.merger.StoragesMerger;
 import com.godev.budgetgo.service.request.StoragesRequestService;
 import org.springframework.stereotype.Service;
@@ -22,27 +23,30 @@ import java.util.stream.Collectors;
 class StoragesRequestServiceImpl implements StoragesRequestService {
 
     private final StoragesDataService dataService;
+    private final UsersStoragesRelationsDataService relationsDataService;
     private final StoragesFactory entitiesFactory;
     private final StorageDtoFactory dtoFactory;
     private final StoragesMerger merger;
     private final StoragesAuthorizationService authorizationService;
-    private final AuthenticationFacade authenticationFacade;
+    private final UsersStoragesRelationsFactory relationsFactory;
 
 
     public StoragesRequestServiceImpl(
             StoragesDataService dataService,
+            UsersStoragesRelationsDataService relationsDataService,
             StoragesFactory entitiesFactory,
             StorageDtoFactory dtoFactory,
             StoragesMerger merger,
             StoragesAuthorizationService authorizationService,
-            AuthenticationFacade authenticationFacade
+            UsersStoragesRelationsFactory relationsFactory
     ) {
         this.dataService = dataService;
+        this.relationsDataService = relationsDataService;
         this.entitiesFactory = entitiesFactory;
         this.dtoFactory = dtoFactory;
         this.merger = merger;
         this.authorizationService = authorizationService;
-        this.authenticationFacade = authenticationFacade;
+        this.relationsFactory = relationsFactory;
     }
 
     @Override
@@ -75,14 +79,13 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
     @Transactional
     @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
-        // TODO: Move to UserStorageRelationsFactory
-        //       Use UserStorageRelationsDataService
-        User creator = authenticationFacade.getAuthenticatedUser();
-        Storage entity = dataService.addWithCreator(
-                entitiesFactory.createFrom(creationDto),
-                creator
-        );
+        Storage entity = entitiesFactory.createFrom(creationDto);
         // TODO: Validation
-        return dtoFactory.createFrom(entity);
+        Storage savedEntity = dataService.add(entity);
+
+        UserStorageRelations creatorRelations = relationsFactory.generateCreatorEntityForStorage(savedEntity);
+        relationsDataService.add(creatorRelations);
+
+        return dtoFactory.createFrom(savedEntity);
     }
 }
