@@ -7,6 +7,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "operations")
 public class Operation implements Cloneable {
+
+    public static final int DESCRIPTION_MAX_LENGTH = 255;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +28,7 @@ public class Operation implements Cloneable {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @Column(name = "date_created", nullable = false)

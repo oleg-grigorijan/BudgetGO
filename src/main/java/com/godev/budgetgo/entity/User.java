@@ -6,21 +6,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User implements Cloneable {
+    public static final int LOGIN_MAX_LENGTH = 255;
+    public static final String LOGIN_PATTERN = "^[a-zA-Z0-9_.\\-]*$";
+    public static final int EMAIL_MAX_LENGTH = 255;
+    public static final int NAME_MAX_LENGTH = 255;
+    public static final int SURNAME_MAX_LENGTH = 255;
+    public static final int PASSWORD_MIN_LENGTH = 6;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = LOGIN_MAX_LENGTH)
     private String login;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = EMAIL_MAX_LENGTH)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = SURNAME_MAX_LENGTH)
     private String surname;
 
     @Column(name = "password_hash", nullable = false)

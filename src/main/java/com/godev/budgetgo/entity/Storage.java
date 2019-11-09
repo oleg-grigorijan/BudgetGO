@@ -6,6 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "storages")
 public class Storage implements Cloneable {
+
+    public static final int NAME_MAX_LENGTH = 255;
+    public static final int DESCRIPTION_MAX_LENGTH = 255;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,10 +17,10 @@ public class Storage implements Cloneable {
     @Column(nullable = false)
     private long balance;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @ManyToOne

@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class CollectionsController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             HttpServletResponse response,
-            @RequestBody CollectionCreationDto creationDto
+            @RequestBody @Valid CollectionCreationDto creationDto
     ) {
         requestService.create(creationDto);
         response.addHeader("Location", "/api/collections/" + creationDto.getCategoryId());

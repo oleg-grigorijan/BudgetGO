@@ -1,12 +1,17 @@
 package com.godev.budgetgo.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.UserStorageRole;
 
+import javax.validation.constraints.NotNull;
+
 public class StorageRelationsCreationDto {
+
     private Long storageId;
+
+    @NotNull
     private Long userId;
-    @JsonProperty("userRole")
+
+    @NotNull
     private UserStorageRole userRole;
 
     public Long getStorageId() {

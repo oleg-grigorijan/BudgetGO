@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,7 +44,10 @@ public class OperationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody OperationCreationDto creationDto) {
+    public void create(
+            HttpServletResponse response,
+            @RequestBody @Valid OperationCreationDto creationDto
+    ) {
         Long newOperationId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/operations/" + newOperationId);
     }
@@ -56,7 +60,10 @@ public class OperationsController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OperationInfoDto patch(@PathVariable Long id, @RequestBody OperationPatchesDto patches) {
+    public OperationInfoDto patch(
+            @PathVariable Long id,
+            @RequestBody @Valid OperationPatchesDto patches
+    ) {
         return requestService.patch(id, patches);
     }
 

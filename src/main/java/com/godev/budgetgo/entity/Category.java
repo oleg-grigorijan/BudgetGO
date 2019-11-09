@@ -6,11 +6,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "categories")
 public class Category implements Cloneable {
+
+    public static final int NAME_MAX_LENGTH = 255;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
     public Long getId() {

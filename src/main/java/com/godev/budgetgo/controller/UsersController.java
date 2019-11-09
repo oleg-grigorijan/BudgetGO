@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,7 +22,7 @@ public class UsersController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody UserCreationDto newUser) {
+    public void create(HttpServletResponse response, @RequestBody @Valid UserCreationDto newUser) {
         Long newUserId = requestService.create(newUser).getId();
         response.addHeader("Location", "/api/users/" + newUserId);
     }

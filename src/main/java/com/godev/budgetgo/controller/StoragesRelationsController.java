@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class StoragesRelationsController {
     public void create(
             HttpServletResponse response,
             @PathVariable Long storageId,
-            @RequestBody StorageRelationsCreationDto creationDto
+            @RequestBody @Valid StorageRelationsCreationDto creationDto
     ) {
         creationDto.setStorageId(storageId);
         requestService.create(creationDto);
@@ -59,7 +60,7 @@ public class StoragesRelationsController {
     public StorageRelationsInfoDto patch(
             @PathVariable Long storageId,
             @PathVariable Long userId,
-            @RequestBody StorageRelationsPatchesDto patchDto
+            @RequestBody @Valid StorageRelationsPatchesDto patchDto
     ) {
         return requestService.patch(
                 new UserStorageKey(userId, storageId),

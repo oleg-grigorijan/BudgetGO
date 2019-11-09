@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class CategoriesController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             HttpServletResponse response,
-            @RequestBody CategoryCreationDto creationDto
+            @RequestBody @Valid CategoryCreationDto creationDto
     ) {
         Long newCategoryId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/categories/" + newCategoryId);
@@ -52,7 +53,7 @@ public class CategoriesController {
     @ResponseStatus(HttpStatus.OK)
     public CategoryInfoDto patch(
             @PathVariable Long id,
-            @RequestBody CategoryPatchesDto patchesDto
+            @RequestBody @Valid CategoryPatchesDto patchesDto
     ) {
         return requestService.patch(id, patchesDto);
     }

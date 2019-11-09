@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,10 @@ public class CurrenciesController {
     @PostMapping
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody CurrencyCreationDto creationDto) {
+    public void create(
+            HttpServletResponse response,
+            @RequestBody @Valid CurrencyCreationDto creationDto
+    ) {
         Long newOperationId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/currencies/" + newOperationId);
     }
@@ -46,7 +50,10 @@ public class CurrenciesController {
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
-    public CurrencyInfoDto patch(@PathVariable Long id, @RequestBody CurrencyPatchesDto patches) {
+    public CurrencyInfoDto patch(
+            @PathVariable Long id,
+            @RequestBody @Valid CurrencyPatchesDto patches
+    ) {
         return requestService.patch(id, patches);
     }
 }

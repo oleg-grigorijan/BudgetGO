@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/storages/{id}/settings")
 public class StorageSettingsController {
@@ -29,7 +31,7 @@ public class StorageSettingsController {
     @ResponseStatus(HttpStatus.OK)
     public StorageSettingsInfoDto patch(
             @PathVariable Long id,
-            @RequestBody StorageSettingsPatchesDto patchesDto
+            @RequestBody @Valid StorageSettingsPatchesDto patchesDto
     ) {
         return requestService.patch(id, patchesDto);
     }

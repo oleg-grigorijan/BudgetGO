@@ -2,9 +2,14 @@ package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.AssertFalse;
+
 public class StorageSettingsPatchesDto {
+
     @JsonProperty("isIncludedInUserStatistics")
     private Boolean includedInUserStatistics;
+
+    @AssertFalse
     @JsonProperty("isInvitation")
     private Boolean invitation;
 
