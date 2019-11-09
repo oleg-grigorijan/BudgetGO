@@ -9,12 +9,12 @@ public class StorageRelations implements Cloneable {
     @EmbeddedId
     private UserStorageKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("storageId")
     @JoinColumn(name = "storage_id")
     private Storage storage;

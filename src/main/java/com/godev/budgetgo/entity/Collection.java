@@ -8,7 +8,7 @@ public class Collection {
     @EmbeddedId
     private UserCategoryKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
