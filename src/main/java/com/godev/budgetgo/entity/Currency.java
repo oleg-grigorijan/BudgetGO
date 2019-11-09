@@ -6,17 +6,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "currencies")
 public class Currency implements Cloneable {
+
+    public static final int NAME_MAX_LENGTH = 255;
+    public static final int ISO_CODE_LENGTH = 3;
+    public static final int SYMBOL_MAX_LENGTH = 3;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = NAME_MAX_LENGTH)
     private String name;
 
-    @Column(name = "iso_code", nullable = false)
+    @Column(name = "iso_code", nullable = false, length = ISO_CODE_LENGTH)
     private String isoCode;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = SYMBOL_MAX_LENGTH)
     private String symbol;
 
     @Column(name = "is_symbol_prefixed", nullable = false)
