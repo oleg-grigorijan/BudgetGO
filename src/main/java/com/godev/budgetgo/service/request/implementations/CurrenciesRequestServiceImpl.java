@@ -54,7 +54,6 @@ class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
     @Override
     public CurrencyInfoDto create(CurrencyCreationDto creationDto) {
         Currency entity = entitiesFactory.createFrom(creationDto);
-        // TODO: Validation
         Currency savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }
@@ -64,7 +63,6 @@ class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
     public CurrencyInfoDto patch(Long id, CurrencyPatchesDto patchesDto) {
         Currency entity = dataService.getById(id);
         Currency patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
         Currency savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }

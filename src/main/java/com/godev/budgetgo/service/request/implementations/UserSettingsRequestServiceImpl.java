@@ -40,7 +40,6 @@ class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
     public UserSettingsInfoDto patch(UserSettingsPatchesDto patchesDto) {
         User entity = authenticationFacade.getAuthenticatedUser();
         User patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
         User savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }

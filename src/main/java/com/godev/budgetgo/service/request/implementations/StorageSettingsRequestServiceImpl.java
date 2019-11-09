@@ -44,7 +44,6 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
         User user = authenticationFacade.getAuthenticatedUser();
         StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
         StorageRelations patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
         StorageRelations savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }

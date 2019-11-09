@@ -56,7 +56,6 @@ class CollectionsRequestServiceImpl implements CollectionsRequestService {
     @Override
     public CollectionInfoDto create(CollectionCreationDto creationDto) {
         Collection entity = entitiesFactory.createFrom(creationDto);
-        // TODO: Validation
         Collection savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }

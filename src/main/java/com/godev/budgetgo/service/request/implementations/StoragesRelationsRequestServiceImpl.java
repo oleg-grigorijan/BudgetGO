@@ -71,7 +71,6 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
     public StorageRelationsInfoDto create(StorageRelationsCreationDto creationDto) {
         StorageRelations entity = entitiesFactory.createFrom(creationDto);
         authorizationService.authorizeCreation(entity);
-        // TODO: Validation
         StorageRelations savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }
@@ -82,7 +81,6 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
         StorageRelations entity = dataService.getById(id);
         StorageRelations patchedEntity = merger.merge(patchesDto, entity);
         authorizationService.authorizeModification(entity, patchesDto);
-        // TODO: Validation
         StorageRelations savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }

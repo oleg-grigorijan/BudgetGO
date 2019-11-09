@@ -59,7 +59,6 @@ class UsersRequestServiceImpl implements UsersRequestService {
     @Override
     public UserInfoDto create(UserCreationDto creationDto) {
         User entity = entitiesFactory.createFrom(creationDto);
-        // TODO: Validation
         User savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }

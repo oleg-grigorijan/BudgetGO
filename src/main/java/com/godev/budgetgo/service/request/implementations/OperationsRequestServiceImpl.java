@@ -79,7 +79,6 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
     public OperationInfoDto create(OperationCreationDto creationDto) {
         Operation entity = entitiesFactory.createFrom(creationDto);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
-        // TODO: Validation
         Operation savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }
@@ -90,7 +89,6 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
         Operation entity = dataService.getById(id);
         Operation patchedEntity = merger.merge(patchesDto, entity);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
-        // TODO: Validation
         Operation savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }

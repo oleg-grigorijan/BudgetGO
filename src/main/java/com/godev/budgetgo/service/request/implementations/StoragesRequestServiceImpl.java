@@ -71,7 +71,6 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
         Storage entity = dataService.getById(id);
         authorizationService.authorizeModificationAccess(entity);
         Storage patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
         Storage savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }
@@ -80,7 +79,6 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
     @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
         Storage entity = entitiesFactory.createFrom(creationDto);
-        // TODO: Validation
         Storage savedEntity = dataService.add(entity);
 
         StorageRelations creatorRelations = relationsFactory.generateCreatorEntityForStorage(savedEntity);

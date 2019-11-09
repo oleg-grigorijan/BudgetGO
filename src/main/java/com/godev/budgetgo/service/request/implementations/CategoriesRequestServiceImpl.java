@@ -55,7 +55,6 @@ class CategoriesRequestServiceImpl
     @Override
     public CategoryInfoDto create(CategoryCreationDto creationDto) {
         Category entity = entitiesFactory.createFrom(creationDto);
-        // TODO: Validation
         Category savedEntity = dataService.add(entity);
         return dtoFactory.createFrom(savedEntity);
     }
@@ -65,7 +64,6 @@ class CategoriesRequestServiceImpl
     public CategoryInfoDto patch(Long id, CategoryPatchesDto patchesDto) {
         Category entity = dataService.getById(id);
         Category patchedEntity = merger.merge(patchesDto, entity);
-        // TODO: Validation
         Category savedEntity = dataService.update(patchedEntity);
         return dtoFactory.createFrom(savedEntity);
     }
