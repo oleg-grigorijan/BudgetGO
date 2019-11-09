@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,10 @@ public class StoragesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody StorageCreationDto creationDto) {
+    public void create(
+            HttpServletResponse response,
+            @RequestBody @Valid StorageCreationDto creationDto
+    ) {
         Long newStorageId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/storages/" + newStorageId);
     }
@@ -43,7 +47,10 @@ public class StoragesController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageInfoDto patch(@PathVariable Long id, @RequestBody StoragePatchesDto patches) {
+    public StorageInfoDto patch(
+            @PathVariable Long id,
+            @RequestBody @Valid StoragePatchesDto patches
+    ) {
         return requestService.patch(id, patches);
     }
 }
