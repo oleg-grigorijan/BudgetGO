@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/settings")
 public class UserSettingsController {
@@ -27,7 +29,7 @@ public class UserSettingsController {
     @PatchMapping
     @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
-    public UserSettingsInfoDto patch(@RequestBody UserSettingsPatchesDto patchesDto) {
+    public UserSettingsInfoDto patch(@RequestBody @Valid UserSettingsPatchesDto patchesDto) {
         return requestService.patch(patchesDto);
     }
 }
