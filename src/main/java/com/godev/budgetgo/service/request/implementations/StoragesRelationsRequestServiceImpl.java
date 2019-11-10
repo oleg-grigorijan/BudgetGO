@@ -1,6 +1,6 @@
 package com.godev.budgetgo.service.request.implementations;
 
-import com.godev.budgetgo.dto.StorageRelationsCreationDto;
+import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsInfoDto;
 import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.Storage;
@@ -68,7 +68,7 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
 
     @Transactional
     @Override
-    public StorageRelationsInfoDto create(StorageRelationsCreationDto creationDto) {
+    public StorageRelationsInfoDto create(ExtendedStorageRelationsCreationDto creationDto) {
         StorageRelations entity = entitiesFactory.createFrom(creationDto);
         authorizationService.authorizeCreation(entity);
         StorageRelations savedEntity = dataService.add(entity);

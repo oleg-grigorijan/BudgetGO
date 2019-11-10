@@ -1,6 +1,6 @@
 package com.godev.budgetgo.service.request;
 
-import com.godev.budgetgo.dto.StorageRelationsCreationDto;
+import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsInfoDto;
 import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.UserStorageKey;
@@ -12,7 +12,7 @@ public interface StoragesRelationsRequestService {
 
     List<StorageRelationsInfoDto> getByStorageId(Long storageId);
 
-    StorageRelationsInfoDto create(StorageRelationsCreationDto creationDto);
+    StorageRelationsInfoDto create(ExtendedStorageRelationsCreationDto creationDto);
 
     StorageRelationsInfoDto patch(UserStorageKey id, StorageRelationsPatchesDto patchesDto);
 

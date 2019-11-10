@@ -1,6 +1,6 @@
 package com.godev.budgetgo.controller;
 
-import com.godev.budgetgo.dto.StorageRelationsCreationDto;
+import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsInfoDto;
 import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.UserStorageKey;
@@ -35,10 +35,9 @@ public class StoragesRelationsController {
     public void create(
             HttpServletResponse response,
             @PathVariable Long storageId,
-            @RequestBody @Valid StorageRelationsCreationDto creationDto
+            @RequestBody ExtendedStorageRelationsCreationDto creationDto
     ) {
-        creationDto.setStorageId(storageId);
-        requestService.create(creationDto);
+        requestService.create(new ExtendedStorageRelationsCreationDto(creationDto, storageId));
         response.addHeader(
                 "Location",
                 "/api/storages/" + storageId

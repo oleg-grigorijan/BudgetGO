@@ -1,7 +1,7 @@
 package com.godev.budgetgo.service.factory.implementations;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.StorageRelationsCreationDto;
+import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.entity.*;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.data.UsersDataService;
@@ -25,7 +25,7 @@ class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
     }
 
     @Override
-    public StorageRelations createFrom(StorageRelationsCreationDto dto) {
+    public StorageRelations createFrom(ExtendedStorageRelationsCreationDto dto) {
         StorageRelations e = new StorageRelations();
         e.setStorage(storagesDataService.getById(dto.getStorageId()));
         e.setUser(usersDataService.getById(dto.getUserId()));
