@@ -49,6 +49,7 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
         this.storagesAuthorizationService = storagesAuthorizationService;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<StorageRelationsInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
@@ -60,6 +61,7 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public StorageRelationsInfoDto getById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);

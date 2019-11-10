@@ -49,6 +49,7 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
         this.relationsFactory = relationsFactory;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public StorageInfoDto getById(Long id) {
         Storage entity = dataService.getById(id);
@@ -56,6 +57,7 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<StorageInfoDto> getAll() {
         return authorizationService

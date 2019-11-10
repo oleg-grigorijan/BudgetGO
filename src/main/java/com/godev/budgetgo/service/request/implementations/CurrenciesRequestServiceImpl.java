@@ -35,12 +35,14 @@ class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
         this.merger = merger;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CurrencyInfoDto getById(Long id) {
         Currency entity = dataService.getById(id);
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CurrencyInfoDto> getAll() {
         return dataService

@@ -36,6 +36,7 @@ class CollectionsRequestServiceImpl implements CollectionsRequestService {
         this.authenticationFacade = authenticationFacade;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CollectionInfoDto> getAll() {
         return dataService
@@ -45,6 +46,7 @@ class CollectionsRequestServiceImpl implements CollectionsRequestService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CollectionInfoDto getByCategoryId(Long categoryId) {
         User user = authenticationFacade.getAuthenticatedUser();

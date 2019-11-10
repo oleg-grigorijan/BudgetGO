@@ -39,7 +39,7 @@ public class User implements Cloneable {
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_currency_id", nullable = false)
     private Currency mainCurrency;
 

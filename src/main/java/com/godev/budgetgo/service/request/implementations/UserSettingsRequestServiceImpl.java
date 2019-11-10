@@ -9,6 +9,7 @@ import com.godev.budgetgo.service.factory.UserSettingsDtoFactory;
 import com.godev.budgetgo.service.merger.UsersSettingsMerger;
 import com.godev.budgetgo.service.request.UserSettingsRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
@@ -30,12 +31,14 @@ class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
         this.authenticationFacade = authenticationFacade;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserSettingsInfoDto get() {
         User entity = authenticationFacade.getAuthenticatedUser();
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional
     @Override
     public UserSettingsInfoDto patch(UserSettingsPatchesDto patchesDto) {
         User entity = authenticationFacade.getAuthenticatedUser();

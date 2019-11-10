@@ -30,18 +30,21 @@ class UsersRequestServiceImpl implements UsersRequestService {
         this.dtoFactory = dtoFactory;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserInfoDto getById(Long id) {
         User entity = dataService.getById(id);
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserInfoDto getByLogin(String login) {
         User entity = dataService.getByLogin(login);
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserInfoDto> getAll() {
         return dataService
