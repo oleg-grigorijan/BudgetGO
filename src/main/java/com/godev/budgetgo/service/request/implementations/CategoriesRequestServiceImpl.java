@@ -36,12 +36,14 @@ class CategoriesRequestServiceImpl
         this.merger = merger;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CategoryInfoDto getById(Long id) {
         Category entity = dataService.getById(id);
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CategoryInfoDto> getAll() {
         return dataService

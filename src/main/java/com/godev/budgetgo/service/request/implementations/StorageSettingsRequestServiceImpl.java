@@ -11,6 +11,7 @@ import com.godev.budgetgo.service.factory.StorageSettingsDtoFactory;
 import com.godev.budgetgo.service.merger.StoragesSettingsMerger;
 import com.godev.budgetgo.service.request.StorageSettingsRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService {
@@ -32,6 +33,7 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
         this.authenticationFacade = authenticationFacade;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public StorageSettingsInfoDto getByStorageId(Long storageId) {
         User user = authenticationFacade.getAuthenticatedUser();
@@ -39,6 +41,7 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional
     @Override
     public StorageSettingsInfoDto patch(Long storageId, StorageSettingsPatchesDto patchesDto) {
         User user = authenticationFacade.getAuthenticatedUser();

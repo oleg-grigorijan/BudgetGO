@@ -45,6 +45,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
         this.storagesAuthorizationService = storagesAuthorizationService;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public OperationInfoDto getById(Long id) {
         Operation entity = dataService.getById(id);
@@ -52,6 +53,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
         return dtoFactory.createFrom(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<OperationInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
@@ -63,6 +65,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<OperationInfoDto> getByStorageIdAndDateBetween(Long storageId, LocalDate from, LocalDate to) {
         Storage storage = storagesDataService.getById(storageId);
