@@ -26,7 +26,7 @@ class OperationDtoFactoryImpl implements OperationDtoFactory {
     @Override
     public OperationInfoDto createFrom(Operation e) {
         OperationInfoDto dto = new OperationInfoDto();
-        dto.setId(e.getId());
+        dto.setId(e.getId().getOperationId());
         dto.setStorageInfoDto(storageDtoFactory.createFrom(e.getStorage()));
         dto.setCategoryInfoDto(categoryDtoFactory.createFrom(e.getCategory()));
         dto.setMoneyDelta(e.getMoneyDelta());

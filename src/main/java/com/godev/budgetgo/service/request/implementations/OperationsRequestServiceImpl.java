@@ -1,10 +1,11 @@
 package com.godev.budgetgo.service.request.implementations;
 
-import com.godev.budgetgo.dto.OperationCreationDto;
+import com.godev.budgetgo.dto.ExtendedOperationCreationDto;
 import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.Storage;
+import com.godev.budgetgo.entity.StorageOperationKey;
 import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.data.OperationsDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
@@ -47,7 +48,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
 
     @Transactional(readOnly = true)
     @Override
-    public OperationInfoDto getById(Long id) {
+    public OperationInfoDto getById(StorageOperationKey id) {
         Operation entity = dataService.getById(id);
         storagesAuthorizationService.authorizeAccess(entity.getStorage());
         return dtoFactory.createFrom(entity);
@@ -79,7 +80,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
 
     @Transactional
     @Override
-    public OperationInfoDto create(OperationCreationDto creationDto) {
+    public OperationInfoDto create(ExtendedOperationCreationDto creationDto) {
         Operation entity = entitiesFactory.createFrom(creationDto);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
         Operation savedEntity = dataService.add(entity);
@@ -88,7 +89,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
 
     @Transactional
     @Override
-    public OperationInfoDto patch(Long id, OperationPatchesDto patchesDto) {
+    public OperationInfoDto patch(StorageOperationKey id, OperationPatchesDto patchesDto) {
         Operation entity = dataService.getById(id);
         Operation patchedEntity = merger.merge(patchesDto, entity);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
@@ -98,7 +99,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
 
     @Transactional
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(StorageOperationKey id) {
         Operation entity = dataService.getById(id);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
         dataService.delete(entity);

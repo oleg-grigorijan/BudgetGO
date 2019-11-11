@@ -11,9 +11,6 @@ import java.time.LocalDate;
 
 public class OperationCreationDto {
 
-    @NotNull
-    private Long storageId;
-
     private long moneyDelta;
 
     @NotNull
@@ -25,14 +22,6 @@ public class OperationCreationDto {
 
     @Size(max = Operation.DESCRIPTION_MAX_LENGTH)
     private String description = "";
-
-    public Long getStorageId() {
-        return storageId;
-    }
-
-    public void setStorageId(Long storageId) {
-        this.storageId = storageId;
-    }
 
     public long getMoneyDelta() {
         return moneyDelta;

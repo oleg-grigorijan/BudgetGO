@@ -1,10 +1,13 @@
 package com.godev.budgetgo.service.data.implementations;
 
 import com.godev.budgetgo.entity.Operation;
+import com.godev.budgetgo.entity.OperationsKeySequence;
 import com.godev.budgetgo.entity.Storage;
+import com.godev.budgetgo.entity.StorageOperationKey;
 import com.godev.budgetgo.exception.OperationNotFoundException;
 import com.godev.budgetgo.repository.OperationsRepository;
 import com.godev.budgetgo.service.data.OperationsDataService;
+import com.godev.budgetgo.service.data.OperationsKeySequenceDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,20 @@ import java.util.List;
 
 @Service
 class OperationsDataServiceImpl
-        extends AbstractDataService<Operation, Long>
+        extends AbstractDataService<Operation, StorageOperationKey>
         implements OperationsDataService {
 
     private final OperationsRepository repository;
     private StoragesDataService storagesDataService;
+    private final OperationsKeySequenceDataService keySequenceDataService;
 
-    public OperationsDataServiceImpl(OperationsRepository repository) {
+    public OperationsDataServiceImpl(
+            OperationsRepository repository,
+            OperationsKeySequenceDataService keySequenceDataService
+    ) {
         super(repository, OperationNotFoundException::new);
         this.repository = repository;
+        this.keySequenceDataService = keySequenceDataService;
     }
 
     @Autowired
@@ -35,6 +43,9 @@ class OperationsDataServiceImpl
     @Override
     public Operation add(Operation entity) {
         Storage storage = entity.getStorage();
+
+        entity.setId(getNextIdFor(storage));
+
         storage.setBalance(storage.getBalance() + entity.getMoneyDelta());
         storagesDataService.update(storage);
         return super.add(entity);
@@ -83,5 +94,15 @@ class OperationsDataServiceImpl
     @Override
     public void deleteByStorage(Storage storage) {
         repository.deleteByStorage(storage);
+    }
+
+    private StorageOperationKey getNextIdFor(Storage storage) {
+        OperationsKeySequence keySequence = keySequenceDataService.getByStorage(storage);
+        StorageOperationKey result = new StorageOperationKey(
+                keySequence.getStorageId(),
+                keySequence.getNextOperationId()
+        );
+        keySequenceDataService.increment(keySequence);
+        return result;
     }
 }

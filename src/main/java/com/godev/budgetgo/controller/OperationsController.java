@@ -1,8 +1,10 @@
 package com.godev.budgetgo.controller;
 
+import com.godev.budgetgo.dto.ExtendedOperationCreationDto;
 import com.godev.budgetgo.dto.OperationCreationDto;
 import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
+import com.godev.budgetgo.entity.StorageOperationKey;
 import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.request.OperationsRequestService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/operations")
+@RequestMapping("/api/storages/{storageId}/operations")
 @Secured("ROLE_USER")
 public class OperationsController {
 
@@ -28,8 +30,8 @@ public class OperationsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<OperationInfoDto> getByDate(
-            @RequestParam Long storageId,
+    public List<OperationInfoDto> getAll(
+            @PathVariable Long storageId,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
     ) {
@@ -46,30 +48,47 @@ public class OperationsController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             HttpServletResponse response,
-            @RequestBody @Valid OperationCreationDto creationDto
+            @PathVariable Long storageId,
+            @RequestBody OperationCreationDto creationDto
     ) {
-        Long newOperationId = requestService.create(creationDto).getId();
-        response.addHeader("Location", "/api/operations/" + newOperationId);
+        Long newOperationId = requestService
+                .create(new ExtendedOperationCreationDto(creationDto, storageId))
+                .getId();
+        response.addHeader(
+                "Location",
+                "/api/storages/" + storageId
+                        + "/operations/" + newOperationId
+        );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{operationId}")
     @ResponseStatus(HttpStatus.OK)
-    public OperationInfoDto getById(@PathVariable Long id) {
-        return requestService.getById(id);
+    public OperationInfoDto getById(
+            @PathVariable Long storageId,
+            @PathVariable Long operationId
+    ) {
+        return requestService.getById(new StorageOperationKey(storageId, operationId));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{operationId}")
     @ResponseStatus(HttpStatus.OK)
     public OperationInfoDto patch(
-            @PathVariable Long id,
-            @RequestBody @Valid OperationPatchesDto patches
+            @PathVariable Long storageId,
+            @PathVariable Long operationId,
+            @RequestBody @Valid OperationPatchesDto patchesDto
     ) {
-        return requestService.patch(id, patches);
+        return requestService.patch(
+                new StorageOperationKey(storageId, operationId),
+                patchesDto
+        );
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{operationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        requestService.deleteById(id);
+    public void delete(
+            @PathVariable Long storageId,
+            @PathVariable Long operationId
+    ) {
+        requestService.deleteById(new StorageOperationKey(storageId, operationId));
     }
 }
