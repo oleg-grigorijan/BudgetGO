@@ -24,13 +24,17 @@ class UsersSettingsMergerImpl implements UsersSettingsMerger {
     @Override
     public User merge(UserSettingsPatchesDto dto, User eOld) {
         User e = eOld.clone();
-        if (dto.getLogin() != null) e.setLogin(dto.getLogin());
-        if (dto.getEmail() != null) e.setEmail(dto.getEmail());
-        if (dto.getName() != null) e.setName(dto.getName());
-        if (dto.getSurname() != null) e.setSurname(dto.getSurname());
-        if (dto.getPassword() != null) e.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        if (dto.getEmailPublic() != null) e.setEmailPublic(dto.getEmailPublic());
-        if (dto.getMainCurrencyId() != null) e.setMainCurrency(currenciesDataService.getById(dto.getMainCurrencyId()));
+        dto.getLogin().ifPresent(e::setLogin);
+        dto.getEmail().ifPresent(e::setEmail);
+        dto.getName().ifPresent(e::setName);
+        dto.getSurname().ifPresent(e::setSurname);
+        dto.getPassword().ifPresent(
+                password -> e.setPasswordHash(passwordEncoder.encode(password))
+        );
+        dto.getEmailPublic().ifPresent(e::setEmailPublic);
+        dto.getMainCurrencyId().ifPresent(
+                currencyId -> e.setMainCurrency(currenciesDataService.getById(currencyId))
+        );
         return e;
     }
 }
