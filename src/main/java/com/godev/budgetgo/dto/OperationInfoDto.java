@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 public class OperationInfoDto {
     private Long id;
-    @JsonProperty("storage")
-    private StorageInfoDto storageInfoDto;
     private long moneyDelta;
     @JsonProperty("category")
     private CategoryInfoDto categoryInfoDto;
@@ -31,14 +29,6 @@ public class OperationInfoDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public StorageInfoDto getStorageInfoDto() {
-        return storageInfoDto;
-    }
-
-    public void setStorageInfoDto(StorageInfoDto storageInfoDto) {
-        this.storageInfoDto = storageInfoDto;
     }
 
     public long getMoneyDelta() {

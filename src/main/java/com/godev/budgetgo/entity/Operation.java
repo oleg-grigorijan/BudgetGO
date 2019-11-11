@@ -10,11 +10,11 @@ public class Operation implements Cloneable {
 
     public static final int DESCRIPTION_MAX_LENGTH = 255;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private StorageOperationKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("storageId")
     @JoinColumn(name = "storage_id", nullable = false)
     private Storage storage;
 
@@ -45,11 +45,11 @@ public class Operation implements Cloneable {
     @JoinColumn(name = "last_editor_id", nullable = false)
     private User lastEditor;
 
-    public Long getId() {
+    public StorageOperationKey getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(StorageOperationKey id) {
         this.id = id;
     }
 

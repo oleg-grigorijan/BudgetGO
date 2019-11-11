@@ -1,7 +1,7 @@
 package com.godev.budgetgo.service.factory.implementations;
 
 import com.godev.budgetgo.auth.AuthenticationFacade;
-import com.godev.budgetgo.dto.OperationCreationDto;
+import com.godev.budgetgo.dto.ExtendedOperationCreationDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.service.data.CategoriesDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
@@ -26,7 +26,7 @@ class OperationsFactoryImpl implements OperationsFactory {
     }
 
     @Override
-    public Operation createFrom(OperationCreationDto dto) {
+    public Operation createFrom(ExtendedOperationCreationDto dto) {
         Operation e = new Operation();
         e.setStorage(storagesDataService.getById(dto.getStorageId()));
         e.setCategory(categoriesDataService.getById(dto.getCategoryId()));

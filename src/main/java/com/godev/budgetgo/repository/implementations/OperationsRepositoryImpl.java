@@ -2,6 +2,7 @@ package com.godev.budgetgo.repository.implementations;
 
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.Storage;
+import com.godev.budgetgo.entity.StorageOperationKey;
 import com.godev.budgetgo.repository.OperationsRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +11,12 @@ import java.util.List;
 
 @Repository
 class OperationsRepositoryImpl
-        extends AbstractRepository<Operation, Long>
+        extends AbstractRepository<Operation, StorageOperationKey>
         implements OperationsRepository {
     OperationsRepositoryImpl() {
         super(Operation.class);
     }
+
 
     @Override
     public List<Operation> findByStorage(Storage storage) {
