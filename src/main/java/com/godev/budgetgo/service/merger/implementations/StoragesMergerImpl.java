@@ -10,8 +10,8 @@ class StoragesMergerImpl implements StoragesMerger {
     @Override
     public Storage merge(StoragePatchesDto dto, Storage eOld) {
         Storage e = eOld.clone();
-        if (dto.getName() != null) e.setName(dto.getName());
-        if (dto.getDescription() != null) e.setDescription(dto.getDescription());
+        dto.getName().ifPresent(e::setName);
+        dto.getDescription().ifPresent(e::setDescription);
         return e;
     }
 }
