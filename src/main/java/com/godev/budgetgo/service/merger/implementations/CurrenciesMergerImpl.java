@@ -10,10 +10,10 @@ class CurrenciesMergerImpl implements CurrenciesMerger {
     @Override
     public Currency merge(CurrencyPatchesDto dto, Currency eOld) {
         Currency e = eOld.clone();
-        if (dto.getName() != null) e.setName(dto.getName());
-        if (dto.getIsoCode() != null) e.setIsoCode(dto.getIsoCode());
-        if (dto.getSymbol() != null) e.setSymbol(dto.getSymbol());
-        if (dto.getSymbolPrefixed() != null) e.setSymbolPrefixed(dto.getSymbolPrefixed());
+        dto.getName().ifPresent(e::setName);
+        dto.getIsoCode().ifPresent(e::setIsoCode);
+        dto.getSymbol().ifPresent(e::setSymbol);
+        dto.getSymbolPrefixed().ifPresent(e::setSymbolPrefixed);
         return e;
     }
 }

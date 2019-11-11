@@ -7,6 +7,7 @@ import com.godev.budgetgo.validation.constraint.NullOrNotBlank;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 public class UserSettingsPatchesDto {
     @NullOrNotBlank
@@ -35,56 +36,56 @@ public class UserSettingsPatchesDto {
 
     private Long mainCurrencyId;
 
-    public String getLogin() {
-        return login;
+    public Optional<String> getLogin() {
+        return Optional.ofNullable(login);
     }
 
     public void setLogin(String login) {
         this.login = login;
     }
 
-    public String getEmail() {
-        return email;
+    public Optional<String> getEmail() {
+        return Optional.ofNullable(email);
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public Optional<String> getSurname() {
+        return Optional.ofNullable(surname);
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public String getPassword() {
-        return password;
+    public Optional<String> getPassword() {
+        return Optional.ofNullable(password);
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Boolean getEmailPublic() {
-        return emailPublic;
+    public Optional<Boolean> getEmailPublic() {
+        return Optional.ofNullable(emailPublic);
     }
 
     public void setEmailPublic(Boolean emailPublic) {
         this.emailPublic = emailPublic;
     }
 
-    public Long getMainCurrencyId() {
-        return mainCurrencyId;
+    public Optional<Long> getMainCurrencyId() {
+        return Optional.ofNullable(mainCurrencyId);
     }
 
     public void setMainCurrencyId(Long mainCurrencyId) {

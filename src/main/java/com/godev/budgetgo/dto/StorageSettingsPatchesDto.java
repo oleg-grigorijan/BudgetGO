@@ -3,6 +3,7 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.AssertFalse;
+import java.util.Optional;
 
 public class StorageSettingsPatchesDto {
 
@@ -13,16 +14,16 @@ public class StorageSettingsPatchesDto {
     @JsonProperty("isInvitation")
     private Boolean invitation;
 
-    public Boolean getIncludedInUserStatistics() {
-        return includedInUserStatistics;
+    public Optional<Boolean> getIncludedInUserStatistics() {
+        return Optional.ofNullable(includedInUserStatistics);
     }
 
     public void setIncludedInUserStatistics(Boolean includedInUserStatistics) {
         this.includedInUserStatistics = includedInUserStatistics;
     }
 
-    public Boolean getInvitation() {
-        return invitation;
+    public Optional<Boolean> getInvitation() {
+        return Optional.ofNullable(invitation);
     }
 
     public void setInvitation(Boolean invitation) {

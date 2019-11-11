@@ -4,6 +4,7 @@ import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.validation.constraint.NullOrNotBlank;
 
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 public class StoragePatchesDto {
 
@@ -14,16 +15,16 @@ public class StoragePatchesDto {
     @Size(max = Storage.DESCRIPTION_MAX_LENGTH)
     private String description;
 
-    public String getName() {
-        return name;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     public void setDescription(String description) {

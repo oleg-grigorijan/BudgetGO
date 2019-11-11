@@ -25,12 +25,12 @@ class OperationsMergerImpl implements OperationsMerger {
     @Override
     public Operation merge(OperationPatchesDto dto, Operation eOld) {
         Operation e = eOld.clone();
-        if (dto.getCategoryId() != null) {
-            e.setCategory(categoriesDataService.getById(dto.getCategoryId()));
-        }
-        if (dto.getMoneyDelta() != null) e.setMoneyDelta(dto.getMoneyDelta());
-        if (dto.getDate() != null) e.setDate(dto.getDate());
-        if (dto.getDescription() != null) e.setDescription(dto.getDescription());
+        dto.getCategoryId().ifPresent(
+                categoryId -> e.setCategory(categoriesDataService.getById(categoryId))
+        );
+        dto.getMoneyDelta().ifPresent(e::setMoneyDelta);
+        dto.getDate().ifPresent(e::setDate);
+        dto.getDescription().ifPresent(e::setDescription);
         e.setDateModified(LocalDate.now());
         e.setLastEditor(authenticationFacade.getAuthenticatedUser());
         return e;

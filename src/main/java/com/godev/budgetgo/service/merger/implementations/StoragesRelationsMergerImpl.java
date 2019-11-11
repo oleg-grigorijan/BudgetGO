@@ -10,7 +10,7 @@ class StoragesRelationsMergerImpl implements StoragesRelationsMerger {
     @Override
     public StorageRelations merge(StorageRelationsPatchesDto dto, StorageRelations eOld) {
         StorageRelations e = eOld.clone();
-        if (dto.getUserRole() != null) e.setUserRole(dto.getUserRole());
+        dto.getUserRole().ifPresent(e::setUserRole);
         return e;
     }
 }

@@ -10,7 +10,7 @@ class CategoriesMergerImpl implements CategoriesMerger {
     @Override
     public Category merge(CategoryPatchesDto dto, Category eOld) {
         Category e = eOld.clone();
-        e.setName(dto.getName());
+        dto.getName().ifPresent(e::setName);
         return e;
     }
 }
