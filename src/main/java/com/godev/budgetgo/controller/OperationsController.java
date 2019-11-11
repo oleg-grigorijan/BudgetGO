@@ -49,7 +49,7 @@ public class OperationsController {
     public void create(
             HttpServletResponse response,
             @PathVariable Long storageId,
-            @RequestBody OperationCreationDto creationDto
+            @RequestBody @Valid OperationCreationDto creationDto
     ) {
         Long newOperationId = requestService
                 .create(new ExtendedOperationCreationDto(creationDto, storageId))
