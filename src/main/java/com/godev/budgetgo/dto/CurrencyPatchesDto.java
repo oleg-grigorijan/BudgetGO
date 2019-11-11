@@ -5,6 +5,7 @@ import com.godev.budgetgo.entity.Currency;
 import com.godev.budgetgo.validation.constraint.NullOrNotBlank;
 
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 public class CurrencyPatchesDto {
 
@@ -23,32 +24,32 @@ public class CurrencyPatchesDto {
     @JsonProperty("isSymbolPrefixed")
     private Boolean symbolPrefixed;
 
-    public String getName() {
-        return name;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getIsoCode() {
-        return isoCode;
+    public Optional<String> getIsoCode() {
+        return Optional.ofNullable(isoCode);
     }
 
     public void setIsoCode(String isoCode) {
         this.isoCode = isoCode;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public Optional<String> getSymbol() {
+        return Optional.ofNullable(symbol);
     }
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
-    public Boolean getSymbolPrefixed() {
-        return symbolPrefixed;
+    public Optional<Boolean> getSymbolPrefixed() {
+        return Optional.ofNullable(symbolPrefixed);
     }
 
     public void setSymbolPrefixed(Boolean symbolPrefixed) {
