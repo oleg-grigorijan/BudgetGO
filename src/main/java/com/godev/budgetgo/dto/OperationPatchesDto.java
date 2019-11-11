@@ -7,6 +7,7 @@ import com.godev.budgetgo.json.LocalDateDeserializer;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class OperationPatchesDto {
 
@@ -21,32 +22,32 @@ public class OperationPatchesDto {
     @Size(max = Operation.DESCRIPTION_MAX_LENGTH)
     private String description;
 
-    public Long getMoneyDelta() {
-        return moneyDelta;
+    public Optional<Long> getMoneyDelta() {
+        return Optional.ofNullable(moneyDelta);
     }
 
     public void setMoneyDelta(Long moneyDelta) {
         this.moneyDelta = moneyDelta;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Optional<Long> getCategoryId() {
+        return Optional.ofNullable(categoryId);
     }
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Optional<LocalDate> getDate() {
+        return Optional.ofNullable(date);
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     public void setDescription(String description) {
