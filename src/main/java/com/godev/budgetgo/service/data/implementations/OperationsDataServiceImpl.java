@@ -94,6 +94,8 @@ class OperationsDataServiceImpl
     @Override
     public void deleteByStorage(Storage storage) {
         repository.deleteByStorage(storage);
+        storage.setBalance(storage.getInitialBalance());
+        storagesDataService.update(storage);
     }
 
     private StorageOperationKey getNextIdFor(Storage storage) {

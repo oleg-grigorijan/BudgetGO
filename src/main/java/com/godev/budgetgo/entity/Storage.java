@@ -27,6 +27,9 @@ public class Storage implements Cloneable {
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
+    @Column(name = "initial_balance", nullable = false)
+    private long initialBalance;
+
     public Long getId() {
         return id;
     }
@@ -67,6 +70,14 @@ public class Storage implements Cloneable {
         this.currency = currency;
     }
 
+    public long getInitialBalance() {
+        return initialBalance;
+    }
+
+    public void setInitialBalance(long initialBalance) {
+        this.initialBalance = initialBalance;
+    }
+
     /**
      * @return Shallow clone of instance
      */
@@ -86,6 +97,7 @@ public class Storage implements Cloneable {
         if (!(o instanceof Storage)) return false;
         Storage storage = (Storage) o;
         return balance == storage.balance &&
+                initialBalance == storage.initialBalance &&
                 id.equals(storage.id) &&
                 name.equals(storage.name) &&
                 description.equals(storage.description) &&
@@ -94,7 +106,7 @@ public class Storage implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, balance, name, description, currency);
+        return Objects.hash(id, balance, name, description, currency, initialBalance);
     }
 
     @Override
@@ -105,6 +117,7 @@ public class Storage implements Cloneable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", currency=" + currency +
+                ", initialBalance=" + initialBalance +
                 '}';
     }
 }

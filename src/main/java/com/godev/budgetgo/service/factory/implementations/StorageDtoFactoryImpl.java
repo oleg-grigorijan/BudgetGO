@@ -22,6 +22,7 @@ class StorageDtoFactoryImpl implements StorageDtoFactory {
         dto.setDescription(e.getDescription());
         dto.setBalance(e.getBalance());
         dto.setCurrencyInfoDto(currencyDtoConverter.createFrom(e.getCurrency()));
+        dto.setInitialBalance(e.getInitialBalance());
         return dto;
     }
 }

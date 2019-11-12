@@ -22,6 +22,7 @@ class StoragesFactoryImpl implements StoragesFactory {
         e.setDescription(dto.getDescription());
         e.setBalance(dto.getInitialBalance());
         e.setCurrency(currenciesDataService.getById(dto.getCurrencyId()));
+        e.setInitialBalance(dto.getInitialBalance());
         return e;
     }
 }

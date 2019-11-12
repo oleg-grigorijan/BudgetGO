@@ -9,6 +9,7 @@ public class StorageInfoDto {
     private long balance;
     @JsonProperty("currency")
     private CurrencyInfoDto currencyInfoDto;
+    private long initialBalance;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class StorageInfoDto {
 
     public void setCurrencyInfoDto(CurrencyInfoDto currencyInfoDto) {
         this.currencyInfoDto = currencyInfoDto;
+    }
+
+    public long getInitialBalance() {
+        return initialBalance;
+    }
+
+    public void setInitialBalance(long initialBalance) {
+        this.initialBalance = initialBalance;
     }
 }
