@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NullOrNotBlankValidator.class)
 public @interface NullOrNotBlank {
-    String message() default "{com.godev.budgetgo.validation.constraint.NullOrNotBlank.message}";
+    String message() default "must be null or not blank";
 
     Class<?>[] groups() default {};
 
