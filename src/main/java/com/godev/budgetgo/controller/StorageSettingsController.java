@@ -4,7 +4,6 @@ import com.godev.budgetgo.dto.StorageSettingsInfoDto;
 import com.godev.budgetgo.dto.StorageSettingsPatchesDto;
 import com.godev.budgetgo.service.request.StorageSettingsRequestService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,14 +19,12 @@ public class StorageSettingsController {
     }
 
     @GetMapping
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public StorageSettingsInfoDto get(@PathVariable Long id) {
         return requestService.getByStorageId(id);
     }
 
     @PatchMapping
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public StorageSettingsInfoDto patch(
             @PathVariable Long id,

@@ -24,14 +24,12 @@ public class CategoriesController {
     }
 
     @GetMapping
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryInfoDto> getAll() {
         return requestService.getAll();
     }
 
     @PostMapping
-    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             HttpServletResponse response,
@@ -42,7 +40,6 @@ public class CategoriesController {
     }
 
     @GetMapping("/{id}")
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public CategoryInfoDto get(@PathVariable Long id) {
         return requestService.getById(id);

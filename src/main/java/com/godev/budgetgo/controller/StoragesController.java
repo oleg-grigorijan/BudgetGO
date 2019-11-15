@@ -5,7 +5,6 @@ import com.godev.budgetgo.dto.StorageInfoDto;
 import com.godev.budgetgo.dto.StoragePatchesDto;
 import com.godev.budgetgo.service.request.StoragesRequestService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/storages")
-@Secured("ROLE_USER")
 public class StoragesController {
 
     private final StoragesRequestService requestService;
