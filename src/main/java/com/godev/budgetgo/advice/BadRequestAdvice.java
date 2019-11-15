@@ -11,8 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +42,11 @@ public class BadRequestAdvice {
         );
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    ErrorInfoDto handle(HttpServletRequest request, HttpMessageNotReadableException ex) {
+    @ExceptionHandler({
+            HttpMessageNotReadableException.class,
+            MethodArgumentTypeMismatchException.class
+    })
+    ErrorInfoDto handleParsingError() {
         return new ErrorInfoDto(
                 HttpStatus.BAD_REQUEST,
                 "Request parsing error"
