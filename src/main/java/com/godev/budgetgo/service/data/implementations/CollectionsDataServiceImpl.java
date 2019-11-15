@@ -26,6 +26,6 @@ class CollectionsDataServiceImpl
     @Transactional(readOnly = true)
     @Override
     public List<Collection> getByUser(User user) {
-        return repository.findByUser(user);
+        return repository.getByUser(user);
     }
 }

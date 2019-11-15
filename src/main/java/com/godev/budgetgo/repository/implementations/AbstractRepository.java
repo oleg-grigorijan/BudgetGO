@@ -17,7 +17,7 @@ abstract class AbstractRepository<E, K> implements Repository<E, K> {
     }
 
     @Override
-    public List<E> findAll() {
+    public List<E> getAll() {
         return entityManager
                 .createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
                 .getResultList();

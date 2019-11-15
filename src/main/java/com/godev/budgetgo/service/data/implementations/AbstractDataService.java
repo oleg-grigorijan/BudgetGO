@@ -33,7 +33,7 @@ abstract class AbstractDataService<E, K> implements DataService<E, K> {
     @Transactional(readOnly = true)
     @Override
     public List<E> getAll() {
-        return repository.findAll();
+        return repository.getAll();
     }
 
     @Transactional

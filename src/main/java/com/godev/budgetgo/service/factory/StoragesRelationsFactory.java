@@ -7,5 +7,5 @@ import com.godev.budgetgo.entity.StorageRelations;
 public interface StoragesRelationsFactory
         extends ConverterFactory<ExtendedStorageRelationsCreationDto, StorageRelations> {
 
-    StorageRelations generateCreatorEntityForStorage(Storage storage);
+    StorageRelations createCreatorEntityForStorage(Storage storage);
 }

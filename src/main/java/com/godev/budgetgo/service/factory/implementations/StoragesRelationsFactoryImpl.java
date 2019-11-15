@@ -53,7 +53,7 @@ class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
      * @return created instance
      */
     @Override
-    public StorageRelations generateCreatorEntityForStorage(Storage storage) {
+    public StorageRelations createCreatorEntityForStorage(Storage storage) {
         StorageRelations e = new StorageRelations();
         e.setStorage(storage);
         User user = authenticationFacade.getAuthenticatedUser();

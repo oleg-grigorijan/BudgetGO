@@ -35,7 +35,7 @@ class StoragesDataServiceImpl
     @Transactional(readOnly = true)
     @Override
     public List<Storage> getByUser(User user) {
-        return repository.findByUser(user);
+        return repository.getByUser(user);
     }
 
     @Transactional

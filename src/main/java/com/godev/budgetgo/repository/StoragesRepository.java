@@ -6,5 +6,5 @@ import com.godev.budgetgo.entity.User;
 import java.util.List;
 
 public interface StoragesRepository extends Repository<Storage, Long> {
-    List<Storage> findByUser(User user);
+    List<Storage> getByUser(User user);
 }

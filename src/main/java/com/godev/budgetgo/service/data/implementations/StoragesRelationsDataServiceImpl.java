@@ -38,7 +38,7 @@ class StoragesRelationsDataServiceImpl
     @Transactional(readOnly = true)
     @Override
     public List<StorageRelations> getByStorage(Storage storage) {
-        return repository.findByStorage(storage);
+        return repository.getByStorage(storage);
     }
 
     @Transactional

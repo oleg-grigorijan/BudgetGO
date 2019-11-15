@@ -7,5 +7,5 @@ import com.godev.budgetgo.entity.UserStorageKey;
 import java.util.List;
 
 public interface StoragesRelationsRepository extends Repository<StorageRelations, UserStorageKey> {
-    List<StorageRelations> findByStorage(Storage storage);
+    List<StorageRelations> getByStorage(Storage storage);
 }

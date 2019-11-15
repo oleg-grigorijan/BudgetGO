@@ -17,7 +17,7 @@ class StoragesRepositoryImpl
     }
 
     @Override
-    public List<Storage> findByUser(User user) {
+    public List<Storage> getByUser(User user) {
         return entityManager
                 .createQuery(
                         "SELECT s FROM Storage s WHERE s IN (" +

@@ -18,7 +18,7 @@ class CollectionsRepositoryImpl
     }
 
     @Override
-    public List<Collection> findByUser(User user) {
+    public List<Collection> getByUser(User user) {
         return entityManager
                 .createQuery("SELECT c FROM Collection c WHERE c.user.id = :userId", entityClass)
                 .setParameter("userId", user.getId())

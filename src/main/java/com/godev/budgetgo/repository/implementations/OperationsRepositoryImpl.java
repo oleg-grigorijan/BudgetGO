@@ -19,7 +19,7 @@ class OperationsRepositoryImpl
 
 
     @Override
-    public List<Operation> findByStorage(Storage storage) {
+    public List<Operation> getByStorage(Storage storage) {
         return entityManager
                 .createQuery("SELECT o FROM Operation o WHERE o.storage.id = :storageId", entityClass)
                 .setParameter("storageId", storage.getId())
@@ -27,7 +27,7 @@ class OperationsRepositoryImpl
     }
 
     @Override
-    public List<Operation> findByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to) {
+    public List<Operation> getByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to) {
         return entityManager
                 .createQuery("SELECT o FROM Operation o WHERE o.storage.id = :storageId AND o.date >= :dateFrom AND o.date <= :dateTo", entityClass)
                 .setParameter("storageId", storage.getId())

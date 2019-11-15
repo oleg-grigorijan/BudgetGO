@@ -83,7 +83,7 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
         Storage entity = entitiesFactory.createFrom(creationDto);
         Storage savedEntity = dataService.add(entity);
 
-        StorageRelations creatorRelations = relationsFactory.generateCreatorEntityForStorage(savedEntity);
+        StorageRelations creatorRelations = relationsFactory.createCreatorEntityForStorage(savedEntity);
         relationsDataService.add(creatorRelations);
 
         return dtoFactory.createFrom(savedEntity);

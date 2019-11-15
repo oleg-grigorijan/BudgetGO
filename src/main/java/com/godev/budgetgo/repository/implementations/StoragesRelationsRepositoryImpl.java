@@ -17,7 +17,7 @@ class StoragesRelationsRepositoryImpl
     }
 
     @Override
-    public List<StorageRelations> findByStorage(Storage storage) {
+    public List<StorageRelations> getByStorage(Storage storage) {
         return entityManager
                 .createQuery("SELECT r FROM StorageRelations r WHERE r.storage.id = :id", entityClass)
                 .setParameter("id", storage.getId())

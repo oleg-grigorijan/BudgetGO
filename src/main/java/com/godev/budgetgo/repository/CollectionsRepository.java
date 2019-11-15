@@ -7,5 +7,5 @@ import com.godev.budgetgo.entity.UserCategoryKey;
 import java.util.List;
 
 public interface CollectionsRepository extends Repository<Collection, UserCategoryKey> {
-    List<Collection> findByUser(User user);
+    List<Collection> getByUser(User user);
 }

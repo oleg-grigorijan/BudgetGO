@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface Repository<E, K> {
     Optional<E> findById(K id);
 
-    List<E> findAll();
+    List<E> getAll();
 
     E add(E entity);
 
