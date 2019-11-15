@@ -12,6 +12,6 @@ class CurrenciesDataServiceImpl
         implements CurrenciesDataService {
 
     public CurrenciesDataServiceImpl(CurrenciesRepository repository) {
-        super(repository, CurrencyNotFoundException::new);
+        super(repository, CurrencyNotFoundException::byId);
     }
 }

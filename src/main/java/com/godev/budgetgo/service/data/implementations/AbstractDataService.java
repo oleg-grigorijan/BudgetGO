@@ -6,19 +6,19 @@ import com.godev.budgetgo.service.data.DataService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 abstract class AbstractDataService<E, K> implements DataService<E, K> {
 
     private final Repository<E, K> repository;
-    final Supplier<? extends NotFoundException> notFoundExceptionSupplier;
+    private final Function<K, ? extends NotFoundException> notFoundByIdExceptionBuilder;
 
     public AbstractDataService(
             Repository<E, K> repository,
-            Supplier<? extends NotFoundException> notFoundExceptionSupplier
+            Function<K, ? extends NotFoundException> notFoundByIdExceptionBuilder
     ) {
         this.repository = repository;
-        this.notFoundExceptionSupplier = notFoundExceptionSupplier;
+        this.notFoundByIdExceptionBuilder = notFoundByIdExceptionBuilder;
     }
 
     @Transactional(readOnly = true)
@@ -26,7 +26,7 @@ abstract class AbstractDataService<E, K> implements DataService<E, K> {
     public E getById(K id) {
         return repository
                 .findById(id)
-                .orElseThrow(notFoundExceptionSupplier);
+                .orElseThrow(() -> notFoundByIdExceptionBuilder.apply(id));
     }
 
 

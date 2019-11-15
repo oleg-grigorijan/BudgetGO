@@ -12,6 +12,6 @@ class CategoriesDataServiceImpl
         implements CategoriesDataService {
 
     public CategoriesDataServiceImpl(CategoriesRepository repository) {
-        super(repository, CategoryNotFoundException::new);
+        super(repository, CategoryNotFoundException::byId);
     }
 }

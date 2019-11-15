@@ -15,7 +15,7 @@ class UsersDataServiceImpl
     private final UsersRepository repository;
 
     public UsersDataServiceImpl(UsersRepository repository) {
-        super(repository, UserNotFoundException::new);
+        super(repository, UserNotFoundException::byId);
         this.repository = repository;
     }
 
@@ -24,7 +24,7 @@ class UsersDataServiceImpl
     public User getByEmail(String email) {
         return repository
                 .findByEmail(email)
-                .orElseThrow(notFoundExceptionSupplier);
+                .orElseThrow(() -> UserNotFoundException.byEmail(email));
     }
 
     @Transactional(readOnly = true)
@@ -32,6 +32,6 @@ class UsersDataServiceImpl
     public User getByLogin(String login) {
         return repository
                 .findByLogin(login)
-                .orElseThrow(notFoundExceptionSupplier);
+                .orElseThrow(() -> UserNotFoundException.byLogin(login));
     }
 }
