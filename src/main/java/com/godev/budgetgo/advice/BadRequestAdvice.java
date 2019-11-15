@@ -2,6 +2,7 @@ package com.godev.budgetgo.advice;
 
 import com.godev.budgetgo.dto.ErrorInfoDto;
 import com.godev.budgetgo.exception.BadRequestException;
+import com.godev.budgetgo.exception.UnprocessableEntityException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,14 @@ public class BadRequestAdvice {
                 HttpStatus.BAD_REQUEST,
                 "Request parsing error"
         );
+    }
+
+    @ExceptionHandler(UnprocessableEntityException.class)
+    ErrorInfoDto handle(UnprocessableEntityException ex) {
+        ErrorInfoDto dto = new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
+        if (ex.getCause() != null) {
+            dto.setDetails(ex.getCause().getMessage());
+        }
+        return dto;
     }
 }

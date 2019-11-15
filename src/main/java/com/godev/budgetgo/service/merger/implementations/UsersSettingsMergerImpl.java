@@ -2,6 +2,8 @@ package com.godev.budgetgo.service.merger.implementations;
 
 import com.godev.budgetgo.dto.UserSettingsPatchesDto;
 import com.godev.budgetgo.entity.User;
+import com.godev.budgetgo.exception.NotFoundException;
+import com.godev.budgetgo.exception.UnprocessableEntityException;
 import com.godev.budgetgo.service.data.CurrenciesDataService;
 import com.godev.budgetgo.service.merger.UsersSettingsMerger;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,18 +25,23 @@ class UsersSettingsMergerImpl implements UsersSettingsMerger {
 
     @Override
     public User merge(UserSettingsPatchesDto dto, User eOld) {
-        User e = eOld.clone();
-        dto.getLogin().ifPresent(e::setLogin);
-        dto.getEmail().ifPresent(e::setEmail);
-        dto.getName().ifPresent(e::setName);
-        dto.getSurname().ifPresent(e::setSurname);
-        dto.getPassword().ifPresent(
-                password -> e.setPasswordHash(passwordEncoder.encode(password))
-        );
-        dto.getEmailPublic().ifPresent(e::setEmailPublic);
-        dto.getMainCurrencyId().ifPresent(
-                currencyId -> e.setMainCurrency(currenciesDataService.getById(currencyId))
-        );
-        return e;
+        try {
+            User e = eOld.clone();
+            dto.getLogin().ifPresent(e::setLogin);
+            dto.getEmail().ifPresent(e::setEmail);
+            dto.getName().ifPresent(e::setName);
+            dto.getSurname().ifPresent(e::setSurname);
+            dto.getPassword().ifPresent(
+                    password -> e.setPasswordHash(passwordEncoder.encode(password))
+            );
+            dto.getEmailPublic().ifPresent(e::setEmailPublic);
+            dto.getMainCurrencyId().ifPresent(
+                    currencyId -> e.setMainCurrency(currenciesDataService.getById(currencyId))
+            );
+            return e;
+
+        } catch (NotFoundException ex) {
+            throw new UnprocessableEntityException(ex);
+        }
     }
 }
