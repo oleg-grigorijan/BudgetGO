@@ -26,7 +26,7 @@ class StoragesDataServiceImpl
             StoragesRepository repository,
             OperationsDataService operationsDataService,
             OperationsKeySequenceDataService operationsKeySequenceDataService) {
-        super(repository, StorageNotFoundException::new);
+        super(repository, StorageNotFoundException::byId);
         this.repository = repository;
         this.operationsDataService = operationsDataService;
         this.operationsKeySequenceDataService = operationsKeySequenceDataService;

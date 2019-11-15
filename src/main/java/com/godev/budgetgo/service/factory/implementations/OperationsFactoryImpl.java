@@ -3,6 +3,8 @@ package com.godev.budgetgo.service.factory.implementations;
 import com.godev.budgetgo.auth.AuthenticationFacade;
 import com.godev.budgetgo.dto.ExtendedOperationCreationDto;
 import com.godev.budgetgo.entity.Operation;
+import com.godev.budgetgo.exception.NotFoundException;
+import com.godev.budgetgo.exception.UnprocessableEntityException;
 import com.godev.budgetgo.service.data.CategoriesDataService;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.factory.OperationsFactory;
@@ -27,16 +29,21 @@ class OperationsFactoryImpl implements OperationsFactory {
 
     @Override
     public Operation createFrom(ExtendedOperationCreationDto dto) {
-        Operation e = new Operation();
-        e.setStorage(storagesDataService.getById(dto.getStorageId()));
-        e.setCategory(categoriesDataService.getById(dto.getCategoryId()));
-        e.setMoneyDelta(dto.getMoneyDelta());
-        e.setDate(dto.getDate());
-        e.setDescription(dto.getDescription());
-        e.setDateCreated(LocalDate.now());
-        e.setDateModified(LocalDate.now());
-        e.setCreator(authenticationFacade.getAuthenticatedUser());
-        e.setLastEditor(e.getCreator());
-        return e;
+        try {
+            Operation e = new Operation();
+            e.setStorage(storagesDataService.getById(dto.getStorageId()));
+            e.setCategory(categoriesDataService.getById(dto.getCategoryId()));
+            e.setMoneyDelta(dto.getMoneyDelta());
+            e.setDate(dto.getDate());
+            e.setDescription(dto.getDescription());
+            e.setDateCreated(LocalDate.now());
+            e.setDateModified(LocalDate.now());
+            e.setCreator(authenticationFacade.getAuthenticatedUser());
+            e.setLastEditor(e.getCreator());
+            return e;
+
+        } catch (NotFoundException ex) {
+            throw new UnprocessableEntityException(ex);
+        }
     }
 }

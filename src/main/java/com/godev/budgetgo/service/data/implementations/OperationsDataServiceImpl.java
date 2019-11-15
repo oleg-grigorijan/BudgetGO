@@ -29,7 +29,7 @@ class OperationsDataServiceImpl
             OperationsRepository repository,
             OperationsKeySequenceDataService keySequenceDataService
     ) {
-        super(repository, OperationNotFoundException::new);
+        super(repository, OperationNotFoundException::byId);
         this.repository = repository;
         this.keySequenceDataService = keySequenceDataService;
     }

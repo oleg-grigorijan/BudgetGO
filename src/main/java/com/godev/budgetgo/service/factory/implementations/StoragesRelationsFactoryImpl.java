@@ -3,6 +3,8 @@ package com.godev.budgetgo.service.factory.implementations;
 import com.godev.budgetgo.auth.AuthenticationFacade;
 import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.entity.*;
+import com.godev.budgetgo.exception.NotFoundException;
+import com.godev.budgetgo.exception.UnprocessableEntityException;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.data.UsersDataService;
 import com.godev.budgetgo.service.factory.StoragesRelationsFactory;
@@ -26,15 +28,20 @@ class StoragesRelationsFactoryImpl implements StoragesRelationsFactory {
 
     @Override
     public StorageRelations createFrom(ExtendedStorageRelationsCreationDto dto) {
-        StorageRelations e = new StorageRelations();
-        e.setStorage(storagesDataService.getById(dto.getStorageId()));
-        e.setUser(usersDataService.getById(dto.getUserId()));
-        e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
-        e.setUserRole(dto.getUserRole());
-        e.setIncludedInUserStatistics(getDefaultIncludedInUserStatistics(e.getUserRole()));
-        e.setInviter(authenticationFacade.getAuthenticatedUser());
-        e.setInvitation(true);
-        return e;
+        try {
+            StorageRelations e = new StorageRelations();
+            e.setStorage(storagesDataService.getById(dto.getStorageId()));
+            e.setUser(usersDataService.getById(dto.getUserId()));
+            e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
+            e.setUserRole(dto.getUserRole());
+            e.setIncludedInUserStatistics(getDefaultIncludedInUserStatistics(e.getUserRole()));
+            e.setInviter(authenticationFacade.getAuthenticatedUser());
+            e.setInvitation(true);
+            return e;
+
+        } catch (NotFoundException ex) {
+            throw new UnprocessableEntityException(ex);
+        }
     }
 
     /**

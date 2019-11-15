@@ -19,7 +19,7 @@ class CollectionsDataServiceImpl
     private final CollectionsRepository repository;
 
     public CollectionsDataServiceImpl(CollectionsRepository repository) {
-        super(repository, CollectionNotFoundException::new);
+        super(repository, CollectionNotFoundException::byId);
         this.repository = repository;
     }
 

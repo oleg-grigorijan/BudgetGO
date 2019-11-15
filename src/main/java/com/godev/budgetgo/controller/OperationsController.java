@@ -9,7 +9,6 @@ import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.service.request.OperationsRequestService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/storages/{storageId}/operations")
-@Secured("ROLE_USER")
 public class OperationsController {
 
     private final OperationsRequestService requestService;
@@ -41,7 +39,7 @@ public class OperationsController {
         if (dateFrom != null && dateTo != null) {
             return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
         }
-        throw new BadRequestException();
+        throw new BadRequestException("Both of date limits must be specified or none of them");
     }
 
     @PostMapping

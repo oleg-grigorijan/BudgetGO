@@ -23,7 +23,6 @@ public class CurrenciesController {
     }
 
     @GetMapping
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public List<CurrencyInfoDto> getAll() {
         return requestService.getAll();
@@ -41,7 +40,6 @@ public class CurrenciesController {
     }
 
     @GetMapping("/{id}")
-    @Secured("ROLE_USER")
     @ResponseStatus(HttpStatus.OK)
     public CurrencyInfoDto get(@PathVariable Long id) {
         return requestService.getById(id);
