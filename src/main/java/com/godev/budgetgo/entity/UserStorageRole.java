@@ -6,7 +6,7 @@ public enum UserStorageRole {
     CREATOR("CREATOR"),
     ADMIN("ADMIN"),
     EDITOR("EDITOR"),
-    READER("READER");
+    VIEWER("VIEWER");
 
     private final String value;
 
@@ -20,7 +20,7 @@ public enum UserStorageRole {
     }
 
     public boolean canModifyStorage() {
-        return this != READER;
+        return this != VIEWER;
     }
 
     public boolean canBeCreatedBy(UserStorageRole anotherRole) {
@@ -29,5 +29,9 @@ public enum UserStorageRole {
 
     public boolean canBeModifiedBy(UserStorageRole anotherRole) {
         return anotherRole == CREATOR || (anotherRole == ADMIN && this != CREATOR);
+    }
+
+    public boolean getDefaultIncludedInUserStatistics() {
+        return this != VIEWER;
     }
 }
