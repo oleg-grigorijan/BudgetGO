@@ -39,7 +39,7 @@ public class OperationsController {
         if (dateFrom != null && dateTo != null) {
             return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
         }
-        throw new BadRequestException();
+        throw new BadRequestException("Both of date limits must be specified or none of them");
     }
 
     @PostMapping
