@@ -31,25 +31,14 @@ public class StoragesRelationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(
-            HttpServletResponse response,
-            @PathVariable Long storageId,
-            @RequestBody @Valid StorageRelationsCreationDto creationDto
-    ) {
+    public void create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody @Valid StorageRelationsCreationDto creationDto) {
         requestService.create(new ExtendedStorageRelationsCreationDto(creationDto, storageId));
-        response.addHeader(
-                "Location",
-                "/api/storages/" + storageId
-                        + "/users/" + creationDto.getUserId()
-        );
+        response.addHeader("Location", "/api/storages/" + storageId + "/users/" + creationDto.getUserId());
     }
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageRelationsInfoDto get(
-            @PathVariable Long storageId,
-            @PathVariable Long userId
-    ) {
+    public StorageRelationsInfoDto get(@PathVariable Long storageId, @PathVariable Long userId) {
         return requestService.getById(new UserStorageKey(userId, storageId));
     }
 
@@ -58,20 +47,14 @@ public class StoragesRelationsController {
     public StorageRelationsInfoDto patch(
             @PathVariable Long storageId,
             @PathVariable Long userId,
-            @RequestBody @Valid StorageRelationsPatchesDto patchDto
+            @RequestBody @Valid StorageRelationsPatchesDto patchesDto
     ) {
-        return requestService.patch(
-                new UserStorageKey(userId, storageId),
-                patchDto
-        );
+        return requestService.patch(new UserStorageKey(userId, storageId), patchesDto);
     }
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(
-            @PathVariable Long storageId,
-            @PathVariable Long userId
-    ) {
+    public void delete(@PathVariable Long storageId, @PathVariable Long userId) {
         requestService.deleteById(new UserStorageKey(userId, storageId));
     }
 }

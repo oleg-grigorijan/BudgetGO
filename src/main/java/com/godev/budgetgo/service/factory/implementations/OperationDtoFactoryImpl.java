@@ -12,9 +12,7 @@ class OperationDtoFactoryImpl implements OperationDtoFactory {
     private final CategoryDtoFactory categoryDtoFactory;
     private final UserDtoFactory userDtoFactory;
 
-    public OperationDtoFactoryImpl(
-            CategoryDtoFactory categoryDtoFactory,
-            UserDtoFactory userDtoFactory) {
+    public OperationDtoFactoryImpl(CategoryDtoFactory categoryDtoFactory, UserDtoFactory userDtoFactory) {
         this.categoryDtoFactory = categoryDtoFactory;
         this.userDtoFactory = userDtoFactory;
     }

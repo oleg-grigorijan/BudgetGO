@@ -26,10 +26,7 @@ public class StorageSettingsController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public StorageSettingsInfoDto patch(
-            @PathVariable Long id,
-            @RequestBody @Valid StorageSettingsPatchesDto patchesDto
-    ) {
+    public StorageSettingsInfoDto patch(@PathVariable Long id, @RequestBody @Valid StorageSettingsPatchesDto patchesDto) {
         return requestService.patch(id, patchesDto);
     }
 }

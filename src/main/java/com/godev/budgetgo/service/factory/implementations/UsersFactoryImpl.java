@@ -15,10 +15,7 @@ class UsersFactoryImpl implements UsersFactory {
     private final CurrenciesDataService currenciesDataService;
     private final PasswordEncoder passwordEncoder;
 
-    public UsersFactoryImpl(
-            CurrenciesDataService currenciesDataService,
-            PasswordEncoder passwordEncoder
-    ) {
+    public UsersFactoryImpl(CurrenciesDataService currenciesDataService, PasswordEncoder passwordEncoder) {
         this.currenciesDataService = currenciesDataService;
         this.passwordEncoder = passwordEncoder;
     }

@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "operations_key_sequence")
 public class OperationsKeySequence {
+
     @Id
     @Column(name = "storage_id")
     private Long storageId;

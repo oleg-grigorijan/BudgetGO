@@ -19,42 +19,29 @@ import java.util.List;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestAdvice {
+public class BadRequestExceptionsHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    ErrorInfoDto handle(BadRequestException ex) {
-        return new ErrorInfoDto(
-                HttpStatus.BAD_REQUEST,
-                ex.getMessage()
-        );
+    public ErrorInfoDto handle(BadRequestException ex) {
+        return new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ErrorInfoDto handle(MethodArgumentNotValidException ex) {
+    public ErrorInfoDto handle(MethodArgumentNotValidException ex) {
         List<String> errors = new ArrayList<>();
-        ex.getBindingResult().getFieldErrors().forEach(
-                error -> errors.add(error.getField() + ": " + error.getDefaultMessage())
-        );
-        return new ErrorInfoDto(
-                HttpStatus.BAD_REQUEST,
-                "Validation error",
-                String.join("; ", errors)
-        );
+        ex.getBindingResult().getFieldErrors()
+                .forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
+
+        return new ErrorInfoDto(HttpStatus.BAD_REQUEST, "Validation error", String.join("; ", errors));
     }
 
-    @ExceptionHandler({
-            HttpMessageNotReadableException.class,
-            MethodArgumentTypeMismatchException.class
-    })
-    ErrorInfoDto handleParsingError() {
-        return new ErrorInfoDto(
-                HttpStatus.BAD_REQUEST,
-                "Request parsing error"
-        );
+    @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
+    public ErrorInfoDto handleParsingError() {
+        return new ErrorInfoDto(HttpStatus.BAD_REQUEST, "Request parsing error");
     }
 
     @ExceptionHandler(UnprocessableEntityException.class)
-    ErrorInfoDto handle(UnprocessableEntityException ex) {
+    public ErrorInfoDto handle(UnprocessableEntityException ex) {
         ErrorInfoDto dto = new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
         if (ex.getCause() != null) {
             dto.setDetails(ex.getCause().getMessage());

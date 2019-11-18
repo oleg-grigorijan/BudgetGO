@@ -15,17 +15,9 @@ public final class RestAuthenticationEntryPoint implements AuthenticationEntryPo
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public void commence(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException authException
-    ) throws IOException {
-
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
-        objectMapper.writeValue(
-                response.getOutputStream(),
-                new ErrorInfoDto(HttpStatus.UNAUTHORIZED, "Authorization error")
-        );
+        objectMapper.writeValue(response.getOutputStream(), new ErrorInfoDto(HttpStatus.UNAUTHORIZED, "Authorization error"));
     }
 }

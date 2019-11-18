@@ -17,18 +17,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-class OperationsDataServiceImpl
-        extends AbstractDataService<Operation, StorageOperationKey>
-        implements OperationsDataService {
+class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOperationKey> implements OperationsDataService {
 
     private final OperationsRepository repository;
     private StoragesDataService storagesDataService;
     private final OperationsKeySequenceDataService keySequenceDataService;
 
-    public OperationsDataServiceImpl(
-            OperationsRepository repository,
-            OperationsKeySequenceDataService keySequenceDataService
-    ) {
+    public OperationsDataServiceImpl(OperationsRepository repository, OperationsKeySequenceDataService keySequenceDataService) {
         super(repository, OperationNotFoundException::byId);
         this.repository = repository;
         this.keySequenceDataService = keySequenceDataService;
@@ -62,8 +57,7 @@ class OperationsDataServiceImpl
         }
 
         if (oldEntity.getMoneyDelta() != entity.getMoneyDelta()) {
-            storage.setBalance(storage.getBalance()
-                    - oldEntity.getMoneyDelta() + entity.getMoneyDelta());
+            storage.setBalance(storage.getBalance() - oldEntity.getMoneyDelta() + entity.getMoneyDelta());
         }
 
         return super.update(entity);
@@ -100,10 +94,7 @@ class OperationsDataServiceImpl
 
     private StorageOperationKey getNextIdFor(Storage storage) {
         OperationsKeySequence keySequence = keySequenceDataService.getByStorage(storage);
-        StorageOperationKey result = new StorageOperationKey(
-                keySequence.getStorageId(),
-                keySequence.getNextOperationId()
-        );
+        StorageOperationKey result = new StorageOperationKey(keySequence.getStorageId(), keySequence.getNextOperationId());
         keySequenceDataService.increment(keySequence);
         return result;
     }

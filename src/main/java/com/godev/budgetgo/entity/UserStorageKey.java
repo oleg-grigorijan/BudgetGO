@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class UserStorageKey implements Serializable {
+
     private Long userId;
 
     private Long storageId;

@@ -3,12 +3,18 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StorageInfoDto {
+
     private Long id;
+
     private String name;
+
     private String description;
+
     private long balance;
+
     @JsonProperty("currency")
     private CurrencyInfoDto currencyInfoDto;
+
     private long initialBalance;
 
     public Long getId() {

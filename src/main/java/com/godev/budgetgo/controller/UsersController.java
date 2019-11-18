@@ -28,10 +28,7 @@ public class UsersController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
-    public void getByLogin(
-            HttpServletResponse response,
-            @RequestParam String login
-    ) {
+    public void getByLogin(HttpServletResponse response, @RequestParam String login) {
         response.addHeader("Location", "/api/users/" + requestService.getByLogin(login).getId());
     }
 

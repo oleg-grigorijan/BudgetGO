@@ -14,23 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-public class MethodNotAllowedAdvice {
+public class MethodNotAllowedExceptionsHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    ErrorInfoDto handle(
+    public ErrorInfoDto handle(
             HttpRequestMethodNotSupportedException ex,
             HttpServletResponse response
     ) {
         if (ex.getSupportedMethods() != null) {
-            response.addHeader(
-                    "Allow",
-                    String.join(", ", ex.getSupportedMethods())
-            );
+            response.addHeader("Allow", String.join(", ", ex.getSupportedMethods()));
         }
 
-        return new ErrorInfoDto(
-                HttpStatus.METHOD_NOT_ALLOWED,
-                ex.getMessage()
-        );
+        return new ErrorInfoDto(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
     }
 }

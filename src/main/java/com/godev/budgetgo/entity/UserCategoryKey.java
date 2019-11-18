@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class UserCategoryKey implements Serializable {
+
     private Long userId;
 
     private Long categoryId;

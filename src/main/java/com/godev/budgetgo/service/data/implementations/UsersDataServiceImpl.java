@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-class UsersDataServiceImpl
-        extends AbstractDataService<User, Long>
-        implements UsersDataService {
+class UsersDataServiceImpl extends AbstractDataService<User, Long> implements UsersDataService {
 
     private final UsersRepository repository;
 

@@ -7,9 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-class UsersRepositoryImpl
-        extends AbstractRepository<User, Long>
-        implements UsersRepository {
+class UsersRepositoryImpl extends AbstractRepository<User, Long> implements UsersRepository {
 
     UsersRepositoryImpl() {
         super(User.class);

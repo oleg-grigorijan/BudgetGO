@@ -13,16 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class InternalServerErrorAdvice {
+public class InternalServerErrorExceptionsHandler {
 
-    private final static Logger logger = LogManager.getLogger(InternalServerErrorAdvice.class);
+    private final static Logger logger = LogManager.getLogger(InternalServerErrorExceptionsHandler.class);
 
     @ExceptionHandler(Exception.class)
-    ErrorInfoDto handle(Exception ex) {
+    public ErrorInfoDto handle(Exception ex) {
         logger.error("Unprocessed exception", ex);
-        return new ErrorInfoDto(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "Internal server error"
-        );
+        return new ErrorInfoDto(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 }

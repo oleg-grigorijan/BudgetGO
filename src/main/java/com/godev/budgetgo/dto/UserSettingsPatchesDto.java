@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Optional;
 
 public class UserSettingsPatchesDto {
+
     @NullOrNotBlank
     @Pattern(regexp = User.LOGIN_PATTERN)
     @Size(max = User.LOGIN_MAX_LENGTH)

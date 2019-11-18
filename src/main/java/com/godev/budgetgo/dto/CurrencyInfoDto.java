@@ -3,10 +3,15 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CurrencyInfoDto {
+
     private Long id;
+
     private String name;
+
     private String isoCode;
+
     private String symbol;
+
     @JsonProperty("isSymbolPrefixed")
     private boolean symbolPrefixed;
 

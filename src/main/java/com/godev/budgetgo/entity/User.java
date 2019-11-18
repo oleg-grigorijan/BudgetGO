@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User implements Cloneable {
+
     public static final int LOGIN_MAX_LENGTH = 255;
     public static final String LOGIN_PATTERN = "^[a-zA-Z0-9_.\\-]*$";
     public static final int EMAIL_MAX_LENGTH = 255;

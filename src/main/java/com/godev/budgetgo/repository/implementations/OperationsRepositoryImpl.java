@@ -10,9 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-class OperationsRepositoryImpl
-        extends AbstractRepository<Operation, StorageOperationKey>
-        implements OperationsRepository {
+class OperationsRepositoryImpl extends AbstractRepository<Operation, StorageOperationKey> implements OperationsRepository {
+
     OperationsRepositoryImpl() {
         super(Operation.class);
     }

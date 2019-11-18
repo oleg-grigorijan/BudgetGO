@@ -7,10 +7,7 @@ public class ExtendedOperationCreationDto extends OperationCreationDto {
     public ExtendedOperationCreationDto() {
     }
 
-    public ExtendedOperationCreationDto(
-            OperationCreationDto operationCreationDto,
-            Long storageId
-    ) {
+    public ExtendedOperationCreationDto(OperationCreationDto operationCreationDto, Long storageId) {
         this.storageId = storageId;
         setCategoryId(operationCreationDto.getCategoryId());
         setDate(operationCreationDto.getDate());

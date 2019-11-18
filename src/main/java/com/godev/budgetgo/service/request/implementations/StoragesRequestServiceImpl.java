@@ -30,7 +30,6 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
     private final StoragesAuthorizationService authorizationService;
     private final StoragesRelationsFactory relationsFactory;
 
-
     public StoragesRequestServiceImpl(
             StoragesDataService dataService,
             StoragesRelationsDataService relationsDataService,

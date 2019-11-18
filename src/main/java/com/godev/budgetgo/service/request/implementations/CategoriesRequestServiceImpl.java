@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-class CategoriesRequestServiceImpl
-        implements CategoriesRequestService {
+class CategoriesRequestServiceImpl implements CategoriesRequestService {
 
     private final CategoriesDataService dataService;
     private final CategoriesFactory entitiesFactory;

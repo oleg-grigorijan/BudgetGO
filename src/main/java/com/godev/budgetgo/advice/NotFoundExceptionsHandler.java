@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NotFoundAdvice {
+public class NotFoundExceptionsHandler {
 
     @ExceptionHandler(NotFoundException.class)
-    ErrorInfoDto handle(NotFoundException ex) {
-        return new ErrorInfoDto(
-                HttpStatus.NOT_FOUND,
-                ex.getMessage()
-        );
+    public ErrorInfoDto handle(NotFoundException ex) {
+        return new ErrorInfoDto(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 }

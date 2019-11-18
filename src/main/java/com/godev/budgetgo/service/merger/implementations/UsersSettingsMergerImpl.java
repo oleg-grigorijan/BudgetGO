@@ -15,10 +15,7 @@ class UsersSettingsMergerImpl implements UsersSettingsMerger {
     private final CurrenciesDataService currenciesDataService;
     private final PasswordEncoder passwordEncoder;
 
-    public UsersSettingsMergerImpl(
-            CurrenciesDataService currenciesDataService,
-            PasswordEncoder passwordEncoder
-    ) {
+    public UsersSettingsMergerImpl(CurrenciesDataService currenciesDataService, PasswordEncoder passwordEncoder) {
         this.currenciesDataService = currenciesDataService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -31,13 +28,11 @@ class UsersSettingsMergerImpl implements UsersSettingsMerger {
             dto.getEmail().ifPresent(e::setEmail);
             dto.getName().ifPresent(e::setName);
             dto.getSurname().ifPresent(e::setSurname);
-            dto.getPassword().ifPresent(
-                    password -> e.setPasswordHash(passwordEncoder.encode(password))
-            );
+            dto.getPassword()
+                    .ifPresent(password -> e.setPasswordHash(passwordEncoder.encode(password)));
             dto.getEmailPublic().ifPresent(e::setEmailPublic);
-            dto.getMainCurrencyId().ifPresent(
-                    currencyId -> e.setMainCurrency(currenciesDataService.getById(currencyId))
-            );
+            dto.getMainCurrencyId()
+                    .ifPresent(currencyId -> e.setMainCurrency(currenciesDataService.getById(currencyId)));
             return e;
 
         } catch (NotFoundException ex) {

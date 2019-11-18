@@ -5,11 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoDto {
+
     private Long id;
+
     private String login;
+
     private String email;
+
     private String name;
+
     private String surname;
+
     @JsonProperty("isEmailPublic")
     private Boolean emailPublic;
 

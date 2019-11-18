@@ -15,8 +15,7 @@ import java.util.List;
 public class CollectionsController {
     private final CollectionsRequestService requestService;
 
-    public CollectionsController(
-            CollectionsRequestService requestService) {
+    public CollectionsController(CollectionsRequestService requestService) {
         this.requestService = requestService;
     }
 
@@ -28,10 +27,7 @@ public class CollectionsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(
-            HttpServletResponse response,
-            @RequestBody @Valid CollectionCreationDto creationDto
-    ) {
+    public void create(HttpServletResponse response, @RequestBody @Valid CollectionCreationDto creationDto) {
         requestService.create(creationDto);
         response.addHeader("Location", "/api/collections/" + creationDto.getCategoryId());
     }

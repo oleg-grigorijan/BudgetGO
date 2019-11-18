@@ -18,8 +18,7 @@ public class CategoriesController {
 
     private final CategoriesRequestService requestService;
 
-    public CategoriesController(
-            CategoriesRequestService requestService) {
+    public CategoriesController(CategoriesRequestService requestService) {
         this.requestService = requestService;
     }
 
@@ -31,10 +30,7 @@ public class CategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(
-            HttpServletResponse response,
-            @RequestBody @Valid CategoryCreationDto creationDto
-    ) {
+    public void create(HttpServletResponse response, @RequestBody @Valid CategoryCreationDto creationDto) {
         Long newCategoryId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/categories/" + newCategoryId);
     }
@@ -48,10 +44,7 @@ public class CategoriesController {
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryInfoDto patch(
-            @PathVariable Long id,
-            @RequestBody @Valid CategoryPatchesDto patchesDto
-    ) {
+    public CategoryInfoDto patch(@PathVariable Long id, @RequestBody @Valid CategoryPatchesDto patchesDto) {
         return requestService.patch(id, patchesDto);
     }
 }

@@ -14,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class StoragesDataServiceImpl
-        extends AbstractDataService<Storage, Long>
-        implements StoragesDataService {
+class StoragesDataServiceImpl extends AbstractDataService<Storage, Long> implements StoragesDataService {
 
     private final StoragesRepository repository;
     private final OperationsDataService operationsDataService;

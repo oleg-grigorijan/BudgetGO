@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 abstract class AbstractRepository<E, K> implements Repository<E, K> {
+
     @PersistenceContext
     EntityManager entityManager;
+
     final Class<E> entityClass;
 
     AbstractRepository(Class<E> entityClass) {

@@ -47,13 +47,12 @@ class StoragesRelationsAuthorizationServiceImpl implements StoragesRelationsAuth
         if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {
             throw new StorageRelationsAccessDeniedException();
         }
-        patchesDto.getUserRole().ifPresent(
-                userRole -> {
+        patchesDto.getUserRole()
+                .ifPresent(userRole -> {
                     if (!userRole.canBeCreatedBy(authUserRole)) {
                         throw new StorageRelationsAccessDeniedException();
                     }
-                }
-        );
+                });
     }
 
     private StorageRelations getAuthenticatedUserRelations(Storage storage) {

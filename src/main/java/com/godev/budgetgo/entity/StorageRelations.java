@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "storages_relations")
 public class StorageRelations implements Cloneable {
+
     @EmbeddedId
     private UserStorageKey id;
 

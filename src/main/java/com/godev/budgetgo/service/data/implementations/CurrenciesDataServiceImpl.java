@@ -7,9 +7,7 @@ import com.godev.budgetgo.service.data.CurrenciesDataService;
 import org.springframework.stereotype.Service;
 
 @Service
-class CurrenciesDataServiceImpl
-        extends AbstractDataService<Currency, Long>
-        implements CurrenciesDataService {
+class CurrenciesDataServiceImpl extends AbstractDataService<Currency, Long> implements CurrenciesDataService {
 
     public CurrenciesDataServiceImpl(CurrenciesRepository repository) {
         super(repository, CurrencyNotFoundException::byId);

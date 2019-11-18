@@ -7,19 +7,28 @@ import com.godev.budgetgo.json.LocalDateSerializer;
 import java.time.LocalDate;
 
 public class OperationInfoDto {
+
     private Long id;
+
     private long moneyDelta;
+
     @JsonProperty("category")
     private CategoryInfoDto categoryInfoDto;
+
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
+
     private String description;
+
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateCreated;
+
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateModified;
+
     @JsonProperty("lastEditor")
     private UserInfoDto lastEditorInfoDto;
+
     @JsonProperty("creator")
     private UserInfoDto creatorInfoDto;
 

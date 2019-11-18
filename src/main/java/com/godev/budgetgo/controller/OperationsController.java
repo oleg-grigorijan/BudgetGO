@@ -44,49 +44,28 @@ public class OperationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(
-            HttpServletResponse response,
-            @PathVariable Long storageId,
-            @RequestBody @Valid OperationCreationDto creationDto
-    ) {
+    public void create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody @Valid OperationCreationDto creationDto) {
         Long newOperationId = requestService
                 .create(new ExtendedOperationCreationDto(creationDto, storageId))
                 .getId();
-        response.addHeader(
-                "Location",
-                "/api/storages/" + storageId
-                        + "/operations/" + newOperationId
-        );
+        response.addHeader("Location", "/api/storages/" + storageId + "/operations/" + newOperationId);
     }
 
     @GetMapping("/{operationId}")
     @ResponseStatus(HttpStatus.OK)
-    public OperationInfoDto getById(
-            @PathVariable Long storageId,
-            @PathVariable Long operationId
-    ) {
+    public OperationInfoDto getById(@PathVariable Long storageId, @PathVariable Long operationId) {
         return requestService.getById(new StorageOperationKey(storageId, operationId));
     }
 
     @PatchMapping("/{operationId}")
     @ResponseStatus(HttpStatus.OK)
-    public OperationInfoDto patch(
-            @PathVariable Long storageId,
-            @PathVariable Long operationId,
-            @RequestBody @Valid OperationPatchesDto patchesDto
-    ) {
-        return requestService.patch(
-                new StorageOperationKey(storageId, operationId),
-                patchesDto
-        );
+    public OperationInfoDto patch(@PathVariable Long storageId, @PathVariable Long operationId, @RequestBody @Valid OperationPatchesDto patchesDto) {
+        return requestService.patch(new StorageOperationKey(storageId, operationId), patchesDto);
     }
 
     @DeleteMapping("/{operationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(
-            @PathVariable Long storageId,
-            @PathVariable Long operationId
-    ) {
+    public void delete(@PathVariable Long storageId, @PathVariable Long operationId) {
         requestService.deleteById(new StorageOperationKey(storageId, operationId));
     }
 }

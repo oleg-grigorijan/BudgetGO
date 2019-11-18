@@ -15,10 +15,7 @@ class CollectionsFactoryImpl implements CollectionsFactory {
     private final CategoriesDataService categoriesDataService;
     private final AuthenticationFacade authenticationFacade;
 
-    public CollectionsFactoryImpl(
-            CategoriesDataService categoriesDataService,
-            AuthenticationFacade authenticationFacade
-    ) {
+    public CollectionsFactoryImpl(CategoriesDataService categoriesDataService, AuthenticationFacade authenticationFacade) {
         this.categoriesDataService = categoriesDataService;
         this.authenticationFacade = authenticationFacade;
     }

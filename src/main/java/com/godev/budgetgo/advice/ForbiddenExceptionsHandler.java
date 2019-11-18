@@ -12,14 +12,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.FORBIDDEN)
-public class ForbiddenAdvice {
+public class ForbiddenExceptionsHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
-    ErrorInfoDto handle(AccessDeniedException ex) {
-        if (ex.getCause() != null) ex.getCause().printStackTrace();
-        return new ErrorInfoDto(
-                HttpStatus.FORBIDDEN,
-                ex.getMessage()
-        );
+    public ErrorInfoDto handle(AccessDeniedException ex) {
+        return new ErrorInfoDto(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 }

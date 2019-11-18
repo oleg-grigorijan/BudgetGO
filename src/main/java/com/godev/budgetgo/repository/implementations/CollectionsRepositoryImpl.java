@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-class CollectionsRepositoryImpl
-        extends AbstractRepository<Collection, UserCategoryKey>
-        implements CollectionsRepository {
+class CollectionsRepositoryImpl extends AbstractRepository<Collection, UserCategoryKey> implements CollectionsRepository {
 
     CollectionsRepositoryImpl() {
         super(Collection.class);

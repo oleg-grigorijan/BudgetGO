@@ -7,9 +7,7 @@ import com.godev.budgetgo.service.data.CategoriesDataService;
 import org.springframework.stereotype.Service;
 
 @Service
-class CategoriesDataServiceImpl
-        extends AbstractDataService<Category, Long>
-        implements CategoriesDataService {
+class CategoriesDataServiceImpl extends AbstractDataService<Category, Long> implements CategoriesDataService {
 
     public CategoriesDataServiceImpl(CategoriesRepository repository) {
         super(repository, CategoryNotFoundException::byId);

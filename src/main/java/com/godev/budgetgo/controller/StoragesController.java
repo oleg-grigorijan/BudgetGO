@@ -29,10 +29,7 @@ public class StoragesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(
-            HttpServletResponse response,
-            @RequestBody @Valid StorageCreationDto creationDto
-    ) {
+    public void create(HttpServletResponse response, @RequestBody @Valid StorageCreationDto creationDto) {
         Long newStorageId = requestService.create(creationDto).getId();
         response.addHeader("Location", "/api/storages/" + newStorageId);
     }
@@ -45,10 +42,7 @@ public class StoragesController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageInfoDto patch(
-            @PathVariable Long id,
-            @RequestBody @Valid StoragePatchesDto patches
-    ) {
-        return requestService.patch(id, patches);
+    public StorageInfoDto patch(@PathVariable Long id, @RequestBody @Valid StoragePatchesDto patchesDto) {
+        return requestService.patch(id, patchesDto);
     }
 }

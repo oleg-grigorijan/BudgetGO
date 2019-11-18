@@ -7,10 +7,7 @@ public class ExtendedStorageRelationsCreationDto extends StorageRelationsCreatio
     public ExtendedStorageRelationsCreationDto() {
     }
 
-    public ExtendedStorageRelationsCreationDto(
-            StorageRelationsCreationDto relationsCreationDto,
-            Long storageId
-    ) {
+    public ExtendedStorageRelationsCreationDto(StorageRelationsCreationDto relationsCreationDto, Long storageId) {
         this.storageId = storageId;
         setUserId(relationsCreationDto.getUserId());
         setUserRole(relationsCreationDto.getUserRole());

@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "collections")
 public class Collection {
+
     @EmbeddedId
     private UserCategoryKey id;
 

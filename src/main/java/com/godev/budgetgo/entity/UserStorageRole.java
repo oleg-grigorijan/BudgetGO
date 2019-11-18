@@ -3,6 +3,7 @@ package com.godev.budgetgo.entity;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum UserStorageRole {
+
     CREATOR("CREATOR"),
     ADMIN("ADMIN"),
     EDITOR("EDITOR"),

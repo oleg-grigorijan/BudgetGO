@@ -17,9 +17,7 @@ class OperationsMergerImpl implements OperationsMerger {
     private final CategoriesDataService categoriesDataService;
     private final AuthenticationFacade authenticationFacade;
 
-    public OperationsMergerImpl(
-            CategoriesDataService categoriesDataService,
-            AuthenticationFacade authenticationFacade) {
+    public OperationsMergerImpl(CategoriesDataService categoriesDataService, AuthenticationFacade authenticationFacade) {
         this.categoriesDataService = categoriesDataService;
         this.authenticationFacade = authenticationFacade;
     }
@@ -28,9 +26,8 @@ class OperationsMergerImpl implements OperationsMerger {
     public Operation merge(OperationPatchesDto dto, Operation eOld) {
         try {
             Operation e = eOld.clone();
-            dto.getCategoryId().ifPresent(
-                    categoryId -> e.setCategory(categoriesDataService.getById(categoryId))
-            );
+            dto.getCategoryId()
+                    .ifPresent(categoryId -> e.setCategory(categoriesDataService.getById(categoryId)));
             dto.getMoneyDelta().ifPresent(e::setMoneyDelta);
             dto.getDate().ifPresent(e::setDate);
             dto.getDescription().ifPresent(e::setDescription);

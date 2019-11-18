@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserCreationDto {
+
     @NotBlank
     @Pattern(regexp = User.LOGIN_PATTERN)
     @Size(max = User.LOGIN_MAX_LENGTH)

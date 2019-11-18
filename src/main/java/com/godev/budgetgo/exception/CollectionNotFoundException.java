@@ -15,7 +15,7 @@ public class CollectionNotFoundException extends NotFoundException {
     }
 
     public static CollectionNotFoundException byId(UserCategoryKey id) {
-        return new CollectionNotFoundException("Collection not found for user with id = " + id.getUserId() +
-                " for category with id = " + id.getCategoryId());
+        return new CollectionNotFoundException("Collection not found for user with id = " + id.getUserId()
+                + " for category with id = " + id.getCategoryId());
     }
 }
