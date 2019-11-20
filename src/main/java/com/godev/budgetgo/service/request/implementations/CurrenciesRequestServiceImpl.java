@@ -4,68 +4,52 @@ import com.godev.budgetgo.dto.CurrencyCreationDto;
 import com.godev.budgetgo.dto.CurrencyInfoDto;
 import com.godev.budgetgo.dto.CurrencyPatchesDto;
 import com.godev.budgetgo.entity.Currency;
+import com.godev.budgetgo.service.converter.CurrenciesConverter;
 import com.godev.budgetgo.service.data.CurrenciesDataService;
-import com.godev.budgetgo.service.factory.CurrenciesFactory;
-import com.godev.budgetgo.service.factory.CurrencyDtoFactory;
-import com.godev.budgetgo.service.merger.CurrenciesMerger;
 import com.godev.budgetgo.service.request.CurrenciesRequestService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
 
     private final CurrenciesDataService dataService;
-    private final CurrenciesFactory entitiesFactory;
-    private final CurrencyDtoFactory dtoFactory;
-    private final CurrenciesMerger merger;
+    private final CurrenciesConverter converter;
 
-    public CurrenciesRequestServiceImpl(
-            CurrenciesDataService dataService,
-            CurrenciesFactory entitiesFactory,
-            CurrencyDtoFactory dtoFactory,
-            CurrenciesMerger merger
-    ) {
+    public CurrenciesRequestServiceImpl(CurrenciesDataService dataService, CurrenciesConverter converter) {
         this.dataService = dataService;
-        this.entitiesFactory = entitiesFactory;
-        this.dtoFactory = dtoFactory;
-        this.merger = merger;
+        this.converter = converter;
     }
 
     @Transactional(readOnly = true)
     @Override
     public CurrencyInfoDto getById(Long id) {
         Currency entity = dataService.getById(id);
-        return dtoFactory.createFrom(entity);
+        return converter.convertFromEntity(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<CurrencyInfoDto> getAll() {
-        return dataService
-                .getAll()
-                .stream()
-                .map(dtoFactory::createFrom)
-                .collect(Collectors.toList());
+        return converter.convertFromEntities(dataService.getAll());
     }
 
     @Transactional
     @Override
     public CurrencyInfoDto create(CurrencyCreationDto creationDto) {
-        Currency entity = entitiesFactory.createFrom(creationDto);
+        Currency entity = converter.convertFromDto(creationDto);
         Currency savedEntity = dataService.add(entity);
-        return dtoFactory.createFrom(savedEntity);
+        return converter.convertFromEntity(savedEntity);
     }
 
     @Transactional
     @Override
     public CurrencyInfoDto patch(Long id, CurrencyPatchesDto patchesDto) {
         Currency entity = dataService.getById(id);
-        Currency patchedEntity = merger.merge(patchesDto, entity);
+        Currency patchedEntity = converter.merge(entity, patchesDto);
         Currency savedEntity = dataService.update(patchedEntity);
-        return dtoFactory.createFrom(savedEntity);
+        return converter.convertFromEntity(savedEntity);
     }
 }

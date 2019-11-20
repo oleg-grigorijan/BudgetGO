@@ -2,17 +2,17 @@ package com.godev.budgetgo.service.factory.implementations;
 
 import com.godev.budgetgo.dto.UserSettingsInfoDto;
 import com.godev.budgetgo.entity.User;
-import com.godev.budgetgo.service.factory.CurrencyDtoFactory;
+import com.godev.budgetgo.service.converter.CurrenciesConverter;
 import com.godev.budgetgo.service.factory.UserSettingsDtoFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 class UserSettingsDtoFactoryImpl implements UserSettingsDtoFactory {
 
-    private final CurrencyDtoFactory currencyDtoFactory;
+    private final CurrenciesConverter currenciesConverter;
 
-    public UserSettingsDtoFactoryImpl(CurrencyDtoFactory currencyDtoFactory) {
-        this.currencyDtoFactory = currencyDtoFactory;
+    public UserSettingsDtoFactoryImpl(CurrenciesConverter currenciesConverter) {
+        this.currenciesConverter = currenciesConverter;
     }
 
     @Override
@@ -24,7 +24,7 @@ class UserSettingsDtoFactoryImpl implements UserSettingsDtoFactory {
         dto.setEmailPublic(e.isEmailPublic());
         dto.setName(e.getName());
         dto.setSurname(e.getSurname());
-        dto.setMainCurrencyInfoDto(currencyDtoFactory.createFrom(e.getMainCurrency()));
+        dto.setMainCurrencyInfoDto(currenciesConverter.convertFromEntity(e.getMainCurrency()));
         return dto;
     }
 }
