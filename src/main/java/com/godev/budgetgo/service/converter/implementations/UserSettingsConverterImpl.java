@@ -1,27 +1,47 @@
-package com.godev.budgetgo.service.merger.implementations;
+package com.godev.budgetgo.service.converter.implementations;
 
+import com.godev.budgetgo.dto.UserSettingsInfoDto;
 import com.godev.budgetgo.dto.UserSettingsPatchesDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.exception.NotFoundException;
 import com.godev.budgetgo.exception.UnprocessableEntityException;
+import com.godev.budgetgo.service.converter.CurrenciesConverter;
+import com.godev.budgetgo.service.converter.UserSettingsConverter;
 import com.godev.budgetgo.service.data.CurrenciesDataService;
-import com.godev.budgetgo.service.merger.UsersSettingsMerger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersSettingsMergerImpl implements UsersSettingsMerger {
+class UserSettingsConverterImpl implements UserSettingsConverter {
 
     private final CurrenciesDataService currenciesDataService;
     private final PasswordEncoder passwordEncoder;
+    private final CurrenciesConverter currenciesConverter;
 
-    public UsersSettingsMergerImpl(CurrenciesDataService currenciesDataService, PasswordEncoder passwordEncoder) {
+    public UserSettingsConverterImpl(
+            CurrenciesDataService currenciesDataService,
+            PasswordEncoder passwordEncoder,
+            CurrenciesConverter currenciesConverter) {
         this.currenciesDataService = currenciesDataService;
         this.passwordEncoder = passwordEncoder;
+        this.currenciesConverter = currenciesConverter;
     }
 
     @Override
-    public User merge(UserSettingsPatchesDto dto, User eOld) {
+    public UserSettingsInfoDto convertFromEntity(User e) {
+        UserSettingsInfoDto dto = new UserSettingsInfoDto();
+        dto.setId(e.getId());
+        dto.setLogin(e.getLogin());
+        dto.setEmail(e.getEmail());
+        dto.setEmailPublic(e.isEmailPublic());
+        dto.setName(e.getName());
+        dto.setSurname(e.getSurname());
+        dto.setMainCurrencyInfoDto(currenciesConverter.convertFromEntity(e.getMainCurrency()));
+        return dto;
+    }
+
+    @Override
+    public User merge(User eOld, UserSettingsPatchesDto dto) {
         try {
             User e = eOld.clone();
             dto.getLogin().ifPresent(e::setLogin);
