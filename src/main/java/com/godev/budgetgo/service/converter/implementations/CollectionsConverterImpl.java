@@ -21,7 +21,8 @@ class CollectionsConverterImpl implements CollectionsConverter {
     public CollectionsConverterImpl(
             CategoriesConverter categoriesConverter,
             CategoriesDataService categoriesDataService,
-            AuthenticationFacade authenticationFacade) {
+            AuthenticationFacade authenticationFacade
+    ) {
         this.categoriesConverter = categoriesConverter;
         this.categoriesDataService = categoriesDataService;
         this.authenticationFacade = authenticationFacade;

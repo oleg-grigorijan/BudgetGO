@@ -21,7 +21,8 @@ class UserSettingsConverterImpl implements UserSettingsConverter {
     public UserSettingsConverterImpl(
             CurrenciesDataService currenciesDataService,
             PasswordEncoder passwordEncoder,
-            CurrenciesConverter currenciesConverter) {
+            CurrenciesConverter currenciesConverter
+    ) {
         this.currenciesDataService = currenciesDataService;
         this.passwordEncoder = passwordEncoder;
         this.currenciesConverter = currenciesConverter;
