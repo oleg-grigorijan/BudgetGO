@@ -9,7 +9,7 @@ import com.godev.budgetgo.service.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.service.converter.StoragesConverter;
 import com.godev.budgetgo.service.data.StoragesDataService;
 import com.godev.budgetgo.service.data.StoragesRelationsDataService;
-import com.godev.budgetgo.service.factory.StoragesRelationsFactory;
+import com.godev.budgetgo.service.factory.StorageRelationsFactory;
 import com.godev.budgetgo.service.request.StoragesRequestService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +23,14 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
     private final StoragesRelationsDataService relationsDataService;
     private final StoragesConverter converter;
     private final StoragesAuthorizationService authorizationService;
-    private final StoragesRelationsFactory relationsFactory;
+    private final StorageRelationsFactory relationsFactory;
 
     public StoragesRequestServiceImpl(
             StoragesDataService dataService,
             StoragesRelationsDataService relationsDataService,
             StoragesConverter converter,
             StoragesAuthorizationService authorizationService,
-            StoragesRelationsFactory relationsFactory
+            StorageRelationsFactory relationsFactory
     ) {
         this.dataService = dataService;
         this.relationsDataService = relationsDataService;
