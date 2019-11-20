@@ -2,7 +2,7 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
-import com.godev.budgetgo.service.request.UsersRequestService;
+import com.godev.budgetgo.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

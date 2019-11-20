@@ -2,7 +2,7 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.StorageSettingsInfoDto;
 import com.godev.budgetgo.dto.StorageSettingsPatchesDto;
-import com.godev.budgetgo.service.request.StorageSettingsRequestService;
+import com.godev.budgetgo.request.StorageSettingsRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

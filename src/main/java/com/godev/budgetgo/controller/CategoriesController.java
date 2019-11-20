@@ -3,7 +3,7 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.CategoryCreationDto;
 import com.godev.budgetgo.dto.CategoryInfoDto;
 import com.godev.budgetgo.dto.CategoryPatchesDto;
-import com.godev.budgetgo.service.request.CategoriesRequestService;
+import com.godev.budgetgo.request.CategoriesRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

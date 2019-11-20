@@ -5,7 +5,7 @@ import com.godev.budgetgo.dto.StorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsInfoDto;
 import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.UserStorageKey;
-import com.godev.budgetgo.service.request.StoragesRelationsRequestService;
+import com.godev.budgetgo.request.StoragesRelationsRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

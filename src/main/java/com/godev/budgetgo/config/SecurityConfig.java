@@ -1,6 +1,6 @@
 package com.godev.budgetgo.config;
 
-import com.godev.budgetgo.auth.RestAuthenticationEntryPoint;
+import com.godev.budgetgo.authentication.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

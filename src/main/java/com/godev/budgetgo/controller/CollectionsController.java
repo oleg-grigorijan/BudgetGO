@@ -2,7 +2,7 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.CollectionCreationDto;
 import com.godev.budgetgo.dto.CollectionInfoDto;
-import com.godev.budgetgo.service.request.CollectionsRequestService;
+import com.godev.budgetgo.request.CollectionsRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

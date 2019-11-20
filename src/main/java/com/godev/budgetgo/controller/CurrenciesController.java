@@ -3,7 +3,7 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.CurrencyCreationDto;
 import com.godev.budgetgo.dto.CurrencyInfoDto;
 import com.godev.budgetgo.dto.CurrencyPatchesDto;
-import com.godev.budgetgo.service.request.CurrenciesRequestService;
+import com.godev.budgetgo.request.CurrenciesRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

@@ -6,7 +6,7 @@ import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.StorageOperationKey;
 import com.godev.budgetgo.exception.BadRequestException;
-import com.godev.budgetgo.service.request.OperationsRequestService;
+import com.godev.budgetgo.request.OperationsRequestService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
