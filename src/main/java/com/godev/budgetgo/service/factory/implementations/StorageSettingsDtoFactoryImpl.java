@@ -2,17 +2,17 @@ package com.godev.budgetgo.service.factory.implementations;
 
 import com.godev.budgetgo.dto.StorageSettingsInfoDto;
 import com.godev.budgetgo.entity.StorageRelations;
+import com.godev.budgetgo.service.converter.UsersConverter;
 import com.godev.budgetgo.service.factory.StorageSettingsDtoFactory;
-import com.godev.budgetgo.service.factory.UserDtoFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 class StorageSettingsDtoFactoryImpl implements StorageSettingsDtoFactory {
 
-    private final UserDtoFactory userDtoFactory;
+    private final UsersConverter usersConverter;
 
-    public StorageSettingsDtoFactoryImpl(UserDtoFactory userDtoFactory) {
-        this.userDtoFactory = userDtoFactory;
+    public StorageSettingsDtoFactoryImpl(UsersConverter usersConverter) {
+        this.usersConverter = usersConverter;
     }
 
     @Override
@@ -21,7 +21,7 @@ class StorageSettingsDtoFactoryImpl implements StorageSettingsDtoFactory {
         dto.setUserRole(e.getUserRole());
         dto.setIncludedInUserStatistics(e.isIncludedInUserStatistics());
         dto.setInvitation(e.isInvitation());
-        dto.setInviterInfoDto(userDtoFactory.createFrom(e.getInviter()));
+        dto.setInviterInfoDto(usersConverter.convertFromEntity(e.getInviter()));
         return dto;
     }
 }

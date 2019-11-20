@@ -3,18 +3,19 @@ package com.godev.budgetgo.service.factory.implementations;
 import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.service.converter.CategoriesConverter;
+import com.godev.budgetgo.service.converter.UsersConverter;
 import com.godev.budgetgo.service.factory.OperationDtoFactory;
-import com.godev.budgetgo.service.factory.UserDtoFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 class OperationDtoFactoryImpl implements OperationDtoFactory {
-    private final CategoriesConverter categoriesConverter;
-    private final UserDtoFactory userDtoFactory;
 
-    public OperationDtoFactoryImpl(CategoriesConverter categoriesConverter, UserDtoFactory userDtoFactory) {
+    private final CategoriesConverter categoriesConverter;
+    private final UsersConverter usersConverter;
+
+    public OperationDtoFactoryImpl(CategoriesConverter categoriesConverter, UsersConverter usersConverter) {
         this.categoriesConverter = categoriesConverter;
-        this.userDtoFactory = userDtoFactory;
+        this.usersConverter = usersConverter;
     }
 
     @Override
@@ -27,8 +28,8 @@ class OperationDtoFactoryImpl implements OperationDtoFactory {
         dto.setDescription(e.getDescription());
         dto.setDateCreated(e.getDateCreated());
         dto.setDateModified(e.getDateModified());
-        dto.setLastEditorInfoDto(userDtoFactory.createFrom(e.getLastEditor()));
-        dto.setCreatorInfoDto(userDtoFactory.createFrom(e.getCreator()));
+        dto.setLastEditorInfoDto(usersConverter.convertFromEntity(e.getLastEditor()));
+        dto.setCreatorInfoDto(usersConverter.convertFromEntity(e.getCreator()));
         return dto;
     }
 }

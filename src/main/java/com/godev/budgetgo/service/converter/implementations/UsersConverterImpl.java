@@ -1,27 +1,28 @@
-package com.godev.budgetgo.service.factory.implementations;
+package com.godev.budgetgo.service.converter.implementations;
 
 import com.godev.budgetgo.dto.UserCreationDto;
+import com.godev.budgetgo.dto.UserInfoDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.exception.NotFoundException;
 import com.godev.budgetgo.exception.UnprocessableEntityException;
+import com.godev.budgetgo.service.converter.UsersConverter;
 import com.godev.budgetgo.service.data.CurrenciesDataService;
-import com.godev.budgetgo.service.factory.UsersFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersFactoryImpl implements UsersFactory {
+class UsersConverterImpl implements UsersConverter {
 
     private final CurrenciesDataService currenciesDataService;
     private final PasswordEncoder passwordEncoder;
 
-    public UsersFactoryImpl(CurrenciesDataService currenciesDataService, PasswordEncoder passwordEncoder) {
+    public UsersConverterImpl(CurrenciesDataService currenciesDataService, PasswordEncoder passwordEncoder) {
         this.currenciesDataService = currenciesDataService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User createFrom(UserCreationDto dto) {
+    public User convertFromDto(UserCreationDto dto) {
         try {
             User user = new User();
             user.setMainCurrency(currenciesDataService.getById(dto.getMainCurrencyId()));
@@ -36,5 +37,19 @@ class UsersFactoryImpl implements UsersFactory {
         } catch (NotFoundException ex) {
             throw new UnprocessableEntityException(ex);
         }
+    }
+
+    @Override
+    public UserInfoDto convertFromEntity(User e) {
+        UserInfoDto dto = new UserInfoDto();
+        dto.setId(e.getId());
+        dto.setLogin(e.getLogin());
+        dto.setEmailPublic(e.isEmailPublic());
+        if (e.isEmailPublic()) {
+            dto.setEmail(e.getEmail());
+        }
+        dto.setName(e.getName());
+        dto.setSurname(e.getSurname());
+        return dto;
     }
 }
