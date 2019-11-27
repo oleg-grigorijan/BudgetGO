@@ -30,9 +30,10 @@ public class CategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody @Valid CategoryCreationDto creationDto) {
-        Long newCategoryId = requestService.create(creationDto).getId();
-        response.addHeader("Location", "/api/categories/" + newCategoryId);
+    public CategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid CategoryCreationDto creationDto) {
+        CategoryInfoDto createdDto = requestService.create(creationDto);
+        response.addHeader("Location", "/api/categories/" + createdDto.getId());
+        return createdDto;
     }
 
     @GetMapping("/{id}")

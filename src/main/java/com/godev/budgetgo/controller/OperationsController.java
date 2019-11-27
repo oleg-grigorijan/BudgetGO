@@ -44,11 +44,10 @@ public class OperationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody @Valid OperationCreationDto creationDto) {
-        Long newOperationId = requestService
-                .create(new ExtendedOperationCreationDto(creationDto, storageId))
-                .getId();
-        response.addHeader("Location", "/api/storages/" + storageId + "/operations/" + newOperationId);
+    public OperationInfoDto create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody @Valid OperationCreationDto creationDto) {
+        OperationInfoDto createdDto = requestService.create(new ExtendedOperationCreationDto(creationDto, storageId));
+        response.addHeader("Location", "/api/storages/" + storageId + "/operations/" + createdDto.getId());
+        return createdDto;
     }
 
     @GetMapping("/{operationId}")

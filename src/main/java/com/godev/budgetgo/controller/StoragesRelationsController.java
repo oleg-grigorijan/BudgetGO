@@ -31,9 +31,14 @@ public class StoragesRelationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody @Valid StorageRelationsCreationDto creationDto) {
-        requestService.create(new ExtendedStorageRelationsCreationDto(creationDto, storageId));
+    public StorageRelationsInfoDto create(
+            HttpServletResponse response,
+            @PathVariable Long storageId,
+            @RequestBody @Valid StorageRelationsCreationDto creationDto
+    ) {
+        StorageRelationsInfoDto createdDto = requestService.create(new ExtendedStorageRelationsCreationDto(creationDto, storageId));
         response.addHeader("Location", "/api/storages/" + storageId + "/users/" + creationDto.getUserId());
+        return createdDto;
     }
 
     @GetMapping("/{userId}")

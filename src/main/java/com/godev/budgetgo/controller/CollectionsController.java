@@ -27,9 +27,10 @@ public class CollectionsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody @Valid CollectionCreationDto creationDto) {
-        requestService.create(creationDto);
+    public CollectionInfoDto create(HttpServletResponse response, @RequestBody @Valid CollectionCreationDto creationDto) {
+        CollectionInfoDto createdDto = requestService.create(creationDto);
         response.addHeader("Location", "/api/collections/" + creationDto.getCategoryId());
+        return createdDto;
     }
 
     @GetMapping("/{categoryId}")

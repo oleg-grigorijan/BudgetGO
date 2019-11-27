@@ -29,9 +29,10 @@ public class StoragesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody @Valid StorageCreationDto creationDto) {
-        Long newStorageId = requestService.create(creationDto).getId();
-        response.addHeader("Location", "/api/storages/" + newStorageId);
+    public StorageInfoDto create(HttpServletResponse response, @RequestBody @Valid StorageCreationDto creationDto) {
+        StorageInfoDto createdDto = requestService.create(creationDto);
+        response.addHeader("Location", "/api/storages/" + createdDto.getId());
+        return createdDto;
     }
 
     @GetMapping("/{id}")

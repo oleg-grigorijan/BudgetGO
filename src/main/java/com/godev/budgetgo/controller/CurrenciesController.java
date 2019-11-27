@@ -31,9 +31,10 @@ public class CurrenciesController {
     @PostMapping
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody @Valid CurrencyCreationDto creationDto) {
-        Long newOperationId = requestService.create(creationDto).getId();
-        response.addHeader("Location", "/api/currencies/" + newOperationId);
+    public CurrencyInfoDto create(HttpServletResponse response, @RequestBody @Valid CurrencyCreationDto creationDto) {
+        CurrencyInfoDto createdDto = requestService.create(creationDto);
+        response.addHeader("Location", "/api/currencies/" + createdDto.getId());
+        return createdDto;
     }
 
     @GetMapping("/{id}")

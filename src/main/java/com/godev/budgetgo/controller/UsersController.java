@@ -21,9 +21,10 @@ public class UsersController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(HttpServletResponse response, @RequestBody @Valid UserCreationDto newUser) {
-        Long newUserId = requestService.create(newUser).getId();
-        response.addHeader("Location", "/api/users/" + newUserId);
+    public UserInfoDto create(HttpServletResponse response, @RequestBody @Valid UserCreationDto newUser) {
+        UserInfoDto createdDto = requestService.create(newUser);
+        response.addHeader("Location", "/api/users/" + createdDto.getId());
+        return createdDto;
     }
 
     @GetMapping
