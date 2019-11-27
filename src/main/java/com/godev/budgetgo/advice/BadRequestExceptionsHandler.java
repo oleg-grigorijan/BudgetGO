@@ -8,6 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,6 +24,11 @@ public class BadRequestExceptionsHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ErrorInfoDto handle(BadRequestException ex) {
+        return new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ErrorInfoDto handle(MissingServletRequestParameterException ex) {
         return new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
