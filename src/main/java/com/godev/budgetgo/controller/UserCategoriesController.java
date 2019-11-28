@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/collections")
+@RequestMapping("/api/me/categories")
 public class UserCategoriesController {
     private final UserCategoriesRequestService requestService;
 
@@ -29,7 +29,7 @@ public class UserCategoriesController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserCategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid UserCategoryCreationDto creationDto) {
         UserCategoryInfoDto createdDto = requestService.create(creationDto);
-        response.addHeader("Location", "/api/collections/" + creationDto.getCategoryId());
+        response.addHeader("Location", "/api/me/categories/" + creationDto.getCategoryId());
         return createdDto;
     }
 
