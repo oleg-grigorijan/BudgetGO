@@ -47,7 +47,7 @@ public class PersistenceConfig {
     private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/budgetgo?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=GMT%2B3");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/budgetgo?createDatabaseIfNotExist=true&useUnicode=yes&serverTimezone=UTC");
         dataSource.setUsername("admin");
         dataSource.setPassword("password");
         return dataSource;
