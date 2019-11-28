@@ -1,8 +1,8 @@
 package com.godev.budgetgo.controller;
 
-import com.godev.budgetgo.dto.CollectionCreationDto;
-import com.godev.budgetgo.dto.CollectionInfoDto;
-import com.godev.budgetgo.request.CollectionsRequestService;
+import com.godev.budgetgo.dto.UserCategoryCreationDto;
+import com.godev.budgetgo.dto.UserCategoryInfoDto;
+import com.godev.budgetgo.request.UserCategoriesRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,31 +11,31 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/collections")
-public class CollectionsController {
-    private final CollectionsRequestService requestService;
+@RequestMapping("/api/me/categories")
+public class UserCategoriesController {
+    private final UserCategoriesRequestService requestService;
 
-    public CollectionsController(CollectionsRequestService requestService) {
+    public UserCategoriesController(UserCategoriesRequestService requestService) {
         this.requestService = requestService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CollectionInfoDto> getAll() {
+    public List<UserCategoryInfoDto> getAll() {
         return requestService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CollectionInfoDto create(HttpServletResponse response, @RequestBody @Valid CollectionCreationDto creationDto) {
-        CollectionInfoDto createdDto = requestService.create(creationDto);
-        response.addHeader("Location", "/api/collections/" + creationDto.getCategoryId());
+    public UserCategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid UserCategoryCreationDto creationDto) {
+        UserCategoryInfoDto createdDto = requestService.create(creationDto);
+        response.addHeader("Location", "/api/me/categories/" + creationDto.getCategoryId());
         return createdDto;
     }
 
     @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public CollectionInfoDto getByCategoryId(@PathVariable Long categoryId) {
+    public UserCategoryInfoDto getByCategoryId(@PathVariable Long categoryId) {
         return requestService.getByCategoryId(categoryId);
     }
 

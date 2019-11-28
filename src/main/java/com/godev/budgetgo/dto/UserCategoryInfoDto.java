@@ -2,7 +2,7 @@ package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CollectionInfoDto {
+public class UserCategoryInfoDto {
 
     @JsonProperty("category")
     private CategoryInfoDto categoryInfoDto;

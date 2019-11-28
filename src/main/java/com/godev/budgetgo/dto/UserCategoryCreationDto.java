@@ -2,7 +2,7 @@ package com.godev.budgetgo.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class CollectionCreationDto {
+public class UserCategoryCreationDto {
 
     @NotNull
     private Long categoryId;
