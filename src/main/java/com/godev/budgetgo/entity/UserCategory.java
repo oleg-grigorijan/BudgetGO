@@ -3,8 +3,8 @@ package com.godev.budgetgo.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "collections")
-public class Collection {
+@Table(name = "user_categories")
+public class UserCategory {
 
     @EmbeddedId
     private UserCategoryKey id;
