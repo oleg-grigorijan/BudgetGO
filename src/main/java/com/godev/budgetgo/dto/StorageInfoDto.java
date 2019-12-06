@@ -17,6 +17,9 @@ public class StorageInfoDto {
 
     private long initialBalance;
 
+    @JsonProperty("settings")
+    private StorageSettingsInfoDto storageSettingsInfoDto;
+
     public Long getId() {
         return id;
     }
@@ -63,5 +66,13 @@ public class StorageInfoDto {
 
     public void setInitialBalance(long initialBalance) {
         this.initialBalance = initialBalance;
+    }
+
+    public StorageSettingsInfoDto getStorageSettingsInfoDto() {
+        return storageSettingsInfoDto;
+    }
+
+    public void setStorageSettingsInfoDto(StorageSettingsInfoDto storageSettingsInfoDto) {
+        this.storageSettingsInfoDto = storageSettingsInfoDto;
     }
 }
