@@ -29,4 +29,10 @@ public class StorageSettingsController {
     public StorageSettingsInfoDto patch(@PathVariable Long id, @RequestBody @Valid StorageSettingsPatchesDto patchesDto) {
         return requestService.patch(id, patchesDto);
     }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        requestService.deleteByStorageId(id);
+    }
 }

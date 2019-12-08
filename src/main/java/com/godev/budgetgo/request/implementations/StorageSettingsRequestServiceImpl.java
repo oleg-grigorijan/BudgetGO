@@ -46,4 +46,12 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
         StorageRelations savedEntity = dataService.update(patchedEntity);
         return converter.convertFromEntity(savedEntity);
     }
+
+    @Transactional
+    @Override
+    public void deleteByStorageId(Long storageId) {
+        User user = authenticationFacade.getAuthenticatedUser();
+        StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
+        dataService.delete(entity);
+    }
 }

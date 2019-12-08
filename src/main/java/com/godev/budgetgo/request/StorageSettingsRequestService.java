@@ -7,4 +7,6 @@ public interface StorageSettingsRequestService {
     StorageSettingsInfoDto getByStorageId(Long storageId);
 
     StorageSettingsInfoDto patch(Long storageId, StorageSettingsPatchesDto patchesDto);
+
+    void deleteByStorageId(Long storageId);
 }
