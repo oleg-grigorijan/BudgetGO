@@ -42,7 +42,7 @@ class StorageRelationsConverterImpl implements StorageRelationsConverter {
             e.setUser(usersDataService.getById(dto.getUserId()));
             e.setId(new UserStorageKey(dto.getUserId(), dto.getStorageId()));
             e.setUserRole(dto.getUserRole());
-            e.setIncludedInUserStatistics(e.getUserRole().getDefaultIncludedInUserStatistics());
+            e.setIncludedInUserStatistics(false);
             e.setInviter(authenticationFacade.getAuthenticatedUser());
             e.setInvitation(true);
             return e;

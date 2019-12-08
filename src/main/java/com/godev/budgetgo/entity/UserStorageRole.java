@@ -31,8 +31,4 @@ public enum UserStorageRole {
     public boolean canBeModifiedBy(UserStorageRole anotherRole) {
         return anotherRole == CREATOR || (anotherRole == ADMIN && this != CREATOR);
     }
-
-    public boolean getDefaultIncludedInUserStatistics() {
-        return this != VIEWER;
-    }
 }

@@ -22,7 +22,7 @@ class StorageRelationsFactoryImpl implements StorageRelationsFactory {
         e.setUser(user);
         e.setId(new UserStorageKey(user.getId(), storage.getId()));
         e.setUserRole(UserStorageRole.CREATOR);
-        e.setIncludedInUserStatistics(e.getUserRole().getDefaultIncludedInUserStatistics());
+        e.setIncludedInUserStatistics(true);
         e.setInviter(user);
         e.setInvitation(false);
         return e;
