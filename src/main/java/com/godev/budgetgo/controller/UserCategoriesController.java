@@ -2,6 +2,7 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.UserCategoryCreationDto;
 import com.godev.budgetgo.dto.UserCategoryInfoDto;
+import com.godev.budgetgo.dto.UserCategoryPatchesDto;
 import com.godev.budgetgo.request.UserCategoriesRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,12 @@ public class UserCategoriesController {
     @ResponseStatus(HttpStatus.OK)
     public UserCategoryInfoDto getByCategoryId(@PathVariable Long categoryId) {
         return requestService.getByCategoryId(categoryId);
+    }
+
+    @PatchMapping("/{categoryId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserCategoryInfoDto patch(@PathVariable Long categoryId, @RequestBody @Valid UserCategoryPatchesDto patchesDto) {
+        return requestService.patchByCategoryId(categoryId, patchesDto);
     }
 
     @DeleteMapping("/{categoryId}")
