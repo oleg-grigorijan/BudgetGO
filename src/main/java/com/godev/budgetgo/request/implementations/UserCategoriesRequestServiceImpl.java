@@ -5,6 +5,7 @@ import com.godev.budgetgo.converter.UserCategoriesConverter;
 import com.godev.budgetgo.data.UserCategoriesDataService;
 import com.godev.budgetgo.dto.UserCategoryCreationDto;
 import com.godev.budgetgo.dto.UserCategoryInfoDto;
+import com.godev.budgetgo.dto.UserCategoryPatchesDto;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.entity.UserCategory;
 import com.godev.budgetgo.entity.UserCategoryKey;
@@ -47,6 +48,16 @@ class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
         UserCategory entity = converter.convertFromDto(creationDto);
         UserCategory savedEntity = dataService.add(entity);
         return converter.convertFromEntity(savedEntity);
+    }
+
+    @Transactional
+    @Override
+    public UserCategoryInfoDto patchByCategoryId(Long categoryId, UserCategoryPatchesDto patchesDto) {
+        User user = authenticationFacade.getAuthenticatedUser();
+        UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
+        UserCategory patchedEntity = converter.merge(entity, patchesDto);
+        UserCategory savedEntity = dataService.update(patchedEntity);
+        return converter.convertFromEntity(patchedEntity);
     }
 
     @Transactional
