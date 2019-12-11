@@ -15,4 +15,8 @@ public class CategoryNotFoundException extends NotFoundException {
     public static CategoryNotFoundException byId(Long id) {
         return new CategoryNotFoundException("Category not found by id = " + id);
     }
+
+    public static CategoryNotFoundException byName(String name) {
+        return new CategoryNotFoundException("Category not found by name = " + name);
+    }
 }
