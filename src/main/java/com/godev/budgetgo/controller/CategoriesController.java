@@ -28,6 +28,12 @@ public class CategoriesController {
         return requestService.getAll();
     }
 
+    @GetMapping(params = "name")
+    @ResponseStatus(HttpStatus.FOUND)
+    public void getByName(HttpServletResponse response, @RequestParam String name) {
+        response.addHeader("Location", "/api/categories/" + requestService.getByName(name).getId());
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid CategoryCreationDto creationDto) {

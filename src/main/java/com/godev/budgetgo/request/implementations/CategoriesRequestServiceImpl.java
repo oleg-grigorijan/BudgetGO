@@ -32,6 +32,13 @@ class CategoriesRequestServiceImpl implements CategoriesRequestService {
 
     @Transactional(readOnly = true)
     @Override
+    public CategoryInfoDto getByName(String name) {
+        Category entity = dataService.getByName(name);
+        return converter.convertFromEntity(entity);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<CategoryInfoDto> getAll() {
         return converter.convertFromEntities(dataService.getAll());
 

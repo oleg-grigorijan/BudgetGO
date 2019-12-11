@@ -9,6 +9,8 @@ import java.util.List;
 public interface CategoriesRequestService {
     CategoryInfoDto getById(Long id);
 
+    CategoryInfoDto getByName(String name);
+
     List<CategoryInfoDto> getAll();
 
     CategoryInfoDto create(CategoryCreationDto creationDto);
