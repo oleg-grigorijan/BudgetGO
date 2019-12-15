@@ -5,7 +5,6 @@ import com.godev.budgetgo.dto.OperationCreationDto;
 import com.godev.budgetgo.dto.OperationInfoDto;
 import com.godev.budgetgo.dto.OperationPatchesDto;
 import com.godev.budgetgo.entity.StorageOperationKey;
-import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.request.OperationsRequestService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,18 +27,18 @@ public class OperationsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<OperationInfoDto> getAll(
+    public List<OperationInfoDto> getAll(@PathVariable Long storageId) {
+        return requestService.getByStorageId(storageId);
+    }
+
+    @GetMapping(params = {"dateFrom", "dateTo"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<OperationInfoDto> getAllWithDateBetween(
             @PathVariable Long storageId,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo
     ) {
-        if (dateFrom == null && dateTo == null) {
-            return requestService.getByStorageId(storageId);
-        }
-        if (dateFrom != null && dateTo != null) {
-            return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
-        }
-        throw new BadRequestException("Both of date limits must be specified or none of them");
+        return requestService.getByStorageIdAndDateBetween(storageId, dateFrom, dateTo);
     }
 
     @PostMapping

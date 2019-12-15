@@ -1,7 +1,6 @@
 package com.godev.budgetgo.advice;
 
 import com.godev.budgetgo.dto.ErrorInfoDto;
-import com.godev.budgetgo.exception.BadRequestException;
 import com.godev.budgetgo.exception.UnprocessableEntityException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -21,11 +20,6 @@ import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestExceptionsHandler {
-
-    @ExceptionHandler(BadRequestException.class)
-    public ErrorInfoDto handle(BadRequestException ex) {
-        return new ErrorInfoDto(HttpStatus.BAD_REQUEST, ex.getMessage());
-    }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ErrorInfoDto handle(MissingServletRequestParameterException ex) {
