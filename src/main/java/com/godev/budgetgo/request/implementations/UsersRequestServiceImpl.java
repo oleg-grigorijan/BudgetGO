@@ -38,6 +38,13 @@ class UsersRequestServiceImpl implements UsersRequestService {
 
     @Transactional(readOnly = true)
     @Override
+    public UserInfoDto getByEmail(String email) {
+        User entity = dataService.getByEmail(email);
+        return converter.convertFromEntity(entity);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<UserInfoDto> getAll() {
         return converter.convertFromEntities(dataService.getAll());
     }

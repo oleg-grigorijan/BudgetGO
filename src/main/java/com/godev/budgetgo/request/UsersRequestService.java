@@ -11,6 +11,8 @@ public interface UsersRequestService {
 
     UserInfoDto getByLogin(String login);
 
+    UserInfoDto getByEmail(String email);
+
     List<UserInfoDto> getAll();
 
     UserInfoDto create(UserCreationDto creationDto);

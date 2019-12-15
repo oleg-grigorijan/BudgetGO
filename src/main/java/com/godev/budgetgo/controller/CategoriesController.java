@@ -29,9 +29,9 @@ public class CategoriesController {
     }
 
     @GetMapping(params = "name")
-    @ResponseStatus(HttpStatus.FOUND)
-    public void getByName(HttpServletResponse response, @RequestParam String name) {
-        response.addHeader("Location", "/api/categories/" + requestService.getByName(name).getId());
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryInfoDto getByName(HttpServletResponse response, @RequestParam String name) {
+        return requestService.getByName(name);
     }
 
     @PostMapping

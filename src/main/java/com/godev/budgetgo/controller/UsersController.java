@@ -4,6 +4,7 @@ import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
 import com.godev.budgetgo.request.UsersRequestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -27,10 +28,20 @@ public class UsersController {
         return createdDto;
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
-    public void getByLogin(HttpServletResponse response, @RequestParam String login) {
-        response.addHeader("Location", "/api/users/" + requestService.getByLogin(login).getId());
+    @GetMapping(params = "login")
+    @ResponseStatus(HttpStatus.OK)
+    public UserInfoDto getByLogin(@RequestParam String login) {
+        return requestService.getByLogin(login);
+    }
+
+    @GetMapping(params = "email")
+    public ResponseEntity<UserInfoDto> getByEmail(@RequestParam String email) {
+        UserInfoDto dto = this.requestService.getByEmail(email);
+        if (dto.getEmailPublic()) {
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")
