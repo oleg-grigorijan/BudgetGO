@@ -1,6 +1,5 @@
 package com.godev.budgetgo.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.Currency;
 
 import javax.validation.constraints.NotBlank;
@@ -16,13 +15,6 @@ public class CurrencyCreationDto {
     @Size(min = Currency.ISO_CODE_LENGTH, max = Currency.ISO_CODE_LENGTH)
     private String isoCode;
 
-    @NotBlank
-    @Size(max = Currency.SYMBOL_MAX_LENGTH)
-    private String symbol;
-
-    @JsonProperty("isSymbolPrefixed")
-    private boolean symbolPrefixed;
-
     public String getName() {
         return name;
     }
@@ -37,21 +29,5 @@ public class CurrencyCreationDto {
 
     public void setIsoCode(String isoCode) {
         this.isoCode = isoCode;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public boolean isSymbolPrefixed() {
-        return symbolPrefixed;
-    }
-
-    public void setSymbolPrefixed(boolean symbolPrefixed) {
-        this.symbolPrefixed = symbolPrefixed;
     }
 }
