@@ -14,8 +14,6 @@ class CurrenciesConverterImpl implements CurrenciesConverter {
         Currency e = new Currency();
         e.setName(dto.getName());
         e.setIsoCode(dto.getIsoCode());
-        e.setSymbol(dto.getSymbol());
-        e.setSymbolPrefixed(dto.isSymbolPrefixed());
         return e;
     }
 
@@ -25,8 +23,6 @@ class CurrenciesConverterImpl implements CurrenciesConverter {
         dto.setId(e.getId());
         dto.setName(e.getName());
         dto.setIsoCode(e.getIsoCode());
-        dto.setSymbol(e.getSymbol());
-        dto.setSymbolPrefixed(e.isSymbolPrefixed());
         return dto;
     }
 
@@ -35,8 +31,6 @@ class CurrenciesConverterImpl implements CurrenciesConverter {
         Currency e = eOld.clone();
         dto.getName().ifPresent(e::setName);
         dto.getIsoCode().ifPresent(e::setIsoCode);
-        dto.getSymbol().ifPresent(e::setSymbol);
-        dto.getSymbolPrefixed().ifPresent(e::setSymbolPrefixed);
         return e;
     }
 }

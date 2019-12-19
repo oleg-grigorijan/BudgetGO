@@ -1,7 +1,5 @@
 package com.godev.budgetgo.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class CurrencyInfoDto {
 
     private Long id;
@@ -9,11 +7,6 @@ public class CurrencyInfoDto {
     private String name;
 
     private String isoCode;
-
-    private String symbol;
-
-    @JsonProperty("isSymbolPrefixed")
-    private boolean symbolPrefixed;
 
     public Long getId() {
         return id;
@@ -37,21 +30,5 @@ public class CurrencyInfoDto {
 
     public void setIsoCode(String isoCode) {
         this.isoCode = isoCode;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public boolean isSymbolPrefixed() {
-        return symbolPrefixed;
-    }
-
-    public void setSymbolPrefixed(boolean symbolPrefixed) {
-        this.symbolPrefixed = symbolPrefixed;
     }
 }
