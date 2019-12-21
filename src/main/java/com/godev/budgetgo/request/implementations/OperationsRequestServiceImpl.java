@@ -74,8 +74,8 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
     @Override
     public OperationInfoDto patch(StorageOperationKey id, OperationPatchesDto patchesDto) {
         Operation entity = dataService.getById(id);
-        Operation patchedEntity = converter.merge(entity, patchesDto);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
+        Operation patchedEntity = converter.merge(entity, patchesDto);
         Operation savedEntity = dataService.update(patchedEntity);
         return converter.convertFromEntity(savedEntity);
     }
