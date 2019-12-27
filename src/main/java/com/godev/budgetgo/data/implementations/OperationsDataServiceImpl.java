@@ -7,6 +7,7 @@ import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.OperationsKeySequence;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.StorageOperationKey;
+import com.godev.budgetgo.exception.BalanceOverflowException;
 import com.godev.budgetgo.exception.OperationNotFoundException;
 import com.godev.budgetgo.repository.OperationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,12 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
 
         entity.setId(getNextIdFor(storage));
 
-        storage.setBalance(storage.getBalance() + entity.getMoneyDelta());
+        try {
+            storage.setBalance(Math.addExact(storage.getBalance(), entity.getMoneyDelta()));
+        } catch (ArithmeticException ex) {
+            throw BalanceOverflowException.ofStorage(storage);
+        }
+
         storagesDataService.update(storage);
         return super.add(entity);
     }
@@ -59,7 +65,12 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
         }
 
         if (oldEntity.getMoneyDelta() != entity.getMoneyDelta()) {
-            storage.setBalance(storage.getBalance() - oldEntity.getMoneyDelta() + entity.getMoneyDelta());
+            try {
+                // storage.balance = storage.balance - oldEntity.moneyDelta + entity.moneyDelta
+                storage.setBalance(Math.addExact(Math.subtractExact(storage.getBalance(), oldEntity.getMoneyDelta()), entity.getMoneyDelta()));
+            } catch (ArithmeticException ex) {
+                throw BalanceOverflowException.ofStorage(storage);
+            }
         }
 
         return super.update(entity);
@@ -69,7 +80,13 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
     @Override
     public void delete(Operation entity) {
         Storage storage = entity.getStorage();
-        storage.setBalance(storage.getBalance() - entity.getMoneyDelta());
+
+        try {
+            storage.setBalance(Math.subtractExact(storage.getBalance(), entity.getMoneyDelta()));
+        } catch (ArithmeticException ex) {
+            throw BalanceOverflowException.ofStorage(storage);
+        }
+
         storagesDataService.update(storage);
         super.delete(entity);
     }
