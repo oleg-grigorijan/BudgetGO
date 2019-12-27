@@ -1,7 +1,11 @@
 package com.godev.budgetgo.factory.impl;
 
 import com.godev.budgetgo.authentication.AuthenticationFacade;
-import com.godev.budgetgo.entity.*;
+import com.godev.budgetgo.entity.Storage;
+import com.godev.budgetgo.entity.StorageRelations;
+import com.godev.budgetgo.entity.User;
+import com.godev.budgetgo.entity.UserStorageKey;
+import com.godev.budgetgo.entity.UserStorageRole;
 import com.godev.budgetgo.factory.StorageRelationsFactory;
 import org.springframework.stereotype.Service;
 
