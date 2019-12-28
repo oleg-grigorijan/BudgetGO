@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-class OperationsRequestServiceImpl implements OperationsRequestService {
+public class OperationsRequestServiceImpl implements OperationsRequestService {
 
     private final OperationsDataService dataService;
     private final OperationsConverter converter;

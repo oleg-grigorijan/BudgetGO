@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class CategoriesRequestServiceImpl implements CategoriesRequestService {
+public class CategoriesRequestServiceImpl implements CategoriesRequestService {
 
     private final CategoriesDataService dataService;
     private final CategoriesConverter converter;

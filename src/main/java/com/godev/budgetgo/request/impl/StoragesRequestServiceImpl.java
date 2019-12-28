@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class StoragesRequestServiceImpl implements StoragesRequestService {
+public class StoragesRequestServiceImpl implements StoragesRequestService {
 
     private final StoragesDataService dataService;
     private final StoragesRelationsDataService relationsDataService;
@@ -55,16 +55,6 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
 
     @Transactional
     @Override
-    public StorageInfoDto patch(Long id, StoragePatchesDto patchesDto) {
-        Storage entity = dataService.getById(id);
-        authorizationService.authorizeModificationAccess(entity);
-        Storage patchedEntity = converter.merge(entity, patchesDto);
-        Storage savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
-    }
-
-    @Transactional
-    @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
         Storage entity = converter.convertFromDto(creationDto);
         Storage savedEntity = dataService.add(entity);
@@ -72,6 +62,16 @@ class StoragesRequestServiceImpl implements StoragesRequestService {
         StorageRelations creatorRelations = relationsFactory.createCreatorEntityForStorage(savedEntity);
         relationsDataService.add(creatorRelations);
 
+        return converter.convertFromEntity(savedEntity);
+    }
+
+    @Transactional
+    @Override
+    public StorageInfoDto patch(Long id, StoragePatchesDto patchesDto) {
+        Storage entity = dataService.getById(id);
+        authorizationService.authorizeModificationAccess(entity);
+        Storage patchedEntity = converter.merge(entity, patchesDto);
+        Storage savedEntity = dataService.update(patchedEntity);
         return converter.convertFromEntity(savedEntity);
     }
 }

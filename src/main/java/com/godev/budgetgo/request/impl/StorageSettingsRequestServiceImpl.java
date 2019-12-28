@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService {
+public class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService {
 
     private final StoragesRelationsDataService dataService;
     private final StorageSettingsConverter converter;

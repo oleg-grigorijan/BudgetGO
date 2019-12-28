@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
+public class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
 
     private final UserCategoriesDataService dataService;
     private final UserCategoriesConverter converter;
@@ -57,7 +57,7 @@ class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
         UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
         UserCategory patchedEntity = converter.merge(entity, patchesDto);
         UserCategory savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(patchedEntity);
+        return converter.convertFromEntity(savedEntity);
     }
 
     @Transactional

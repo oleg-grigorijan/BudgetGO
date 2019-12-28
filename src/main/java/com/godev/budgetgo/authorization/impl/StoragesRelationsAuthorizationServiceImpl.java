@@ -28,7 +28,7 @@ class StoragesRelationsAuthorizationServiceImpl implements StoragesRelationsAuth
     }
 
     @Override
-    public void authorizeDeletionAccess(StorageRelations entity) {
+    public void authorizeDeletion(StorageRelations entity) {
         if (!entity.getUser().getLogin().equals(authenticationFacade.getAuthentication().getName())) {
             UserStorageRole authUserRole = getAuthenticatedUserRelations(entity.getStorage()).getUserRole();
             if (!entity.getUserRole().canBeModifiedBy(authUserRole)) {

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestService {
+public class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestService {
 
     private final StoragesRelationsDataService dataService;
     private final StoragesDataService storagesDataService;
@@ -78,7 +78,7 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
     @Override
     public void deleteById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);
-        authorizationService.authorizeDeletionAccess(entity);
+        authorizationService.authorizeDeletion(entity);
         dataService.delete(entity);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
+public class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
 
     private final CurrenciesDataService dataService;
     private final CurrenciesConverter converter;

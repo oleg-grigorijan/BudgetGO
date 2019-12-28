@@ -8,5 +8,5 @@ public interface StoragesRelationsAuthorizationService {
 
     void authorizeModification(StorageRelations entity, StorageRelationsPatchesDto patchesDto);
 
-    void authorizeDeletionAccess(StorageRelations entity);
+    void authorizeDeletion(StorageRelations entity);
 }

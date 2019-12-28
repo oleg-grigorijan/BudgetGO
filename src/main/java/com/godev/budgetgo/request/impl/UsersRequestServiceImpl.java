@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class UsersRequestServiceImpl implements UsersRequestService {
+public class UsersRequestServiceImpl implements UsersRequestService {
 
     private final UsersDataService dataService;
     private final UsersConverter converter;
