@@ -7,9 +7,8 @@ import com.godev.budgetgo.entity.UserStorageRole;
 public interface StorageRelationsFactory {
 
     /**
-     * Creates an instance of {@link StorageRelations} with the given storage,
-     * authenticated user and {@link UserStorageRole#CREATOR} role.
-     * Other parameters are set by default.
+     * Creates an instance of {@link StorageRelations} with the given storage, authenticated user, {@link UserStorageRole#CREATOR} role and {@code
+     * isInvitation = false}.
      *
      * @param storage relations holder
      * @return created instance

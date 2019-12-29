@@ -10,7 +10,7 @@ import com.godev.budgetgo.factory.StorageRelationsFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-class StorageRelationsFactoryImpl implements StorageRelationsFactory {
+public class StorageRelationsFactoryImpl implements StorageRelationsFactory {
 
     private final AuthenticationFacade authenticationFacade;
 
