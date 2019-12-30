@@ -8,7 +8,7 @@ import com.godev.budgetgo.entity.StorageRelations;
 import org.springframework.stereotype.Service;
 
 @Service
-class StorageSettingsConverterImpl implements StorageSettingsConverter {
+public class StorageSettingsConverterImpl implements StorageSettingsConverter {
 
     private final UsersConverter usersConverter;
 
@@ -17,12 +17,12 @@ class StorageSettingsConverterImpl implements StorageSettingsConverter {
     }
 
     @Override
-    public StorageSettingsInfoDto convertFromEntity(StorageRelations e) {
+    public StorageSettingsInfoDto convertToDto(StorageRelations e) {
         StorageSettingsInfoDto dto = new StorageSettingsInfoDto();
         dto.setUserRole(e.getUserRole());
         dto.setIncludedInUserStatistics(e.isIncludedInUserStatistics());
         dto.setInvitation(e.isInvitation());
-        dto.setInviterInfoDto(usersConverter.convertFromEntity(e.getInviter()));
+        dto.setInviterInfoDto(usersConverter.convertToDto(e.getInviter()));
         return dto;
     }
 

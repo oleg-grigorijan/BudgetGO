@@ -43,7 +43,7 @@ class UserSettingsRequestServiceTest {
         User authenticatedUser = new User();
         when(authenticationFacade.getAuthenticatedUser()).thenReturn(authenticatedUser);
         UserSettingsInfoDto dto = new UserSettingsInfoDto();
-        when(converter.convertFromEntity(refEq(authenticatedUser))).thenReturn(dto);
+        when(converter.convertToDto(refEq(authenticatedUser))).thenReturn(dto);
 
         assertThat(requestService.get()).isSameAs(dto);
     }

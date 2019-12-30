@@ -36,7 +36,7 @@ class CategoriesRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         Category category = new Category();
-        when(converter.convertFromDto(any(CategoryCreationDto.class))).thenReturn(category);
+        when(converter.convertToEntity(any(CategoryCreationDto.class))).thenReturn(category);
 
         requestService.create(new CategoryCreationDto());
         verify(dataService).add(refEq(category));

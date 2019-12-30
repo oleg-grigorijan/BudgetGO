@@ -34,7 +34,7 @@ public class StorageSettingsRequestServiceImpl implements StorageSettingsRequest
     public StorageSettingsInfoDto getByStorageId(Long storageId) {
         User user = authenticationFacade.getAuthenticatedUser();
         StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
@@ -44,7 +44,7 @@ public class StorageSettingsRequestServiceImpl implements StorageSettingsRequest
         StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
         StorageRelations patchedEntity = converter.merge(entity, patchesDto);
         StorageRelations savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

@@ -63,7 +63,7 @@ class UserCategoriesRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         UserCategory userCategory = new UserCategory();
-        when(converter.convertFromDto(any(UserCategoryCreationDto.class))).thenReturn(userCategory);
+        when(converter.convertToEntity(any(UserCategoryCreationDto.class))).thenReturn(userCategory);
 
         requestService.create(new UserCategoryCreationDto());
         verify(dataService).add(refEq(userCategory));

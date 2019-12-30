@@ -35,7 +35,7 @@ class UsersRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         User user = new User();
-        when(converter.convertFromDto(any(UserCreationDto.class))).thenReturn(user);
+        when(converter.convertToEntity(any(UserCreationDto.class))).thenReturn(user);
 
         requestService.create(new UserCreationDto());
         verify(dataService).add(refEq(user));

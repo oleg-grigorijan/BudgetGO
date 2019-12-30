@@ -13,7 +13,7 @@ import com.godev.budgetgo.entity.UserCategoryKey;
 import org.springframework.stereotype.Service;
 
 @Service
-class UserCategoriesConverterImpl implements UserCategoriesConverter {
+public class UserCategoriesConverterImpl implements UserCategoriesConverter {
 
     private final CategoriesConverter categoriesConverter;
     private final CategoriesDataService categoriesDataService;
@@ -30,7 +30,7 @@ class UserCategoriesConverterImpl implements UserCategoriesConverter {
     }
 
     @Override
-    public UserCategory convertFromDto(UserCategoryCreationDto dto) {
+    public UserCategory convertToEntity(UserCategoryCreationDto dto) {
         UserCategory e = new UserCategory();
         e.setCategory(categoriesDataService.getById(dto.getCategoryId()));
         User user = authenticationFacade.getAuthenticatedUser();
@@ -42,9 +42,9 @@ class UserCategoriesConverterImpl implements UserCategoriesConverter {
     }
 
     @Override
-    public UserCategoryInfoDto convertFromEntity(UserCategory e) {
+    public UserCategoryInfoDto convertToDto(UserCategory e) {
         UserCategoryInfoDto dto = new UserCategoryInfoDto();
-        dto.setCategoryInfoDto(categoriesConverter.convertFromEntity(e.getCategory()));
+        dto.setCategoryInfoDto(categoriesConverter.convertToDto(e.getCategory()));
         dto.setUsedForIncomes(e.isUsedForIncomes());
         dto.setUsedForOutcomes(e.isUsedForOutcomes());
         return dto;

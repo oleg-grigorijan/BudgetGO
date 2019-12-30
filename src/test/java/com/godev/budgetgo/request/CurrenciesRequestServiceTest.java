@@ -36,7 +36,7 @@ class CurrenciesRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         Currency currency = new Currency();
-        when(converter.convertFromDto(any(CurrencyCreationDto.class))).thenReturn(currency);
+        when(converter.convertToEntity(any(CurrencyCreationDto.class))).thenReturn(currency);
 
         requestService.create(new CurrencyCreationDto());
         verify(dataService).add(refEq(currency));

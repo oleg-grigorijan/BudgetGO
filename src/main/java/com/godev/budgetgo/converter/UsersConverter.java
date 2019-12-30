@@ -4,5 +4,5 @@ import com.godev.budgetgo.dto.UserCreationDto;
 import com.godev.budgetgo.dto.UserInfoDto;
 import com.godev.budgetgo.entity.User;
 
-public interface UsersConverter extends EntityConverter<User, UserInfoDto>, DtoConverter<UserCreationDto, User> {
+public interface UsersConverter extends ConverterToDto<User, UserInfoDto>, ConverterToEntity<UserCreationDto, User> {
 }

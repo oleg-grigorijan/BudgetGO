@@ -44,25 +44,25 @@ public class StoragesRequestServiceImpl implements StoragesRequestService {
     public StorageInfoDto getById(Long id) {
         Storage entity = dataService.getById(id);
         authorizationService.authorizeAccess(entity);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<StorageInfoDto> getAll() {
-        return converter.convertFromEntities(authorizationService.getAllAuthorizedEntities());
+        return converter.convertToDtos(authorizationService.getAllAuthorizedEntities());
     }
 
     @Transactional
     @Override
     public StorageInfoDto create(StorageCreationDto creationDto) {
-        Storage entity = converter.convertFromDto(creationDto);
+        Storage entity = converter.convertToEntity(creationDto);
         Storage savedEntity = dataService.add(entity);
 
         StorageRelations creatorRelations = relationsFactory.createCreatorEntityForStorage(savedEntity);
         relationsDataService.add(creatorRelations);
 
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -72,6 +72,6 @@ public class StoragesRequestServiceImpl implements StoragesRequestService {
         authorizationService.authorizeModificationAccess(entity);
         Storage patchedEntity = converter.merge(entity, patchesDto);
         Storage savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

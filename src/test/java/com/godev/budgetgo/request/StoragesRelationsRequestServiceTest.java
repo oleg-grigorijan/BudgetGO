@@ -69,7 +69,7 @@ class StoragesRelationsRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         StorageRelations relations = new StorageRelations();
-        when(converter.convertFromDto(any(ExtendedStorageRelationsCreationDto.class))).thenReturn(relations);
+        when(converter.convertToEntity(any(ExtendedStorageRelationsCreationDto.class))).thenReturn(relations);
 
         requestService.create(new ExtendedStorageRelationsCreationDto());
         verify(dataService).add(refEq(relations));
@@ -77,7 +77,7 @@ class StoragesRelationsRequestServiceTest {
 
     @Test
     void create_noCreationAccess_exceptionThrownAndNoDataServiceAddCall() {
-        when(converter.convertFromDto(any(ExtendedStorageRelationsCreationDto.class))).thenReturn(new StorageRelations());
+        when(converter.convertToEntity(any(ExtendedStorageRelationsCreationDto.class))).thenReturn(new StorageRelations());
         doThrow(StorageRelationsAccessDeniedException.class).when(authorizationService).authorizeCreation(any(StorageRelations.class));
 
         assertThatThrownBy(() -> requestService.create(new ExtendedStorageRelationsCreationDto()))

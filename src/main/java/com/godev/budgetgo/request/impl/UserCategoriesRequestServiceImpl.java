@@ -31,7 +31,7 @@ public class UserCategoriesRequestServiceImpl implements UserCategoriesRequestSe
     @Transactional(readOnly = true)
     @Override
     public List<UserCategoryInfoDto> getAll() {
-        return converter.convertFromEntities(dataService.getByUser(authenticationFacade.getAuthenticatedUser()));
+        return converter.convertToDtos(dataService.getByUser(authenticationFacade.getAuthenticatedUser()));
     }
 
     @Transactional(readOnly = true)
@@ -39,15 +39,15 @@ public class UserCategoriesRequestServiceImpl implements UserCategoriesRequestSe
     public UserCategoryInfoDto getByCategoryId(Long categoryId) {
         User user = authenticationFacade.getAuthenticatedUser();
         UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
     @Override
     public UserCategoryInfoDto create(UserCategoryCreationDto creationDto) {
-        UserCategory entity = converter.convertFromDto(creationDto);
+        UserCategory entity = converter.convertToEntity(creationDto);
         UserCategory savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -57,7 +57,7 @@ public class UserCategoriesRequestServiceImpl implements UserCategoriesRequestSe
         UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
         UserCategory patchedEntity = converter.merge(entity, patchesDto);
         UserCategory savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

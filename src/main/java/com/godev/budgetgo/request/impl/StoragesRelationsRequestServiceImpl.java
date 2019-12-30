@@ -45,23 +45,23 @@ public class StoragesRelationsRequestServiceImpl implements StoragesRelationsReq
     public List<StorageRelationsInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
         storagesAuthorizationService.authorizeAccess(storage);
-        return converter.convertFromEntities(dataService.getByStorage(storage));
+        return converter.convertToDtos(dataService.getByStorage(storage));
     }
 
     @Transactional(readOnly = true)
     @Override
     public StorageRelationsInfoDto getById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
     @Override
     public StorageRelationsInfoDto create(ExtendedStorageRelationsCreationDto creationDto) {
-        StorageRelations entity = converter.convertFromDto(creationDto);
+        StorageRelations entity = converter.convertToEntity(creationDto);
         authorizationService.authorizeCreation(entity);
         StorageRelations savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -71,7 +71,7 @@ public class StoragesRelationsRequestServiceImpl implements StoragesRelationsReq
         StorageRelations patchedEntity = converter.merge(entity, patchesDto);
         authorizationService.authorizeModification(entity, patchesDto);
         StorageRelations savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

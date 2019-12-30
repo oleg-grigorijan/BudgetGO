@@ -14,33 +14,37 @@ import com.godev.budgetgo.exception.NotFoundException;
 import com.godev.budgetgo.exception.UnprocessableEntityException;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDate;
 
 @Service
-class OperationsConverterImpl implements OperationsConverter {
+public class OperationsConverterImpl implements OperationsConverter {
 
     private final StoragesDataService storagesDataService;
     private final CategoriesDataService categoriesDataService;
     private final AuthenticationFacade authenticationFacade;
     private final CategoriesConverter categoriesConverter;
     private final UsersConverter usersConverter;
+    private final Clock clock;
 
     public OperationsConverterImpl(
             StoragesDataService storagesDataService,
             CategoriesDataService categoriesDataService,
             AuthenticationFacade authenticationFacade,
             CategoriesConverter categoriesConverter,
-            UsersConverter usersConverter
+            UsersConverter usersConverter,
+            Clock clock
     ) {
         this.storagesDataService = storagesDataService;
         this.categoriesDataService = categoriesDataService;
         this.authenticationFacade = authenticationFacade;
         this.categoriesConverter = categoriesConverter;
         this.usersConverter = usersConverter;
+        this.clock = clock;
     }
 
     @Override
-    public Operation convertFromDto(ExtendedOperationCreationDto dto) {
+    public Operation convertToEntity(ExtendedOperationCreationDto dto) {
         try {
             Operation e = new Operation();
             e.setStorage(storagesDataService.getById(dto.getStorageId()));
@@ -48,8 +52,8 @@ class OperationsConverterImpl implements OperationsConverter {
             e.setMoneyDelta(dto.getMoneyDelta());
             e.setDate(dto.getDate());
             e.setDescription(dto.getDescription());
-            e.setDateCreated(LocalDate.now());
-            e.setDateModified(LocalDate.now());
+            e.setDateCreated(LocalDate.now(clock));
+            e.setDateModified(LocalDate.now(clock));
             e.setCreator(authenticationFacade.getAuthenticatedUser());
             e.setLastEditor(e.getCreator());
             return e;
@@ -60,17 +64,17 @@ class OperationsConverterImpl implements OperationsConverter {
     }
 
     @Override
-    public OperationInfoDto convertFromEntity(Operation e) {
+    public OperationInfoDto convertToDto(Operation e) {
         OperationInfoDto dto = new OperationInfoDto();
         dto.setId(e.getId().getOperationId());
-        dto.setCategoryInfoDto(categoriesConverter.convertFromEntity(e.getCategory()));
+        dto.setCategoryInfoDto(categoriesConverter.convertToDto(e.getCategory()));
         dto.setMoneyDelta(e.getMoneyDelta());
         dto.setDate(e.getDate());
         dto.setDescription(e.getDescription());
         dto.setDateCreated(e.getDateCreated());
         dto.setDateModified(e.getDateModified());
-        dto.setLastEditorInfoDto(usersConverter.convertFromEntity(e.getLastEditor()));
-        dto.setCreatorInfoDto(usersConverter.convertFromEntity(e.getCreator()));
+        dto.setLastEditorInfoDto(usersConverter.convertToDto(e.getLastEditor()));
+        dto.setCreatorInfoDto(usersConverter.convertToDto(e.getCreator()));
         return dto;
     }
 
@@ -83,7 +87,7 @@ class OperationsConverterImpl implements OperationsConverter {
             dto.getMoneyDelta().ifPresent(e::setMoneyDelta);
             dto.getDate().ifPresent(e::setDate);
             dto.getDescription().ifPresent(e::setDescription);
-            e.setDateModified(LocalDate.now());
+            e.setDateModified(LocalDate.now(clock));
             e.setLastEditor(authenticationFacade.getAuthenticatedUser());
             return e;
 

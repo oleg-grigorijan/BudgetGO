@@ -62,7 +62,7 @@ class StoragesRequestServiceTest {
     @Test
     void create_general_dataServiceAddCallAndRelationsCreation() {
         Storage storage = new Storage();
-        when(converter.convertFromDto(any(StorageCreationDto.class))).thenReturn(storage);
+        when(converter.convertToEntity(any(StorageCreationDto.class))).thenReturn(storage);
         when(dataService.add(any(Storage.class))).then(returnsFirstArg());
         StorageRelations creatorRelations = new StorageRelations();
         when(relationsFactory.createCreatorEntityForStorage(any(Storage.class))).thenReturn(creatorRelations);

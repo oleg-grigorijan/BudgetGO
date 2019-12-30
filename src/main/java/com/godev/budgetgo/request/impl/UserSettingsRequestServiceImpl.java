@@ -27,7 +27,7 @@ public class UserSettingsRequestServiceImpl implements UserSettingsRequestServic
     @Override
     public UserSettingsInfoDto get() {
         User entity = authenticationFacade.getAuthenticatedUser();
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
@@ -36,6 +36,6 @@ public class UserSettingsRequestServiceImpl implements UserSettingsRequestServic
         User entity = authenticationFacade.getAuthenticatedUser();
         User patchedEntity = converter.merge(entity, patchesDto);
         User savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

@@ -77,7 +77,7 @@ class OperationsRequestServiceTest {
     @Test
     void create_general_dataServiceAddCall() {
         Operation operation = new Operation();
-        when(converter.convertFromDto(any(ExtendedOperationCreationDto.class))).thenReturn(operation);
+        when(converter.convertToEntity(any(ExtendedOperationCreationDto.class))).thenReturn(operation);
 
         requestService.create(new ExtendedOperationCreationDto());
         verify(dataService).add(refEq(operation));
@@ -85,7 +85,7 @@ class OperationsRequestServiceTest {
 
     @Test
     void create_noStorageAccess_exceptionThrownAndNoDataServiceAddCall() {
-        when(converter.convertFromDto(any(ExtendedOperationCreationDto.class))).thenReturn(newOperationWithStorage());
+        when(converter.convertToEntity(any(ExtendedOperationCreationDto.class))).thenReturn(newOperationWithStorage());
         doThrow(StorageAccessDeniedException.class).when(authorizationService).authorizeModificationAccess(any(Storage.class));
 
         assertThatThrownBy(() -> requestService.create(new ExtendedOperationCreationDto())).isInstanceOf(StorageAccessDeniedException.class);
