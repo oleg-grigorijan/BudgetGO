@@ -16,6 +16,14 @@ public class OperationsKeySequence {
     @Column(name = "next_operation_id")
     private Long nextOperationId;
 
+    public OperationsKeySequence() {
+    }
+
+    public OperationsKeySequence(Long storageId, Long nextOperationId) {
+        this.storageId = storageId;
+        this.nextOperationId = nextOperationId;
+    }
+
     public Long getStorageId() {
         return storageId;
     }

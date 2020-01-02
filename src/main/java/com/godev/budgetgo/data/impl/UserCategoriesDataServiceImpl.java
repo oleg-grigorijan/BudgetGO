@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class UserCategoriesDataServiceImpl extends AbstractDataService<UserCategory, UserCategoryKey> implements UserCategoriesDataService {
+public class UserCategoriesDataServiceImpl extends AbstractDataService<UserCategory, UserCategoryKey> implements UserCategoriesDataService {
 
     private final UserCategoriesRepository repository;
 
