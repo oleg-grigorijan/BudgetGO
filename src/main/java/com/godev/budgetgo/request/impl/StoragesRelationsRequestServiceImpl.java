@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestService {
+public class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestService {
 
     private final StoragesRelationsDataService dataService;
     private final StoragesDataService storagesDataService;
@@ -45,23 +45,23 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
     public List<StorageRelationsInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
         storagesAuthorizationService.authorizeAccess(storage);
-        return converter.convertFromEntities(dataService.getByStorage(storage));
+        return converter.convertToDtos(dataService.getByStorage(storage));
     }
 
     @Transactional(readOnly = true)
     @Override
     public StorageRelationsInfoDto getById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
     @Override
     public StorageRelationsInfoDto create(ExtendedStorageRelationsCreationDto creationDto) {
-        StorageRelations entity = converter.convertFromDto(creationDto);
-        authorizationService.authorizeCreation(entity);
+        StorageRelations entity = converter.convertToEntity(creationDto);
+        authorizationService.authorizeCreationAccess(entity);
         StorageRelations savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -69,9 +69,9 @@ class StoragesRelationsRequestServiceImpl implements StoragesRelationsRequestSer
     public StorageRelationsInfoDto patch(UserStorageKey id, StorageRelationsPatchesDto patchesDto) {
         StorageRelations entity = dataService.getById(id);
         StorageRelations patchedEntity = converter.merge(entity, patchesDto);
-        authorizationService.authorizeModification(entity, patchesDto);
+        authorizationService.authorizeModificationAccess(entity, patchesDto);
         StorageRelations savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

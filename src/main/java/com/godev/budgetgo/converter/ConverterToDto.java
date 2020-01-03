@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
  * @param <E> entity
  * @param <T> info dto
  */
-public interface EntityConverter<E, T> {
-    T convertFromEntity(E e);
+public interface ConverterToDto<E, T> {
+    T convertToDto(E e);
 
-    default List<T> convertFromEntities(Collection<E> entities) {
+    default List<T> convertToDtos(Collection<E> entities) {
         return entities
                 .stream()
-                .map(this::convertFromEntity)
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 }

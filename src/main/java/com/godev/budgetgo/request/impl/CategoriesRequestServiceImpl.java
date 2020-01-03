@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class CategoriesRequestServiceImpl implements CategoriesRequestService {
+public class CategoriesRequestServiceImpl implements CategoriesRequestService {
 
     private final CategoriesDataService dataService;
     private final CategoriesConverter converter;
@@ -27,29 +27,29 @@ class CategoriesRequestServiceImpl implements CategoriesRequestService {
     @Override
     public CategoryInfoDto getById(Long id) {
         Category entity = dataService.getById(id);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public CategoryInfoDto getByName(String name) {
         Category entity = dataService.getByName(name);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<CategoryInfoDto> getAll() {
-        return converter.convertFromEntities(dataService.getAll());
+        return converter.convertToDtos(dataService.getAll());
 
     }
 
     @Transactional
     @Override
     public CategoryInfoDto create(CategoryCreationDto creationDto) {
-        Category entity = converter.convertFromDto(creationDto);
+        Category entity = converter.convertToEntity(creationDto);
         Category savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -58,6 +58,6 @@ class CategoriesRequestServiceImpl implements CategoriesRequestService {
         Category entity = dataService.getById(id);
         Category patchedEntity = converter.merge(entity, patchesDto);
         Category savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

@@ -16,10 +16,8 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
         super(LocalDate.class);
     }
 
-
     @Override
     public LocalDate deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         return LocalDate.parse(parser.readValueAs(String.class), DateTimeFormatter.ISO_LOCAL_DATE);
     }
-
 }

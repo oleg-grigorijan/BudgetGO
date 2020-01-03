@@ -16,7 +16,7 @@ import com.godev.budgetgo.exception.UnprocessableEntityException;
 import org.springframework.stereotype.Service;
 
 @Service
-class StoragesConverterImpl implements StoragesConverter {
+public class StoragesConverterImpl implements StoragesConverter {
 
     private final StoragesRelationsDataService relationsDataService;
     private final CurrenciesDataService currenciesDataService;
@@ -39,7 +39,7 @@ class StoragesConverterImpl implements StoragesConverter {
     }
 
     @Override
-    public Storage convertFromDto(StorageCreationDto dto) {
+    public Storage convertToEntity(StorageCreationDto dto) {
         try {
             Storage e = new Storage();
             e.setCurrency(currenciesDataService.getById(dto.getCurrencyId()));
@@ -55,16 +55,16 @@ class StoragesConverterImpl implements StoragesConverter {
     }
 
     @Override
-    public StorageInfoDto convertFromEntity(Storage e) {
+    public StorageInfoDto convertToDto(Storage e) {
         StorageInfoDto dto = new StorageInfoDto();
         dto.setId(e.getId());
         dto.setName(e.getName());
         dto.setDescription(e.getDescription());
         dto.setBalance(e.getBalance());
-        dto.setCurrencyInfoDto(currenciesConverter.convertFromEntity(e.getCurrency()));
+        dto.setCurrencyInfoDto(currenciesConverter.convertToDto(e.getCurrency()));
         dto.setInitialBalance(e.getInitialBalance());
         UserStorageKey userStorageKey = new UserStorageKey(authenticationFacade.getAuthenticatedUser().getId(), e.getId());
-        dto.setStorageSettingsInfoDto(storageSettingsConverter.convertFromEntity(relationsDataService.getById(userStorageKey)));
+        dto.setStorageSettingsInfoDto(storageSettingsConverter.convertToDto(relationsDataService.getById(userStorageKey)));
         return dto;
     }
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
+public class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
 
     private final UsersDataService dataService;
     private final UserSettingsConverter converter;
@@ -27,7 +27,7 @@ class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
     @Override
     public UserSettingsInfoDto get() {
         User entity = authenticationFacade.getAuthenticatedUser();
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
@@ -36,6 +36,6 @@ class UserSettingsRequestServiceImpl implements UserSettingsRequestService {
         User entity = authenticationFacade.getAuthenticatedUser();
         User patchedEntity = converter.merge(entity, patchesDto);
         User savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

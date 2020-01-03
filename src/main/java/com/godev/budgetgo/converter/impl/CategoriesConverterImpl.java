@@ -8,16 +8,16 @@ import com.godev.budgetgo.entity.Category;
 import org.springframework.stereotype.Service;
 
 @Service
-class CategoriesConverterImpl implements CategoriesConverter {
+public class CategoriesConverterImpl implements CategoriesConverter {
     @Override
-    public Category convertFromDto(CategoryCreationDto dto) {
+    public Category convertToEntity(CategoryCreationDto dto) {
         Category e = new Category();
         e.setName(dto.getName());
         return e;
     }
 
     @Override
-    public CategoryInfoDto convertFromEntity(Category e) {
+    public CategoryInfoDto convertToDto(Category e) {
         CategoryInfoDto dto = new CategoryInfoDto();
         dto.setId(e.getId());
         dto.setName(e.getName());

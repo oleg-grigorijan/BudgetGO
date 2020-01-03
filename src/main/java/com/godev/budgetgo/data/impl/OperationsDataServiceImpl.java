@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOperationKey> implements OperationsDataService {
+public class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOperationKey> implements OperationsDataService {
 
     private final OperationsRepository repository;
     private StoragesDataService storagesDataService;
@@ -50,7 +50,6 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
             throw BalanceOverflowException.ofStorage(storage);
         }
 
-        storagesDataService.update(storage);
         return super.add(entity);
     }
 
@@ -60,13 +59,8 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
         Operation oldEntity = getById(entity.getId());
         Storage storage = entity.getStorage();
 
-        if (!oldEntity.getStorage().getId().equals(storage.getId())) {
-            throw new RuntimeException("Storage of operation can't be modified");
-        }
-
         if (oldEntity.getMoneyDelta() != entity.getMoneyDelta()) {
             try {
-                // storage.balance = storage.balance - oldEntity.moneyDelta + entity.moneyDelta
                 storage.setBalance(Math.addExact(Math.subtractExact(storage.getBalance(), oldEntity.getMoneyDelta()), entity.getMoneyDelta()));
             } catch (ArithmeticException ex) {
                 throw BalanceOverflowException.ofStorage(storage);
@@ -87,7 +81,6 @@ class OperationsDataServiceImpl extends AbstractDataService<Operation, StorageOp
             throw BalanceOverflowException.ofStorage(storage);
         }
 
-        storagesDataService.update(storage);
         super.delete(entity);
     }
 

@@ -8,9 +8,9 @@ import com.godev.budgetgo.entity.Currency;
 import org.springframework.stereotype.Service;
 
 @Service
-class CurrenciesConverterImpl implements CurrenciesConverter {
+public class CurrenciesConverterImpl implements CurrenciesConverter {
     @Override
-    public Currency convertFromDto(CurrencyCreationDto dto) {
+    public Currency convertToEntity(CurrencyCreationDto dto) {
         Currency e = new Currency();
         e.setName(dto.getName());
         e.setIsoCode(dto.getIsoCode());
@@ -18,7 +18,7 @@ class CurrenciesConverterImpl implements CurrenciesConverter {
     }
 
     @Override
-    public CurrencyInfoDto convertFromEntity(Currency e) {
+    public CurrencyInfoDto convertToDto(Currency e) {
         CurrencyInfoDto dto = new CurrencyInfoDto();
         dto.setId(e.getId());
         dto.setName(e.getName());

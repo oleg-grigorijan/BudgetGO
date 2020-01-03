@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
+public class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
 
     private final UserCategoriesDataService dataService;
     private final UserCategoriesConverter converter;
@@ -31,7 +31,7 @@ class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
     @Transactional(readOnly = true)
     @Override
     public List<UserCategoryInfoDto> getAll() {
-        return converter.convertFromEntities(dataService.getByUser(authenticationFacade.getAuthenticatedUser()));
+        return converter.convertToDtos(dataService.getByUser(authenticationFacade.getAuthenticatedUser()));
     }
 
     @Transactional(readOnly = true)
@@ -39,15 +39,15 @@ class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
     public UserCategoryInfoDto getByCategoryId(Long categoryId) {
         User user = authenticationFacade.getAuthenticatedUser();
         UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
     @Override
     public UserCategoryInfoDto create(UserCategoryCreationDto creationDto) {
-        UserCategory entity = converter.convertFromDto(creationDto);
+        UserCategory entity = converter.convertToEntity(creationDto);
         UserCategory savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -57,7 +57,7 @@ class UserCategoriesRequestServiceImpl implements UserCategoriesRequestService {
         UserCategory entity = dataService.getById(new UserCategoryKey(user.getId(), categoryId));
         UserCategory patchedEntity = converter.merge(entity, patchesDto);
         UserCategory savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(patchedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

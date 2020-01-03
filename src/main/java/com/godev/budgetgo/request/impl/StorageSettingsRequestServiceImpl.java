@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService {
+public class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService {
 
     private final StoragesRelationsDataService dataService;
     private final StorageSettingsConverter converter;
@@ -34,7 +34,7 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
     public StorageSettingsInfoDto getByStorageId(Long storageId) {
         User user = authenticationFacade.getAuthenticatedUser();
         StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional
@@ -44,7 +44,7 @@ class StorageSettingsRequestServiceImpl implements StorageSettingsRequestService
         StorageRelations entity = dataService.getById(new UserStorageKey(user.getId(), storageId));
         StorageRelations patchedEntity = converter.merge(entity, patchesDto);
         StorageRelations savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

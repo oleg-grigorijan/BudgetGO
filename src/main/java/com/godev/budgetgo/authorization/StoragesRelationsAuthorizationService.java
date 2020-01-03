@@ -4,9 +4,9 @@ import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
 import com.godev.budgetgo.entity.StorageRelations;
 
 public interface StoragesRelationsAuthorizationService {
-    void authorizeCreation(StorageRelations entity);
+    void authorizeCreationAccess(StorageRelations entity);
 
-    void authorizeModification(StorageRelations entity, StorageRelationsPatchesDto patchesDto);
+    void authorizeModificationAccess(StorageRelations entity, StorageRelationsPatchesDto patchesDto);
 
     void authorizeDeletionAccess(StorageRelations entity);
 }

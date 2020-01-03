@@ -15,7 +15,7 @@ import com.godev.budgetgo.exception.UnprocessableEntityException;
 import org.springframework.stereotype.Service;
 
 @Service
-class StorageRelationsConverterImpl implements StorageRelationsConverter {
+public class StorageRelationsConverterImpl implements StorageRelationsConverter {
 
     private final StoragesDataService storagesDataService;
     private final UsersDataService usersDataService;
@@ -35,7 +35,7 @@ class StorageRelationsConverterImpl implements StorageRelationsConverter {
     }
 
     @Override
-    public StorageRelations convertFromDto(ExtendedStorageRelationsCreationDto dto) {
+    public StorageRelations convertToEntity(ExtendedStorageRelationsCreationDto dto) {
         try {
             StorageRelations e = new StorageRelations();
             e.setStorage(storagesDataService.getById(dto.getStorageId()));
@@ -53,11 +53,11 @@ class StorageRelationsConverterImpl implements StorageRelationsConverter {
     }
 
     @Override
-    public StorageRelationsInfoDto convertFromEntity(StorageRelations e) {
+    public StorageRelationsInfoDto convertToDto(StorageRelations e) {
         StorageRelationsInfoDto dto = new StorageRelationsInfoDto();
-        dto.setUserInfoDto(usersConverter.convertFromEntity(e.getUser()));
+        dto.setUserInfoDto(usersConverter.convertToDto(e.getUser()));
         dto.setUserRole(e.getUserRole());
-        dto.setInviterInfoDto(usersConverter.convertFromEntity(e.getInviter()));
+        dto.setInviterInfoDto(usersConverter.convertToDto(e.getInviter()));
         return dto;
     }
 

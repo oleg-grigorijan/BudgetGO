@@ -16,9 +16,10 @@ public class OperationCreationDto {
     @NotNull
     private Long categoryId;
 
+    @NotNull
     @PastOrPresent
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate date = LocalDate.now();
+    private LocalDate date;
 
     @Size(max = Operation.DESCRIPTION_MAX_LENGTH)
     private String description = "";

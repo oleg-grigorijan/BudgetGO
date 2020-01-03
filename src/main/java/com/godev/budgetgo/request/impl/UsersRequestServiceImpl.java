@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class UsersRequestServiceImpl implements UsersRequestService {
+public class UsersRequestServiceImpl implements UsersRequestService {
 
     private final UsersDataService dataService;
     private final UsersConverter converter;
@@ -26,34 +26,34 @@ class UsersRequestServiceImpl implements UsersRequestService {
     @Override
     public UserInfoDto getById(Long id) {
         User entity = dataService.getById(id);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public UserInfoDto getByLogin(String login) {
         User entity = dataService.getByLogin(login);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public UserInfoDto getByEmail(String email) {
         User entity = dataService.getByEmail(email);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<UserInfoDto> getAll() {
-        return converter.convertFromEntities(dataService.getAll());
+        return converter.convertToDtos(dataService.getAll());
     }
 
     @Transactional
     @Override
     public UserInfoDto create(UserCreationDto creationDto) {
-        User entity = converter.convertFromDto(creationDto);
+        User entity = converter.convertToEntity(creationDto);
         User savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

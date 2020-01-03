@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-class OperationsRequestServiceImpl implements OperationsRequestService {
+public class OperationsRequestServiceImpl implements OperationsRequestService {
 
     private final OperationsDataService dataService;
     private final OperationsConverter converter;
@@ -42,7 +42,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
     public OperationInfoDto getById(StorageOperationKey id) {
         Operation entity = dataService.getById(id);
         storagesAuthorizationService.authorizeAccess(entity.getStorage());
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
@@ -50,7 +50,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
     public List<OperationInfoDto> getByStorageId(Long storageId) {
         Storage storage = storagesDataService.getById(storageId);
         storagesAuthorizationService.authorizeAccess(storage);
-        return converter.convertFromEntities(dataService.getByStorage(storage));
+        return converter.convertToDtos(dataService.getByStorage(storage));
     }
 
     @Transactional(readOnly = true)
@@ -58,16 +58,16 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
     public List<OperationInfoDto> getByStorageIdAndDateBetween(Long storageId, LocalDate from, LocalDate to) {
         Storage storage = storagesDataService.getById(storageId);
         storagesAuthorizationService.authorizeAccess(storage);
-        return converter.convertFromEntities(dataService.getByStorageAndDateBetween(storage, from, to));
+        return converter.convertToDtos(dataService.getByStorageAndDateBetween(storage, from, to));
     }
 
     @Transactional
     @Override
     public OperationInfoDto create(ExtendedOperationCreationDto creationDto) {
-        Operation entity = converter.convertFromDto(creationDto);
+        Operation entity = converter.convertToEntity(creationDto);
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
         Operation savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -77,7 +77,7 @@ class OperationsRequestServiceImpl implements OperationsRequestService {
         storagesAuthorizationService.authorizeModificationAccess(entity.getStorage());
         Operation patchedEntity = converter.merge(entity, patchesDto);
         Operation savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional

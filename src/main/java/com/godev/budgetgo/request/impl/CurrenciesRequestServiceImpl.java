@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
+public class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
 
     private final CurrenciesDataService dataService;
     private final CurrenciesConverter converter;
@@ -27,21 +27,21 @@ class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
     @Override
     public CurrencyInfoDto getById(Long id) {
         Currency entity = dataService.getById(id);
-        return converter.convertFromEntity(entity);
+        return converter.convertToDto(entity);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<CurrencyInfoDto> getAll() {
-        return converter.convertFromEntities(dataService.getAll());
+        return converter.convertToDtos(dataService.getAll());
     }
 
     @Transactional
     @Override
     public CurrencyInfoDto create(CurrencyCreationDto creationDto) {
-        Currency entity = converter.convertFromDto(creationDto);
+        Currency entity = converter.convertToEntity(creationDto);
         Currency savedEntity = dataService.add(entity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 
     @Transactional
@@ -50,6 +50,6 @@ class CurrenciesRequestServiceImpl implements CurrenciesRequestService {
         Currency entity = dataService.getById(id);
         Currency patchedEntity = converter.merge(entity, patchesDto);
         Currency savedEntity = dataService.update(patchedEntity);
-        return converter.convertFromEntity(savedEntity);
+        return converter.convertToDto(savedEntity);
     }
 }

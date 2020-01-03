@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-class StoragesRelationsDataServiceImpl extends AbstractDataService<StorageRelations, UserStorageKey> implements StoragesRelationsDataService {
+public class StoragesRelationsDataServiceImpl extends AbstractDataService<StorageRelations, UserStorageKey> implements StoragesRelationsDataService {
 
     private final StoragesRelationsRepository repository;
     private final StoragesDataService storagesDataService;

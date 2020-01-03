@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-class UsersConverterImpl implements UsersConverter {
+public class UsersConverterImpl implements UsersConverter {
 
     private final CurrenciesDataService currenciesDataService;
     private final PasswordEncoder passwordEncoder;
@@ -22,7 +22,7 @@ class UsersConverterImpl implements UsersConverter {
     }
 
     @Override
-    public User convertFromDto(UserCreationDto dto) {
+    public User convertToEntity(UserCreationDto dto) {
         try {
             User user = new User();
             user.setMainCurrency(currenciesDataService.getById(dto.getMainCurrencyId()));
@@ -40,7 +40,7 @@ class UsersConverterImpl implements UsersConverter {
     }
 
     @Override
-    public UserInfoDto convertFromEntity(User e) {
+    public UserInfoDto convertToDto(User e) {
         UserInfoDto dto = new UserInfoDto();
         dto.setId(e.getId());
         dto.setLogin(e.getLogin());
