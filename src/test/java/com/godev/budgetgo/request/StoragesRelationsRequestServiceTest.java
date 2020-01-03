@@ -78,7 +78,7 @@ class StoragesRelationsRequestServiceTest {
     @Test
     void create_noCreationAccess_exceptionThrownAndNoDataServiceAddCall() {
         when(converter.convertToEntity(any(ExtendedStorageRelationsCreationDto.class))).thenReturn(new StorageRelations());
-        doThrow(StorageRelationsAccessDeniedException.class).when(authorizationService).authorizeCreation(any(StorageRelations.class));
+        doThrow(StorageRelationsAccessDeniedException.class).when(authorizationService).authorizeCreationAccess(any(StorageRelations.class));
 
         assertThatThrownBy(() -> requestService.create(new ExtendedStorageRelationsCreationDto()))
                 .isInstanceOf(StorageRelationsAccessDeniedException.class);
@@ -99,7 +99,7 @@ class StoragesRelationsRequestServiceTest {
     void patch_noModificationAccess_exceptionThrownAndNoDataServiceUpdateCall() {
         when(dataService.getById(any(UserStorageKey.class))).thenReturn(new StorageRelations());
         doThrow(StorageRelationsAccessDeniedException.class)
-                .when(authorizationService).authorizeModification(any(StorageRelations.class), any(StorageRelationsPatchesDto.class));
+                .when(authorizationService).authorizeModificationAccess(any(StorageRelations.class), any(StorageRelationsPatchesDto.class));
 
         assertThatThrownBy(() -> requestService.patch(new UserStorageKey(), new StorageRelationsPatchesDto()))
                 .isInstanceOf(StorageRelationsAccessDeniedException.class);
@@ -117,7 +117,7 @@ class StoragesRelationsRequestServiceTest {
     @Test
     void deleteById_noDeletionAccess_exceptionThrownAndNoDataServiceDeleteCall() {
         when(dataService.getById(any(UserStorageKey.class))).thenReturn(new StorageRelations());
-        doThrow(StorageRelationsAccessDeniedException.class).when(authorizationService).authorizeDeletion(any(StorageRelations.class));
+        doThrow(StorageRelationsAccessDeniedException.class).when(authorizationService).authorizeDeletionAccess(any(StorageRelations.class));
 
         assertThatThrownBy(() -> requestService.deleteById(new UserStorageKey()))
                 .isInstanceOf(StorageRelationsAccessDeniedException.class);

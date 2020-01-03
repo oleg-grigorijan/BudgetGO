@@ -59,7 +59,7 @@ public class StoragesRelationsRequestServiceImpl implements StoragesRelationsReq
     @Override
     public StorageRelationsInfoDto create(ExtendedStorageRelationsCreationDto creationDto) {
         StorageRelations entity = converter.convertToEntity(creationDto);
-        authorizationService.authorizeCreation(entity);
+        authorizationService.authorizeCreationAccess(entity);
         StorageRelations savedEntity = dataService.add(entity);
         return converter.convertToDto(savedEntity);
     }
@@ -69,7 +69,7 @@ public class StoragesRelationsRequestServiceImpl implements StoragesRelationsReq
     public StorageRelationsInfoDto patch(UserStorageKey id, StorageRelationsPatchesDto patchesDto) {
         StorageRelations entity = dataService.getById(id);
         StorageRelations patchedEntity = converter.merge(entity, patchesDto);
-        authorizationService.authorizeModification(entity, patchesDto);
+        authorizationService.authorizeModificationAccess(entity, patchesDto);
         StorageRelations savedEntity = dataService.update(patchedEntity);
         return converter.convertToDto(savedEntity);
     }
@@ -78,7 +78,7 @@ public class StoragesRelationsRequestServiceImpl implements StoragesRelationsReq
     @Override
     public void deleteById(UserStorageKey id) {
         StorageRelations entity = dataService.getById(id);
-        authorizationService.authorizeDeletion(entity);
+        authorizationService.authorizeDeletionAccess(entity);
         dataService.delete(entity);
     }
 }
