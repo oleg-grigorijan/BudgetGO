@@ -1,5 +1,6 @@
 package com.godev.budgetgo.request;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authorization.StoragesAuthorizationService;
 import com.godev.budgetgo.authorization.StoragesRelationsAuthorizationService;
 import com.godev.budgetgo.converter.StorageRelationsConverter;
@@ -28,6 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StoragesRelationsRequestServiceTest {
 
     private StoragesRelationsRequestService requestService;

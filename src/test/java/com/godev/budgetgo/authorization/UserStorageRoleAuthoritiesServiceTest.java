@@ -1,5 +1,6 @@
 package com.godev.budgetgo.authorization;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authorization.impl.UserStorageRoleAuthoritiesServiceImpl;
 import com.godev.budgetgo.entity.UserStorageRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@UnitTest
 class UserStorageRoleAuthoritiesServiceTest {
 
     private UserStorageRoleAuthoritiesService authoritiesService;

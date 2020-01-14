@@ -1,5 +1,6 @@
 package com.godev.budgetgo.converter;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.converter.impl.CurrenciesConverterImpl;
 import com.godev.budgetgo.dto.CurrencyCreationDto;
 import com.godev.budgetgo.dto.CurrencyInfoDto;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@UnitTest
 class CurrenciesConverterTest {
 
     private CurrenciesConverter converter;

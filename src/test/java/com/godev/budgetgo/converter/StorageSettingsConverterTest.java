@@ -1,5 +1,6 @@
 package com.godev.budgetgo.converter;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.converter.impl.StorageSettingsConverterImpl;
 import com.godev.budgetgo.dto.StorageSettingsInfoDto;
 import com.godev.budgetgo.dto.StorageSettingsPatchesDto;
@@ -19,9 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StorageSettingsConverterTest {
 
-    StorageSettingsConverter converter;
+    private StorageSettingsConverter converter;
 
     @Mock
     private UsersConverter usersConverter;

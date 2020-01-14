@@ -1,5 +1,6 @@
 package com.godev.budgetgo.data;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.data.impl.StoragesRelationsDataServiceImpl;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.StorageRelations;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StoragesRelationsDataServiceTest {
 
     private StoragesRelationsDataService dataService;

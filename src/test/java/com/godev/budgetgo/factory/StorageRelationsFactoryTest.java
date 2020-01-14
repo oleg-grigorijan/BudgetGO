@@ -1,5 +1,6 @@
 package com.godev.budgetgo.factory;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import com.godev.budgetgo.entity.Storage;
 import com.godev.budgetgo.entity.User;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StorageRelationsFactoryTest {
 
     private StorageRelationsFactory factory;

@@ -1,5 +1,6 @@
 package com.godev.budgetgo.converter;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.converter.impl.CategoriesConverterImpl;
 import com.godev.budgetgo.dto.CategoryCreationDto;
 import com.godev.budgetgo.dto.CategoryInfoDto;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@UnitTest
 class CategoriesConverterTest {
 
     private CategoriesConverter converter;

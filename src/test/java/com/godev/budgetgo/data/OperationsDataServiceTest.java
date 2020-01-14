@@ -1,5 +1,6 @@
 package com.godev.budgetgo.data;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.data.impl.OperationsDataServiceImpl;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.entity.OperationsKeySequence;
@@ -33,6 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class OperationsDataServiceTest {
 
     private OperationsDataService dataService;

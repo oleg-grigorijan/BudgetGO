@@ -1,5 +1,6 @@
 package com.godev.budgetgo.validation.validator;
 
+import com.godev.budgetgo.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import javax.validation.ConstraintValidatorContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class NullOrNotBlankValidatorTest {
 
     private NullOrNotBlankValidator validator;

@@ -1,5 +1,6 @@
 package com.godev.budgetgo.authorization;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import com.godev.budgetgo.authorization.impl.StoragesRelationsAuthorizationServiceImpl;
 import com.godev.budgetgo.data.StoragesRelationsDataService;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StoragesRelationsAuthorizationServiceTest {
 
     private StoragesRelationsAuthorizationService authorizationService;

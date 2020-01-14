@@ -1,5 +1,6 @@
 package com.godev.budgetgo.data;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.data.impl.UserCategoriesDataServiceImpl;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.entity.UserCategory;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class UserCategoriesDataServiceTest {
 
     private UserCategoriesDataService dataService;

@@ -1,4 +1,5 @@
 *.log
+*local/
 
 # Intellij
 .idea/

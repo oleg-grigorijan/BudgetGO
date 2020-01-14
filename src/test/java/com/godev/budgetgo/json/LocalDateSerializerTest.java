@@ -2,6 +2,7 @@ package com.godev.budgetgo.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.godev.budgetgo.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class LocalDateSerializerTest {
 
     private LocalDateSerializer serializer;
