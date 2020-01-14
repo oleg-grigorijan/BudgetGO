@@ -27,7 +27,7 @@ public class StorageSettingsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public StorageSettingsInfoDto get(@PathVariable Long id) {
+    public StorageSettingsInfoDto getByStorageId(@PathVariable Long id) {
         return requestService.getByStorageId(id);
     }
 
@@ -39,7 +39,7 @@ public class StorageSettingsController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void deleteByStorageId(@PathVariable Long id) {
         requestService.deleteByStorageId(id);
     }
 }
