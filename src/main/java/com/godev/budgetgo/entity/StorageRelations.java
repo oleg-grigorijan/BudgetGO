@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "storages_relations")
-public class StorageRelations implements Cloneable {
+public class StorageRelations {
 
     @EmbeddedId
     private UserStorageKey id;
@@ -99,17 +99,16 @@ public class StorageRelations implements Cloneable {
         this.invitation = invitation;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public StorageRelations clone() {
-        try {
-            return (StorageRelations) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public StorageRelations cloneShallow() {
+        StorageRelations e = new StorageRelations();
+        e.setId(id);
+        e.setUser(user);
+        e.setStorage(storage);
+        e.setIncludedInUserStatistics(includedInUserStatistics);
+        e.setUserRole(userRole);
+        e.setInviter(inviter);
+        e.setInvitation(invitation);
+        return e;
     }
 
     @Override

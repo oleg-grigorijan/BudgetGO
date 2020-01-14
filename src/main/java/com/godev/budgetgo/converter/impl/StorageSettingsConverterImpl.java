@@ -28,7 +28,7 @@ public class StorageSettingsConverterImpl implements StorageSettingsConverter {
 
     @Override
     public StorageRelations merge(StorageRelations eOld, StorageSettingsPatchesDto dto) {
-        StorageRelations e = eOld.clone();
+        StorageRelations e = eOld.cloneShallow();
         dto.getIncludedInUserStatistics().ifPresent(e::setIncludedInUserStatistics);
         dto.getInvitation().ifPresent(e::setInvitation);
         return e;

@@ -26,7 +26,7 @@ public class CategoriesConverterImpl implements CategoriesConverter {
 
     @Override
     public Category merge(Category eOld, CategoryPatchesDto dto) {
-        Category e = eOld.clone();
+        Category e = eOld.cloneShallow();
         dto.getName().ifPresent(e::setName);
         return e;
     }

@@ -44,7 +44,7 @@ public class UserSettingsConverterImpl implements UserSettingsConverter {
     @Override
     public User merge(User eOld, UserSettingsPatchesDto dto) {
         try {
-            User e = eOld.clone();
+            User e = eOld.cloneShallow();
             dto.getLogin().ifPresent(e::setLogin);
             dto.getEmail().ifPresent(e::setEmail);
             dto.getName().ifPresent(e::setName);

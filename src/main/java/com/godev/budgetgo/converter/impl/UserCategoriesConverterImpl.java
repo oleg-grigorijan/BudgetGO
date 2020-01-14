@@ -52,7 +52,7 @@ public class UserCategoriesConverterImpl implements UserCategoriesConverter {
 
     @Override
     public UserCategory merge(UserCategory eOld, UserCategoryPatchesDto dto) {
-        UserCategory e = eOld.clone();
+        UserCategory e = eOld.cloneShallow();
         dto.getUsedForIncomes().ifPresent(e::setUsedForIncomes);
         dto.getUsedForOutcomes().ifPresent(e::setUsedForOutcomes);
         return e;

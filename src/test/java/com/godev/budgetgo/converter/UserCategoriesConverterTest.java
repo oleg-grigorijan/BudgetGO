@@ -107,7 +107,7 @@ class UserCategoriesConverterTest {
         dto.setUsedForIncomes(true);
         dto.setUsedForOutcomes(true);
 
-        UserCategory expectedEntity = entity.clone();
+        UserCategory expectedEntity = entity.cloneShallow();
         expectedEntity.setUsedForIncomes(dto.getUsedForIncomes().get());
         expectedEntity.setUsedForOutcomes(dto.getUsedForOutcomes().get());
         assertThat(expectedEntity).hasNoNullFieldsOrProperties();

@@ -70,7 +70,7 @@ public class StoragesConverterImpl implements StoragesConverter {
 
     @Override
     public Storage merge(Storage eOld, StoragePatchesDto dto) {
-        Storage e = eOld.clone();
+        Storage e = eOld.cloneShallow();
         dto.getName().ifPresent(e::setName);
         dto.getDescription().ifPresent(e::setDescription);
         return e;

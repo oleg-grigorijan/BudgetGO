@@ -12,7 +12,7 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
     private static final long serialVersionUID = 1L;
 
-    protected LocalDateDeserializer() {
+    public LocalDateDeserializer() {
         super(LocalDate.class);
     }
 

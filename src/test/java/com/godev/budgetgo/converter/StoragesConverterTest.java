@@ -133,7 +133,7 @@ class StoragesConverterTest {
         dto.setName("ABC");
         dto.setDescription("DEF");
 
-        Storage expectedEntity = entity.clone();
+        Storage expectedEntity = entity.cloneShallow();
         expectedEntity.setName(dto.getName().get());
         expectedEntity.setDescription(dto.getDescription().get());
         assertThat(expectedEntity).hasNoNullFieldsOrProperties();

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "currencies")
-public class Currency implements Cloneable {
+public class Currency {
 
     public static final int NAME_MAX_LENGTH = 255;
     public static final int ISO_CODE_LENGTH = 3;
@@ -49,17 +49,12 @@ public class Currency implements Cloneable {
         this.isoCode = isoCode;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public Currency clone() {
-        try {
-            return (Currency) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public Currency cloneShallow() {
+        Currency e = new Currency();
+        e.setId(id);
+        e.setName(name);
+        e.setIsoCode(isoCode);
+        return e;
     }
 
     @Override

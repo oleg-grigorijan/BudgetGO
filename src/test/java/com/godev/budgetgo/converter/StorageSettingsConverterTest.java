@@ -81,7 +81,7 @@ class StorageSettingsConverterTest {
         dto.setInvitation(false);
         dto.setIncludedInUserStatistics(true);
 
-        StorageRelations expectedEntity = entity.clone();
+        StorageRelations expectedEntity = entity.cloneShallow();
         expectedEntity.setInvitation(dto.getInvitation().get());
         expectedEntity.setIncludedInUserStatistics(dto.getIncludedInUserStatistics().get());
         assertThat(expectedEntity).hasNoNullFieldsOrProperties();

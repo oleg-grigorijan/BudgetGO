@@ -28,7 +28,7 @@ public class CurrenciesConverterImpl implements CurrenciesConverter {
 
     @Override
     public Currency merge(Currency eOld, CurrencyPatchesDto dto) {
-        Currency e = eOld.clone();
+        Currency e = eOld.cloneShallow();
         dto.getName().ifPresent(e::setName);
         dto.getIsoCode().ifPresent(e::setIsoCode);
         return e;

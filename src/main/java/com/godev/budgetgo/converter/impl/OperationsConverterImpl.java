@@ -81,7 +81,7 @@ public class OperationsConverterImpl implements OperationsConverter {
     @Override
     public Operation merge(Operation eOld, OperationPatchesDto dto) {
         try {
-            Operation e = eOld.clone();
+            Operation e = eOld.cloneShallow();
             dto.getCategoryId()
                     .ifPresent(categoryId -> e.setCategory(categoriesDataService.getById(categoryId)));
             dto.getMoneyDelta().ifPresent(e::setMoneyDelta);

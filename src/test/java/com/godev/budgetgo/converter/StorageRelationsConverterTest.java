@@ -126,7 +126,7 @@ class StorageRelationsConverterTest {
         StorageRelationsPatchesDto dto = new StorageRelationsPatchesDto();
         dto.setUserRole(UserStorageRole.EDITOR);
 
-        StorageRelations expectedEntity = entity.clone();
+        StorageRelations expectedEntity = entity.cloneShallow();
         expectedEntity.setUserRole(dto.getUserRole().get());
         assertThat(expectedEntity).hasNoNullFieldsOrProperties();
 

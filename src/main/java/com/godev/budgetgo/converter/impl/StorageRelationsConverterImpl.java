@@ -63,7 +63,7 @@ public class StorageRelationsConverterImpl implements StorageRelationsConverter 
 
     @Override
     public StorageRelations merge(StorageRelations eOld, StorageRelationsPatchesDto dto) {
-        StorageRelations e = eOld.clone();
+        StorageRelations e = eOld.cloneShallow();
         dto.getUserRole().ifPresent(e::setUserRole);
         return e;
     }

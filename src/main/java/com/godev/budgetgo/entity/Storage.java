@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "storages")
-public class Storage implements Cloneable {
+public class Storage {
 
     public static final int NAME_MAX_LENGTH = 255;
     public static final int DESCRIPTION_MAX_LENGTH = 255;
@@ -85,17 +85,15 @@ public class Storage implements Cloneable {
         this.initialBalance = initialBalance;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public Storage clone() {
-        try {
-            return (Storage) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public Storage cloneShallow() {
+        Storage e = new Storage();
+        e.setId(id);
+        e.setBalance(balance);
+        e.setName(name);
+        e.setDescription(description);
+        e.setCurrency(currency);
+        e.setInitialBalance(initialBalance);
+        return e;
     }
 
     @Override

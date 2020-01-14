@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Cloneable {
+public class Category {
 
     public static final int NAME_MAX_LENGTH = 255;
 
@@ -37,17 +37,11 @@ public class Category implements Cloneable {
         this.name = name;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public Category clone() {
-        try {
-            return (Category) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public Category cloneShallow() {
+        Category e = new Category();
+        e.setId(id);
+        e.setName(name);
+        return e;
     }
 
     @Override

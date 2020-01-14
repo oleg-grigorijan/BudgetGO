@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_categories")
-public class UserCategory implements Cloneable {
+public class UserCategory {
 
     @EmbeddedId
     private UserCategoryKey id;
@@ -72,16 +72,13 @@ public class UserCategory implements Cloneable {
         isUsedForOutcomes = usedForOutcomes;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public UserCategory clone() {
-        try {
-            return (UserCategory) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public UserCategory cloneShallow() {
+        UserCategory e = new UserCategory();
+        e.setId(id);
+        e.setUser(user);
+        e.setCategory(category);
+        e.setUsedForIncomes(isUsedForIncomes);
+        e.setUsedForOutcomes(isUsedForOutcomes);
+        return e;
     }
 }

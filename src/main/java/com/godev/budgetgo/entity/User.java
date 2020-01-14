@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User implements Cloneable {
+public class User {
 
     public static final int LOGIN_MAX_LENGTH = 255;
     public static final String LOGIN_PATTERN = "^[a-zA-Z0-9_.\\-]*$";
@@ -124,17 +124,18 @@ public class User implements Cloneable {
         this.mainCurrency = mainCurrency;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public User clone() {
-        try {
-            return (User) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public User cloneShallow() {
+        User e = new User();
+        e.setId(id);
+        e.setLogin(login);
+        e.setEmail(email);
+        e.setName(name);
+        e.setSurname(surname);
+        e.setPasswordHash(passwordHash);
+        e.setEmailPublic(isEmailPublic);
+        e.setAdmin(isAdmin);
+        e.setMainCurrency(mainCurrency);
+        return e;
     }
 
     @Override

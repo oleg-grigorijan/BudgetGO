@@ -132,17 +132,19 @@ public class Operation implements Cloneable {
         this.creator = creator;
     }
 
-    /**
-     * @return Shallow clone of instance
-     */
-    @Override
-    public Operation clone() {
-        try {
-            return (Operation) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+    public Operation cloneShallow() {
+        Operation e = new Operation();
+        e.setId(id);
+        e.setStorage(storage);
+        e.setMoneyDelta(moneyDelta);
+        e.setCategory(category);
+        e.setDate(date);
+        e.setDescription(description);
+        e.setDateCreated(dateCreated);
+        e.setDateModified(dateModified);
+        e.setCreator(creator);
+        e.setLastEditor(lastEditor);
+        return e;
     }
 
     @Override

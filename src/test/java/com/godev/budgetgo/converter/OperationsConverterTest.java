@@ -222,7 +222,7 @@ class OperationsConverterTest {
         authenticatedUser.setId(6L);
         when(authenticationFacade.getAuthenticatedUser()).thenReturn(authenticatedUser);
 
-        Operation expectedEntity = entity.clone();
+        Operation expectedEntity = entity.cloneShallow();
         expectedEntity.setDateModified(LocalDate.EPOCH);
         expectedEntity.setLastEditor(authenticatedUser);
         assertThat(expectedEntity).hasNoNullFieldsOrProperties();
