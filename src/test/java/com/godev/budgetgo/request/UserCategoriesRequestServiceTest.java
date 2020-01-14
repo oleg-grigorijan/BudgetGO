@@ -1,5 +1,6 @@
 package com.godev.budgetgo.request;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import com.godev.budgetgo.converter.UserCategoriesConverter;
 import com.godev.budgetgo.data.UserCategoriesDataService;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class UserCategoriesRequestServiceTest {
 
     private UserCategoriesRequestService requestService;

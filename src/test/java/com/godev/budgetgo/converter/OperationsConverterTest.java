@@ -1,5 +1,6 @@
 package com.godev.budgetgo.converter;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import com.godev.budgetgo.converter.impl.OperationsConverterImpl;
 import com.godev.budgetgo.data.CategoriesDataService;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class OperationsConverterTest {
 
     private OperationsConverter converter;

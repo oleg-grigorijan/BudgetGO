@@ -1,5 +1,6 @@
 package com.godev.budgetgo.authorization;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import com.godev.budgetgo.authorization.impl.StoragesAuthorizationServiceImpl;
 import com.godev.budgetgo.data.StoragesDataService;
@@ -24,6 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class StoragesAuthorizationServiceTest {
 
     private StoragesAuthorizationService authorizationService;

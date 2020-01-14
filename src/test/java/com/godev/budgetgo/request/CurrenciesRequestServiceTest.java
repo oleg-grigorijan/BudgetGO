@@ -1,5 +1,6 @@
 package com.godev.budgetgo.request;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.converter.CurrenciesConverter;
 import com.godev.budgetgo.data.CurrenciesDataService;
 import com.godev.budgetgo.dto.CurrencyCreationDto;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class CurrenciesRequestServiceTest {
 
     private CurrenciesRequestService requestService;

@@ -1,5 +1,6 @@
-package com.godev.budgetgo.integration.controller;
+package com.godev.budgetgo.controller;
 
+import com.godev.budgetgo.IntegrationTest;
 import com.godev.budgetgo.config.Config;
 import com.godev.budgetgo.config.PersistenceConfig;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ControllerTestConfig.class, PersistenceConfig.class, Config.class})
+@ContextConfiguration(classes = {ControllerITConfig.class, PersistenceConfig.class, Config.class})
 @WebAppConfiguration
-abstract class AbstractControllerTest {
+@IntegrationTest
+abstract class AbstractControllerIT {
 
     static final String APPLICATION_JSON_UTF8 = "application/json; charset=utf-8";
 

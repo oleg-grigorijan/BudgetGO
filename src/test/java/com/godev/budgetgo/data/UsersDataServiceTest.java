@@ -1,5 +1,6 @@
 package com.godev.budgetgo.data;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.data.impl.UsersDataServiceImpl;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.exception.UserNotFoundException;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class UsersDataServiceTest {
 
     private UsersDataService dataService;

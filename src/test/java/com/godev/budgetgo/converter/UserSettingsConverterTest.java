@@ -1,5 +1,6 @@
 package com.godev.budgetgo.converter;
 
+import com.godev.budgetgo.UnitTest;
 import com.godev.budgetgo.converter.impl.UserSettingsConverterImpl;
 import com.godev.budgetgo.data.CurrenciesDataService;
 import com.godev.budgetgo.dto.CurrencyInfoDto;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@UnitTest
 class UserSettingsConverterTest {
 
     private UserSettingsConverter converter;

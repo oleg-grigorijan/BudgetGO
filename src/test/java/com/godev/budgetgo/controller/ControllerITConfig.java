@@ -1,4 +1,4 @@
-package com.godev.budgetgo.integration.controller;
+package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.authentication.AuthenticationFacade;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import static org.mockito.Mockito.mock;
 
 @Configuration
-class ControllerTestConfig {
+class ControllerITConfig {
 
     @Bean
     @Primary

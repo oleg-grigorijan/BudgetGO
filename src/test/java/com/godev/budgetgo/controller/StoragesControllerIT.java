@@ -1,4 +1,4 @@
-package com.godev.budgetgo.integration.controller;
+package com.godev.budgetgo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class StoragesControllerTest extends AbstractControllerTest {
+class StoragesControllerIT extends AbstractControllerIT {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -52,7 +52,7 @@ class StoragesControllerTest extends AbstractControllerTest {
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
-    StoragesControllerTest() {
+    StoragesControllerIT() {
         objectMapper.registerModule(new Jdk8Module());
     }
 

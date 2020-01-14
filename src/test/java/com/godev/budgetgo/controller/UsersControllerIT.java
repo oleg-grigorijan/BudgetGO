@@ -1,4 +1,4 @@
-package com.godev.budgetgo.integration.controller;
+package com.godev.budgetgo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.godev.budgetgo.converter.UsersConverter;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class UsersControllerTest extends AbstractControllerTest {
+class UsersControllerIT extends AbstractControllerIT {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
