@@ -27,7 +27,7 @@ Table of contents:
         * Creator: admin's authorities; can't be modified by admin
 * [x] Operations are divided into **categories**
     * [x] Creating personal collection of categories that user wants to use
-    * [ ] Specifying user's categories for using only with incomes or only with outcomes 
+    * [x] Specifying user's categories for using only with incomes or only with outcomes 
     * [ ] Setting desired incomes and outcomes limits for user's categories for period of time
 * [ ] **Transactions** — shortcut for creating an outcome operation in one storage and an income operation in another
 
@@ -46,9 +46,10 @@ mvn clean install
 
 ## Before running
 * Configure MySQL Server according to the 
- [`com.godev.budgetgo.config.PersistenceConfig#dataSource()`](src/main/java/com/godev/budgetgo/config/PersistenceConfig.java). The database schema
+ [`src/main/resources/jdbc.properties`](src/main/resources/jdbc.properties). The database schema
   and tables will be created automatically.
-* Execute queries from [`src/main/resources/currencies_dump.sql`](src/main/resources/currencies_dump.sql) to restore currencies records in database.
+* Specify necessary allowed origins in CORS configuration in [`src/main/resources/cors.properties`](src/main/resources/cors.properties)
+* Execute queries from [`src/main/resources/sql/currencies_dump.sql`](src/main/resources/sql/currencies_dump.sql) to restore currencies records in database.
 
 ## Running
 Configure `budgetgo:war` artifact deployment to Tomcat Server on the `8080` HTTP port and set application context to `/`. Then run Tomcat.
