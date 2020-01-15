@@ -1,0 +1,11 @@
+*.log
+*local/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
