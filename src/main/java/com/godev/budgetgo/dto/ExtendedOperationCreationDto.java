@@ -1,11 +1,13 @@
 package com.godev.budgetgo.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class ExtendedOperationCreationDto extends OperationCreationDto {
 
     private Long storageId;
-
-    public ExtendedOperationCreationDto() {
-    }
 
     public ExtendedOperationCreationDto(OperationCreationDto operationCreationDto, Long storageId) {
         this.storageId = storageId;
@@ -13,13 +15,5 @@ public class ExtendedOperationCreationDto extends OperationCreationDto {
         setDate(operationCreationDto.getDate());
         setDescription(operationCreationDto.getDescription());
         setMoneyDelta(operationCreationDto.getMoneyDelta());
-    }
-
-    public Long getStorageId() {
-        return storageId;
-    }
-
-    public void setStorageId(Long storageId) {
-        this.storageId = storageId;
     }
 }

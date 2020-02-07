@@ -1,9 +1,17 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Optional;
 
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
 public class UserCategoryPatchesDto {
 
     @JsonProperty("isUsedForIncomes")
@@ -16,15 +24,7 @@ public class UserCategoryPatchesDto {
         return Optional.ofNullable(usedForIncomes);
     }
 
-    public void setUsedForIncomes(Boolean usedForIncomes) {
-        this.usedForIncomes = usedForIncomes;
-    }
-
     public Optional<Boolean> getUsedForOutcomes() {
         return Optional.ofNullable(usedForOutcomes);
-    }
-
-    public void setUsedForOutcomes(Boolean usedForOutcomes) {
-        this.usedForOutcomes = usedForOutcomes;
     }
 }

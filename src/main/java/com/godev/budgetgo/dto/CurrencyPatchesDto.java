@@ -2,10 +2,18 @@ package com.godev.budgetgo.dto;
 
 import com.godev.budgetgo.entity.Currency;
 import com.godev.budgetgo.validation.constraint.NullOrNotBlank;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Size;
 import java.util.Optional;
 
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
 public class CurrencyPatchesDto {
 
     @NullOrNotBlank
@@ -20,15 +28,7 @@ public class CurrencyPatchesDto {
         return Optional.ofNullable(name);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Optional<String> getIsoCode() {
         return Optional.ofNullable(isoCode);
-    }
-
-    public void setIsoCode(String isoCode) {
-        this.isoCode = isoCode;
     }
 }

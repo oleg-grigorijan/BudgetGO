@@ -1,9 +1,13 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+@Data
+@NoArgsConstructor
 public class UserCategoryCreationDto {
 
     @NotNull
@@ -14,28 +18,4 @@ public class UserCategoryCreationDto {
 
     @JsonProperty("isUsedForOutcomes")
     private boolean usedForOutcomes = true;
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public boolean getUsedForIncomes() {
-        return usedForIncomes;
-    }
-
-    public void setUsedForIncomes(boolean usedForIncomes) {
-        this.usedForIncomes = usedForIncomes;
-    }
-
-    public boolean getUsedForOutcomes() {
-        return usedForOutcomes;
-    }
-
-    public void setUsedForOutcomes(boolean usedForOutcomes) {
-        this.usedForOutcomes = usedForOutcomes;
-    }
 }

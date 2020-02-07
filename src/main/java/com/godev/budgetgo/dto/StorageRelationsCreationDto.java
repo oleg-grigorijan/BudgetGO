@@ -1,9 +1,13 @@
 package com.godev.budgetgo.dto;
 
 import com.godev.budgetgo.entity.UserStorageRole;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+@Data
+@NoArgsConstructor
 public class StorageRelationsCreationDto {
 
     @NotNull
@@ -11,20 +15,4 @@ public class StorageRelationsCreationDto {
 
     @NotNull
     private UserStorageRole userRole;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public UserStorageRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserStorageRole userRole) {
-        this.userRole = userRole;
-    }
 }

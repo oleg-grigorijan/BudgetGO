@@ -36,8 +36,8 @@ public class UserCategoriesConverterImpl implements UserCategoriesConverter {
         User user = authenticationFacade.getAuthenticatedUser();
         e.setUser(user);
         e.setId(new UserCategoryKey(user.getId(), dto.getCategoryId()));
-        e.setUsedForIncomes(dto.getUsedForIncomes());
-        e.setUsedForOutcomes(dto.getUsedForOutcomes());
+        e.setUsedForIncomes(dto.isUsedForIncomes());
+        e.setUsedForOutcomes(dto.isUsedForOutcomes());
         return e;
     }
 

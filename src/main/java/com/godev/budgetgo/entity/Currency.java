@@ -1,15 +1,19 @@
 package com.godev.budgetgo.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "currencies")
+@Data
+@NoArgsConstructor
 public class Currency {
 
     public static final int NAME_MAX_LENGTH = 255;
@@ -25,59 +29,11 @@ public class Currency {
     @Column(name = "iso_code", nullable = false, length = ISO_CODE_LENGTH)
     private String isoCode;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIsoCode() {
-        return isoCode;
-    }
-
-    public void setIsoCode(String isoCode) {
-        this.isoCode = isoCode;
-    }
-
     public Currency cloneShallow() {
         Currency e = new Currency();
         e.setId(id);
         e.setName(name);
         e.setIsoCode(isoCode);
         return e;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Currency)) return false;
-        Currency currency = (Currency) o;
-        return id.equals(currency.id) &&
-                name.equals(currency.name) &&
-                isoCode.equals(currency.isoCode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, isoCode);
-    }
-
-    @Override
-    public String toString() {
-        return "Currency{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", isoCode='" + isoCode + '\'' +
-                '}';
     }
 }

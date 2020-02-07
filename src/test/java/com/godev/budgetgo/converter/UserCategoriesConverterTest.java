@@ -60,8 +60,8 @@ class UserCategoriesConverterTest {
         expectedEntity.setId(new UserCategoryKey(authenticatedUser.getId(), category.getId()));
         expectedEntity.setCategory(category);
         expectedEntity.setUser(authenticatedUser);
-        expectedEntity.setUsedForIncomes(dto.getUsedForIncomes());
-        expectedEntity.setUsedForOutcomes(dto.getUsedForOutcomes());
+        expectedEntity.setUsedForIncomes(dto.isUsedForIncomes());
+        expectedEntity.setUsedForOutcomes(dto.isUsedForOutcomes());
 
         assertThat(converter.convertToEntity(dto)).isEqualToComparingFieldByField(expectedEntity);
     }

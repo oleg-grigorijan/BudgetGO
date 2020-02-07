@@ -1,5 +1,8 @@
 package com.godev.budgetgo.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,6 +14,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_categories")
+@Data
+@NoArgsConstructor
 public class UserCategory {
 
     @EmbeddedId
@@ -31,46 +36,6 @@ public class UserCategory {
 
     @Column(name = "is_used_for_outcomes", nullable = false)
     private boolean isUsedForOutcomes;
-
-    public UserCategoryKey getId() {
-        return id;
-    }
-
-    public void setId(UserCategoryKey id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public boolean isUsedForIncomes() {
-        return isUsedForIncomes;
-    }
-
-    public void setUsedForIncomes(boolean usedForIncomes) {
-        isUsedForIncomes = usedForIncomes;
-    }
-
-    public boolean isUsedForOutcomes() {
-        return isUsedForOutcomes;
-    }
-
-    public void setUsedForOutcomes(boolean usedForOutcomes) {
-        isUsedForOutcomes = usedForOutcomes;
-    }
 
     public UserCategory cloneShallow() {
         UserCategory e = new UserCategory();

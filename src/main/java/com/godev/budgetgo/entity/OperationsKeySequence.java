@@ -1,5 +1,8 @@
 package com.godev.budgetgo.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "operations_key_sequence")
+@Data
+@NoArgsConstructor
 public class OperationsKeySequence {
 
     @Id
@@ -16,27 +21,8 @@ public class OperationsKeySequence {
     @Column(name = "next_operation_id")
     private Long nextOperationId;
 
-    public OperationsKeySequence() {
-    }
-
     public OperationsKeySequence(Long storageId, Long nextOperationId) {
         this.storageId = storageId;
-        this.nextOperationId = nextOperationId;
-    }
-
-    public Long getStorageId() {
-        return storageId;
-    }
-
-    public void setStorageId(Long storageId) {
-        this.storageId = storageId;
-    }
-
-    public Long getNextOperationId() {
-        return nextOperationId;
-    }
-
-    public void setNextOperationId(Long nextOperationId) {
         this.nextOperationId = nextOperationId;
     }
 }

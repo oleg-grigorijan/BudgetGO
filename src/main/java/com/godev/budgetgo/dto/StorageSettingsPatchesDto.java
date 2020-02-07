@@ -1,10 +1,18 @@
 package com.godev.budgetgo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.AssertFalse;
 import java.util.Optional;
 
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
 public class StorageSettingsPatchesDto {
 
     @JsonProperty("isIncludedInUserStatistics")
@@ -18,15 +26,7 @@ public class StorageSettingsPatchesDto {
         return Optional.ofNullable(includedInUserStatistics);
     }
 
-    public void setIncludedInUserStatistics(Boolean includedInUserStatistics) {
-        this.includedInUserStatistics = includedInUserStatistics;
-    }
-
     public Optional<Boolean> getInvitation() {
         return Optional.ofNullable(invitation);
-    }
-
-    public void setInvitation(Boolean invitation) {
-        this.invitation = invitation;
     }
 }

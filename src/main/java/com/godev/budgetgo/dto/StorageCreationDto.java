@@ -1,11 +1,15 @@
 package com.godev.budgetgo.dto;
 
 import com.godev.budgetgo.entity.Storage;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Data
+@NoArgsConstructor
 public class StorageCreationDto {
 
     @NotBlank
@@ -19,36 +23,4 @@ public class StorageCreationDto {
 
     @NotNull
     private Long currencyId;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public long getInitialBalance() {
-        return initialBalance;
-    }
-
-    public void setInitialBalance(long initialBalance) {
-        this.initialBalance = initialBalance;
-    }
-
-    public Long getCurrencyId() {
-        return currencyId;
-    }
-
-    public void setCurrencyId(Long currencyId) {
-        this.currencyId = currencyId;
-    }
 }
