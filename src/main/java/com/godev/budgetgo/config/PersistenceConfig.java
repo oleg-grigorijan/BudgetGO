@@ -1,9 +1,8 @@
 package com.godev.budgetgo.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -18,14 +17,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({"classpath:jdbc.properties", "classpath:hibernate.properties"})
 public class PersistenceConfig {
-
-    private final Environment env;
-
-    public PersistenceConfig(Environment env) {
-        this.env = env;
-    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
@@ -52,13 +44,9 @@ public class PersistenceConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    private Properties hibernateProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-        return properties;
+    @Bean
+    @ConfigurationProperties(prefix = "hibernate")
+    public Properties hibernateProperties() {
+        return new Properties();
     }
-
 }

@@ -5,7 +5,6 @@ import com.godev.budgetgo.authentication.RestAuthenticationFailureHandler;
 import com.godev.budgetgo.authentication.RestAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,7 +24,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@PropertySource("classpath:cors.properties")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Environment env;

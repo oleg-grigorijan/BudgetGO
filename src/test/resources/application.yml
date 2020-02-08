@@ -9,3 +9,9 @@ spring:
       ddl-auto: validate
     show-sql: true
     open-in-view: false
+
+hibernate:
+  hbm2ddl.auto: update
+  dialect: org.hibernate.dialect.H2Dialect
+  show_sql: true
+  format_sql: true

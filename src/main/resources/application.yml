@@ -17,7 +17,19 @@ spring:
     show-sql: true
     open-in-view: false
 
+hibernate:
+  hbm2ddl.auto: validate
+  dialect: org.hibernate.dialect.MySQL8Dialect
+  show_sql: true
+  format_sql: true
+
 server.port: 8080
+
+cors:
+  allowedOrigins: http://localhost:4200, http://localhost:4201
+  allowedMethods: GET, HEAD, POST, PATCH, DELETE, OPTIONS
+  allowedHeaders: "*"
+  allowCredentials: true
 
 logging:
   file:
