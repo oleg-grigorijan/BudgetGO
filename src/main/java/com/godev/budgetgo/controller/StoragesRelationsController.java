@@ -1,11 +1,10 @@
 package com.godev.budgetgo.controller;
 
-import com.godev.budgetgo.dto.ExtendedStorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsCreationDto;
 import com.godev.budgetgo.dto.StorageRelationsInfoDto;
 import com.godev.budgetgo.dto.StorageRelationsPatchesDto;
-import com.godev.budgetgo.entity.UserStorageKey;
-import com.godev.budgetgo.request.StoragesRelationsRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,59 +14,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Api(tags = "Storage users")
 @RequestMapping("/api/storages/{storageId}/users")
-public class StoragesRelationsController {
+public interface StoragesRelationsController {
 
-    private final StoragesRelationsRequestService requestService;
-
-    public StoragesRelationsController(StoragesRelationsRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns all users that have access to storage specified by id")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<StorageRelationsInfoDto> getAll(@PathVariable Long storageId) {
-        return requestService.getByStorageId(storageId);
-    }
+    List<StorageRelationsInfoDto> getAll(@PathVariable Long storageId);
 
+    @ApiOperation("Invites user to storage specified by id")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StorageRelationsInfoDto create(
-            HttpServletResponse response,
-            @PathVariable Long storageId,
-            @RequestBody @Valid StorageRelationsCreationDto creationDto
-    ) {
-        StorageRelationsInfoDto createdDto = requestService.create(new ExtendedStorageRelationsCreationDto(creationDto, storageId));
-        response.addHeader("Location", "/api/storages/" + storageId + "/users/" + creationDto.getUserId());
-        return createdDto;
-    }
+    StorageRelationsInfoDto create(HttpServletResponse response, @PathVariable Long storageId, @RequestBody StorageRelationsCreationDto creationDto);
 
+    @ApiOperation("Finds user specified by id with access to storage specified by id")
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageRelationsInfoDto get(@PathVariable Long storageId, @PathVariable Long userId) {
-        return requestService.getById(new UserStorageKey(userId, storageId));
-    }
+    StorageRelationsInfoDto getById(@PathVariable Long storageId, @PathVariable Long userId);
 
+    @ApiOperation("Patches storage user")
     @PatchMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageRelationsInfoDto patch(
-            @PathVariable Long storageId,
-            @PathVariable Long userId,
-            @RequestBody @Valid StorageRelationsPatchesDto patchesDto
-    ) {
-        return requestService.patch(new UserStorageKey(userId, storageId), patchesDto);
-    }
+    StorageRelationsInfoDto patchById(@PathVariable Long storageId, @PathVariable Long userId, @RequestBody StorageRelationsPatchesDto patchesDto);
 
+    @ApiOperation("Removes user specified by id from storage specified by id")
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long storageId, @PathVariable Long userId) {
-        requestService.deleteById(new UserStorageKey(userId, storageId));
-    }
+    void deleteById(@PathVariable Long storageId, @PathVariable Long userId);
 }

@@ -2,36 +2,26 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.UserSettingsInfoDto;
 import com.godev.budgetgo.dto.UserSettingsPatchesDto;
-import com.godev.budgetgo.request.UserSettingsRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-@RestController
+@Api(tags = "Authorized user")
 @RequestMapping("/api/me")
-public class UserSettingsController {
+public interface UserSettingsController {
 
-    private final UserSettingsRequestService requestService;
-
-    public UserSettingsController(UserSettingsRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns authorized user account info")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserSettingsInfoDto get() {
-        return requestService.get();
-    }
+    UserSettingsInfoDto get();
 
+    @ApiOperation("Patches authorized user account info")
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserSettingsInfoDto patch(@RequestBody @Valid UserSettingsPatchesDto patchesDto) {
-        return requestService.patch(patchesDto);
-    }
+    UserSettingsInfoDto patch(@RequestBody UserSettingsPatchesDto patchesDto);
 }

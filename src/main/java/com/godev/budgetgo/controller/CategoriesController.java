@@ -3,7 +3,8 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.CategoryCreationDto;
 import com.godev.budgetgo.dto.CategoryInfoDto;
 import com.godev.budgetgo.dto.CategoryPatchesDto;
-import com.godev.budgetgo.request.CategoriesRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,52 +15,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Api(tags = "Categories")
 @RequestMapping("/api/categories")
-public class CategoriesController {
+public interface CategoriesController {
 
-    private final CategoriesRequestService requestService;
-
-    public CategoriesController(CategoriesRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns all categories")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CategoryInfoDto> getAll() {
-        return requestService.getAll();
-    }
+    List<CategoryInfoDto> getAll();
 
+    @ApiOperation("Finds category by name")
     @GetMapping(params = "name")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryInfoDto getByName(HttpServletResponse response, @RequestParam String name) {
-        return requestService.getByName(name);
-    }
+    CategoryInfoDto getByName(HttpServletResponse response, @RequestParam String name);
 
+    @ApiOperation("Creates category")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid CategoryCreationDto creationDto) {
-        CategoryInfoDto createdDto = requestService.create(creationDto);
-        response.addHeader("Location", "/api/categories/" + createdDto.getId());
-        return createdDto;
-    }
+    CategoryInfoDto create(HttpServletResponse response, @RequestBody CategoryCreationDto creationDto);
 
+    @ApiOperation("Finds category by id")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryInfoDto get(@PathVariable Long id) {
-        return requestService.getById(id);
-    }
+    CategoryInfoDto getById(@PathVariable Long id);
 
+    @ApiOperation(value = "Patches category found by id", notes = "Allowed only for users with ROLE_ADMIN")
     @PatchMapping("/{id}")
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryInfoDto patch(@PathVariable Long id, @RequestBody @Valid CategoryPatchesDto patchesDto) {
-        return requestService.patch(id, patchesDto);
-    }
+    CategoryInfoDto patchById(@PathVariable Long id, @RequestBody CategoryPatchesDto patchesDto);
 }

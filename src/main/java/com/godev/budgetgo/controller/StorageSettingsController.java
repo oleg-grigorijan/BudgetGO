@@ -2,7 +2,8 @@ package com.godev.budgetgo.controller;
 
 import com.godev.budgetgo.dto.StorageSettingsInfoDto;
 import com.godev.budgetgo.dto.StorageSettingsPatchesDto;
-import com.godev.budgetgo.request.StorageSettingsRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,35 +12,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-@RestController
+@Api(tags = "Storage settings")
 @RequestMapping("/api/storages/{id}/settings")
-public class StorageSettingsController {
+public interface StorageSettingsController {
 
-    private final StorageSettingsRequestService requestService;
-
-    public StorageSettingsController(StorageSettingsRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns settings of storage found by id for authorized user")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public StorageSettingsInfoDto getByStorageId(@PathVariable Long id) {
-        return requestService.getByStorageId(id);
-    }
+    StorageSettingsInfoDto getById(@PathVariable Long id);
 
+    @ApiOperation("Patches settings of storage found by id for authorized user")
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public StorageSettingsInfoDto patch(@PathVariable Long id, @RequestBody @Valid StorageSettingsPatchesDto patchesDto) {
-        return requestService.patch(id, patchesDto);
-    }
+    StorageSettingsInfoDto patchById(@PathVariable Long id, @RequestBody StorageSettingsPatchesDto patchesDto);
 
+    @ApiOperation("Unsubscribes authorized user from storage")
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteByStorageId(@PathVariable Long id) {
-        requestService.deleteByStorageId(id);
-    }
+    void deleteById(@PathVariable Long id);
 }
