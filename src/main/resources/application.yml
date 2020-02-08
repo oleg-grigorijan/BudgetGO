@@ -1,3 +1,8 @@
+contact:
+  name: Oleg Grigorijan
+  url: https://github.com/oleg-grigorijan/
+  email: oleg.grigorijan@gmail.com
+
 spring:
   application:
     name: budgetgo
@@ -12,10 +17,11 @@ spring:
     show-sql: true
     open-in-view: false
 
-server:
-  port: 8080
+server.port: 8080
 
 logging:
   file:
     path: /local
     name: ${spring.application.name}.log
+
+springfo.documentation.swagger.v2.path: /api/docs
