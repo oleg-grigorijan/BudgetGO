@@ -3,11 +3,13 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.godev.budgetgo.json.LocalDateSerializer;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@ApiModel("Operation info model")
 @Data
 @NoArgsConstructor
 public class OperationInfoDto {
