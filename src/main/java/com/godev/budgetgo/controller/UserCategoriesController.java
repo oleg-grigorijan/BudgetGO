@@ -3,7 +3,8 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.UserCategoryCreationDto;
 import com.godev.budgetgo.dto.UserCategoryInfoDto;
 import com.godev.budgetgo.dto.UserCategoryPatchesDto;
-import com.godev.budgetgo.request.UserCategoriesRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,50 +14,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Api(tags = "User categories")
 @RequestMapping("/api/me/categories")
-public class UserCategoriesController {
-    private final UserCategoriesRequestService requestService;
+public interface UserCategoriesController {
 
-    public UserCategoriesController(UserCategoriesRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns all user categories")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserCategoryInfoDto> getAll() {
-        return requestService.getAll();
-    }
+    List<UserCategoryInfoDto> getAll();
 
+    @ApiOperation("Adds category to user categories")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserCategoryInfoDto create(HttpServletResponse response, @RequestBody @Valid UserCategoryCreationDto creationDto) {
-        UserCategoryInfoDto createdDto = requestService.create(creationDto);
-        response.addHeader("Location", "/api/me/categories/" + creationDto.getCategoryId());
-        return createdDto;
-    }
+    UserCategoryInfoDto create(HttpServletResponse response, @RequestBody UserCategoryCreationDto creationDto);
 
+    @ApiOperation("Finds user category by category id")
     @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserCategoryInfoDto getByCategoryId(@PathVariable Long categoryId) {
-        return requestService.getByCategoryId(categoryId);
-    }
+    UserCategoryInfoDto getByCategoryId(@PathVariable Long categoryId);
 
+    @ApiOperation("Patches user category specified by category id")
     @PatchMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserCategoryInfoDto patch(@PathVariable Long categoryId, @RequestBody @Valid UserCategoryPatchesDto patchesDto) {
-        return requestService.patchByCategoryId(categoryId, patchesDto);
-    }
+    UserCategoryInfoDto patchByCategoryId(@PathVariable Long categoryId, @RequestBody UserCategoryPatchesDto patchesDto);
 
+    @ApiOperation("Removes category specified by id from user categories")
     @DeleteMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long categoryId) {
-        requestService.deleteByCategoryId(categoryId);
-    }
+    void deleteByCategoryId(@PathVariable Long categoryId);
 }

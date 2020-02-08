@@ -3,7 +3,8 @@ package com.godev.budgetgo.controller;
 import com.godev.budgetgo.dto.StorageCreationDto;
 import com.godev.budgetgo.dto.StorageInfoDto;
 import com.godev.budgetgo.dto.StoragePatchesDto;
-import com.godev.budgetgo.request.StoragesRequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,45 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Api(tags = "Storages")
 @RequestMapping("/api/storages")
-public class StoragesController {
+public interface StoragesController {
 
-    private final StoragesRequestService requestService;
-
-    public StoragesController(StoragesRequestService requestService) {
-        this.requestService = requestService;
-    }
-
+    @ApiOperation("Returns all storages of authorized user")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<StorageInfoDto> getAll() {
-        return requestService.getAll();
-    }
+    List<StorageInfoDto> getAll();
 
+    @ApiOperation("Creates storage and adds authorized user there")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StorageInfoDto create(HttpServletResponse response, @RequestBody @Valid StorageCreationDto creationDto) {
-        StorageInfoDto createdDto = requestService.create(creationDto);
-        response.addHeader("Location", "/api/storages/" + createdDto.getId());
-        return createdDto;
-    }
+    StorageInfoDto create(HttpServletResponse response, @RequestBody StorageCreationDto creationDto);
 
+    @ApiOperation("Finds storage by id")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageInfoDto getById(@PathVariable Long id) {
-        return requestService.getById(id);
-    }
+    StorageInfoDto getById(@PathVariable Long id);
 
+    @ApiOperation("Patches storage found by id")
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StorageInfoDto patch(@PathVariable Long id, @RequestBody @Valid StoragePatchesDto patchesDto) {
-        return requestService.patch(id, patchesDto);
-    }
+    StorageInfoDto patchById(@PathVariable Long id, @RequestBody StoragePatchesDto patchesDto);
 }

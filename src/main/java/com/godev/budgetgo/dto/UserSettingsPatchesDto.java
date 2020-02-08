@@ -3,6 +3,7 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.User;
 import com.godev.budgetgo.validation.constraint.NullOrNotBlank;
+import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Optional;
 
+@ApiModel("User settings patches model")
 @Setter
 @EqualsAndHashCode
 @ToString

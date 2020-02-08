@@ -3,6 +3,7 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.godev.budgetgo.entity.Operation;
 import com.godev.budgetgo.json.LocalDateDeserializer;
+import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Optional;
 
+@ApiModel("Operation patches model")
 @Setter
 @EqualsAndHashCode
 @ToString

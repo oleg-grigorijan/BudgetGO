@@ -3,6 +3,7 @@ package com.godev.budgetgo.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.godev.budgetgo.entity.User;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@ApiModel("User creation model")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor

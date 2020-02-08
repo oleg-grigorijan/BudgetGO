@@ -1,0 +1,21 @@
+{
+  "properties": [
+    {
+      "name": "contact.name",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "contact.url",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "contact.email",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "springfo.documentation.swagger.v2.path",
+      "type": "java.lang.String",
+      "description": "OpenAPI JSON endpoint path."
+    }
+  ]
+}
