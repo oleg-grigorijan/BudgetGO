@@ -9,6 +9,7 @@ Table of contents:
 * [Before running](#before-running)
 * [Running](#running)
 * [Consuming](#consuming)
+* [API](#api)
 
 ## Features
 * [x] **Users** registration and authentication
@@ -35,7 +36,6 @@ Table of contents:
 For building and running the application you need:
 * [JDK 12](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3](https://maven.apache.org/download.cgi)
-* [Tomcat 9](https://tomcat.apache.org/download-90.cgi)
 * [MySQL Server 8](https://dev.mysql.com/downloads/mysql/)
 
 ## Building
@@ -46,13 +46,20 @@ mvn clean install
 
 ## Before running
 * Configure MySQL Server according to the 
- [`src/main/resources/jdbc.properties`](src/main/resources/jdbc.properties). The database schema
+ [`src/main/resources/application.yml`](src/main/resources/application.yml). The database schema
   and tables will be created automatically.
-* Specify necessary allowed origins in CORS configuration in [`src/main/resources/cors.properties`](src/main/resources/cors.properties)
+* Specify necessary allowed origins in CORS configuration in [`src/main/resources/application.yml`](src/main/resources/application.yml)
 * Execute queries from [`src/main/resources/sql/currencies_dump.sql`](src/main/resources/sql/currencies_dump.sql) to restore currencies records in database.
 
 ## Running
-Configure `budgetgo:war` artifact deployment to Tomcat Server on the `8080` HTTP port and set application context to `/`. Then run Tomcat.
+Run [`com.godev.budgetgo.BudgetgoApplication#main()`](src/main/java/com/godev/budgetgo/BudgetgoApplication.java) or execute the command in the project
+ root directory:
+```shell
+mvn spring-boot:run
+```
 
 ## Consuming
 See **[BudgetGO Web Client](https://github.com/oleg-grigorijan/budgetgo-web-client)**.
+
+## API
+API documentation in OpenAPI JSON format is available on `/api/docs` endpoint. Use Swagger UI on `/swagger-ui.html` endpoint.
