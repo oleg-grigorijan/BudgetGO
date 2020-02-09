@@ -64,7 +64,7 @@ class StoragesDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<Storage> entities = new ArrayList<>();
         entities.add(new Storage());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -76,7 +76,7 @@ class StoragesDataServiceTest {
 
         ArrayList<Storage> entities = new ArrayList<>();
         entities.add(new Storage());
-        when(repository.getByUser(user)).thenReturn(entities);
+        when(repository.findByUser(user)).thenReturn(entities);
 
         assertThat(dataService.getByUser(user)).isSameAs(entities);
     }
@@ -86,7 +86,7 @@ class StoragesDataServiceTest {
         Storage entity = new Storage();
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -95,7 +95,7 @@ class StoragesDataServiceTest {
 
         Storage savedEntity = new Storage();
         savedEntity.setId(1L);
-        when(repository.add(entity)).thenReturn(savedEntity);
+        when(repository.save(entity)).thenReturn(savedEntity);
 
         dataService.add(entity);
         verify(operationsKeySequenceDataService).createFor(refEq(savedEntity));
@@ -107,7 +107,7 @@ class StoragesDataServiceTest {
         entity.setId(1L);
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test

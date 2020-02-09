@@ -33,7 +33,7 @@ public class StoragesDataServiceImpl extends AbstractDataService<Storage, Long> 
     @Transactional(readOnly = true)
     @Override
     public List<Storage> getByUser(User user) {
-        return repository.getByUser(user);
+        return repository.findByUser(user);
     }
 
     @Transactional

@@ -57,7 +57,7 @@ class UsersDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<User> entities = new ArrayList<>();
         entities.add(new User());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -103,7 +103,7 @@ class UsersDataServiceTest {
         User entity = new User();
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -112,7 +112,7 @@ class UsersDataServiceTest {
         entity.setId(1L);
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test

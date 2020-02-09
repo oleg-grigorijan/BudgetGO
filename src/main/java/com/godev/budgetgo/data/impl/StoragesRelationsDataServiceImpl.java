@@ -34,7 +34,7 @@ public class StoragesRelationsDataServiceImpl extends AbstractDataService<Storag
     @Transactional(readOnly = true)
     @Override
     public List<StorageRelations> getByStorage(Storage storage) {
-        return repository.getByStorage(storage);
+        return repository.findByStorage(storage);
     }
 
     @Transactional

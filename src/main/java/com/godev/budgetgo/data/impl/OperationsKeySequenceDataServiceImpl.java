@@ -30,14 +30,14 @@ public class OperationsKeySequenceDataServiceImpl implements OperationsKeySequen
         OperationsKeySequence entity = new OperationsKeySequence();
         entity.setStorageId(storage.getId());
         entity.setNextOperationId(1L);
-        return repository.add(entity);
+        return repository.save(entity);
     }
 
     @Transactional
     @Override
     public OperationsKeySequence increment(OperationsKeySequence entity) {
         entity.setNextOperationId(entity.getNextOperationId() + 1);
-        return repository.update(entity);
+        return repository.save(entity);
     }
 
     @Transactional

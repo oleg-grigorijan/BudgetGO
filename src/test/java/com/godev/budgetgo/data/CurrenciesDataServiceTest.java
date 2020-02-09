@@ -56,7 +56,7 @@ class CurrenciesDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<Currency> entities = new ArrayList<>();
         entities.add(new Currency());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -66,7 +66,7 @@ class CurrenciesDataServiceTest {
         Currency entity = new Currency();
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -75,7 +75,7 @@ class CurrenciesDataServiceTest {
         entity.setId(1L);
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test

@@ -64,7 +64,7 @@ class StoragesRelationsDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<StorageRelations> entities = new ArrayList<>();
         entities.add(new StorageRelations());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -93,7 +93,7 @@ class StoragesRelationsDataServiceTest {
 
         ArrayList<StorageRelations> entities = new ArrayList<>();
         entities.add(new StorageRelations());
-        when(repository.getByStorage(storage)).thenReturn(entities);
+        when(repository.findByStorage(storage)).thenReturn(entities);
 
         assertThat(dataService.getByStorage(storage)).isSameAs(entities);
     }
@@ -103,7 +103,7 @@ class StoragesRelationsDataServiceTest {
         StorageRelations entity = new StorageRelations();
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -112,7 +112,7 @@ class StoragesRelationsDataServiceTest {
         entity.setId(new UserStorageKey(1L, 2L));
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -131,7 +131,7 @@ class StoragesRelationsDataServiceTest {
         entity.getStorage().setId(2L);
         entity.setId(new UserStorageKey(1L, entity.getStorage().getId()));
 
-        when(repository.getByStorage(entity.getStorage())).thenReturn(Collections.emptyList());
+        when(repository.findByStorage(entity.getStorage())).thenReturn(Collections.emptyList());
 
         dataService.delete(entity);
         verify(storagesDataService).delete(refEq(entity.getStorage()));
@@ -146,7 +146,7 @@ class StoragesRelationsDataServiceTest {
 
         ArrayList<StorageRelations> entities = new ArrayList<>();
         entities.add(new StorageRelations());
-        when(repository.getByStorage(entity.getStorage())).thenReturn(entities);
+        when(repository.findByStorage(entity.getStorage())).thenReturn(entities);
 
         dataService.delete(entity);
         verify(storagesDataService, never()).delete(any(Storage.class));

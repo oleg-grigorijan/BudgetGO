@@ -87,13 +87,13 @@ public class OperationsDataServiceImpl extends AbstractDataService<Operation, St
     @Transactional(readOnly = true)
     @Override
     public List<Operation> getByStorage(Storage storage) {
-        return repository.getByStorage(storage);
+        return repository.findByStorage(storage);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Operation> getByStorageAndDateBetween(Storage storage, LocalDate from, LocalDate to) {
-        return repository.getByStorageAndDateBetween(storage, from, to);
+        return repository.findByStorageAndDateBetween(storage, from, to);
     }
 
     @Transactional

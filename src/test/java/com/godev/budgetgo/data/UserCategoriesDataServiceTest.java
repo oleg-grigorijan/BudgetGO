@@ -58,7 +58,7 @@ class UserCategoriesDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<UserCategory> entities = new ArrayList<>();
         entities.add(new UserCategory());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -70,7 +70,7 @@ class UserCategoriesDataServiceTest {
 
         ArrayList<UserCategory> entities = new ArrayList<>();
         entities.add(new UserCategory());
-        when(repository.getByUser(user)).thenReturn(entities);
+        when(repository.findByUser(user)).thenReturn(entities);
 
         assertThat(dataService.getByUser(user)).isSameAs(entities);
     }
@@ -80,7 +80,7 @@ class UserCategoriesDataServiceTest {
         UserCategory entity = new UserCategory();
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -89,7 +89,7 @@ class UserCategoriesDataServiceTest {
         entity.setId(new UserCategoryKey(1L, 2L));
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test

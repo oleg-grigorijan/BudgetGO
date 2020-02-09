@@ -14,14 +14,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
     open-in-view: false
-
-hibernate:
-  hbm2ddl.auto: validate
-  dialect: org.hibernate.dialect.MySQL8Dialect
-  show_sql: true
-  format_sql: true
+    properties:
+      hibernate.format_sql: true
 
 server.port: 8080
 
@@ -30,10 +25,5 @@ cors:
   allowedMethods: GET, HEAD, POST, PATCH, DELETE, OPTIONS
   allowedHeaders: "*"
   allowCredentials: true
-
-logging:
-  file:
-    path: /local
-    name: ${spring.application.name}.log
 
 springfo.documentation.swagger.v2.path: /api/docs

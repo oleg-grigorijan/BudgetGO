@@ -24,6 +24,6 @@ public class UserCategoriesDataServiceImpl extends AbstractDataService<UserCateg
     @Transactional(readOnly = true)
     @Override
     public List<UserCategory> getByUser(User user) {
-        return repository.getByUser(user);
+        return repository.findByUser(user);
     }
 }

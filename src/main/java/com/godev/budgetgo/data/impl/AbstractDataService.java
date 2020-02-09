@@ -2,7 +2,7 @@ package com.godev.budgetgo.data.impl;
 
 import com.godev.budgetgo.data.DataService;
 import com.godev.budgetgo.exception.NotFoundException;
-import com.godev.budgetgo.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.function.Function;
 
 abstract class AbstractDataService<E, K> implements DataService<E, K> {
 
-    private final Repository<E, K> repository;
+    private final JpaRepository<E, K> repository;
     private final Function<K, ? extends NotFoundException> notFoundByIdExceptionBuilder;
 
     public AbstractDataService(
-            Repository<E, K> repository,
+            JpaRepository<E, K> repository,
             Function<K, ? extends NotFoundException> notFoundByIdExceptionBuilder
     ) {
         this.repository = repository;
@@ -33,19 +33,19 @@ abstract class AbstractDataService<E, K> implements DataService<E, K> {
     @Transactional(readOnly = true)
     @Override
     public List<E> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @Transactional
     @Override
     public E add(E entity) {
-        return repository.add(entity);
+        return repository.save(entity);
     }
 
     @Transactional
     @Override
     public E update(E entity) {
-        return repository.update(entity);
+        return repository.save(entity);
     }
 
     @Transactional

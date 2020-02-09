@@ -80,7 +80,7 @@ class OperationsDataServiceTest {
     void getAll_general_correctReturnValue() {
         ArrayList<Operation> entities = new ArrayList<>();
         entities.add(new Operation());
-        when(repository.getAll()).thenReturn(entities);
+        when(repository.findAll()).thenReturn(entities);
 
         assertThat(dataService.getAll()).isSameAs(entities);
     }
@@ -92,7 +92,7 @@ class OperationsDataServiceTest {
 
         ArrayList<Operation> entities = new ArrayList<>();
         entities.add(new Operation());
-        when(repository.getByStorage(storage)).thenReturn(entities);
+        when(repository.findByStorage(storage)).thenReturn(entities);
 
         assertThat(dataService.getByStorage(storage)).isSameAs(entities);
     }
@@ -106,7 +106,7 @@ class OperationsDataServiceTest {
 
         ArrayList<Operation> entities = new ArrayList<>();
         entities.add(new Operation());
-        when(repository.getByStorageAndDateBetween(storage, dateFrom, dateTo)).thenReturn(entities);
+        when(repository.findByStorageAndDateBetween(storage, dateFrom, dateTo)).thenReturn(entities);
 
         assertThat(dataService.getByStorageAndDateBetween(storage, dateFrom, dateTo)).isSameAs(entities);
     }
@@ -121,7 +121,7 @@ class OperationsDataServiceTest {
                 .thenReturn(new OperationsKeySequence(entity.getStorage().getId(), 2L));
 
         dataService.add(entity);
-        verify(repository).add(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     @Test
@@ -133,7 +133,7 @@ class OperationsDataServiceTest {
         OperationsKeySequence keySequence = new OperationsKeySequence(entity.getStorage().getId(), 2L);
         when(keySequenceDataService.getByStorage(entity.getStorage()))
                 .thenReturn(keySequence);
-        when(repository.add(any(Operation.class))).then(returnsFirstArg());
+        when(repository.save(any(Operation.class))).then(returnsFirstArg());
 
         assertThat(dataService.add(entity).getId())
                 .isEqualToComparingFieldByField(new StorageOperationKey(keySequence.getStorageId(), keySequence.getNextOperationId()));
@@ -172,7 +172,7 @@ class OperationsDataServiceTest {
 
         when(keySequenceDataService.getByStorage(entity.getStorage()))
                 .thenReturn(new OperationsKeySequence(entity.getStorage().getId(), 2L));
-        when(repository.add(any(Operation.class))).then(returnsFirstArg());
+        when(repository.save(any(Operation.class))).then(returnsFirstArg());
 
         assertThat(dataService.add(entity).getStorage().getBalance()).isEqualTo(startingBalance + moneyDelta);
     }
@@ -197,7 +197,7 @@ class OperationsDataServiceTest {
                 .thenReturn(new OperationsKeySequence(entity.getStorage().getId(), 2L));
 
         assertThatThrownBy(() -> dataService.add(entity)).isInstanceOf(BalanceOverflowException.class);
-        verify(repository, never()).add(any(Operation.class));
+        verify(repository, never()).save(any(Operation.class));
     }
 
     @Test
@@ -216,7 +216,7 @@ class OperationsDataServiceTest {
         when(repository.findById(entity.getId())).thenReturn(Optional.of(oldEntity));
 
         dataService.update(entity);
-        verify(repository).update(refEq(entity));
+        verify(repository).save(refEq(entity));
     }
 
     private static Stream<Arguments> params_update_general_storageBalanceChange() {
@@ -246,7 +246,7 @@ class OperationsDataServiceTest {
         entity.setMoneyDelta(newMoneyDelta);
 
         when(repository.findById(entity.getId())).thenReturn(Optional.of(oldEntity));
-        when(repository.update(any(Operation.class))).then(returnsFirstArg());
+        when(repository.save(any(Operation.class))).then(returnsFirstArg());
 
         assertThat(dataService.update(entity).getStorage().getBalance())
                 .isEqualTo(startingBalance - oldMoneyDelta + newMoneyDelta);
@@ -281,7 +281,7 @@ class OperationsDataServiceTest {
         when(repository.findById(entity.getId())).thenReturn(Optional.of(oldEntity));
 
         assertThatThrownBy(() -> dataService.update(entity)).isInstanceOf(BalanceOverflowException.class);
-        verify(repository, never()).update(any(Operation.class));
+        verify(repository, never()).save(any(Operation.class));
     }
 
     @Test

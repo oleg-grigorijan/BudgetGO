@@ -67,10 +67,10 @@ class OperationsKeySequenceDataServiceTest {
         expectedEntity.setStorageId(storage.getId());
         expectedEntity.setNextOperationId(1L);
 
-        when(repository.add(any(OperationsKeySequence.class))).then(returnsFirstArg());
+        when(repository.save(any(OperationsKeySequence.class))).then(returnsFirstArg());
 
         assertThat(dataService.createFor(storage)).isEqualToComparingFieldByField(expectedEntity);
-        verify(repository).add(refEq(expectedEntity));
+        verify(repository).save(refEq(expectedEntity));
     }
 
     @Test
@@ -83,10 +83,10 @@ class OperationsKeySequenceDataServiceTest {
         expectedEntity.setStorageId(entity.getStorageId());
         expectedEntity.setNextOperationId(entity.getNextOperationId() + 1);
 
-        when(repository.update(any(OperationsKeySequence.class))).then(returnsFirstArg());
+        when(repository.save(any(OperationsKeySequence.class))).then(returnsFirstArg());
 
         assertThat(dataService.increment(entity)).isEqualToComparingFieldByField(expectedEntity);
-        verify(repository).update(refEq(expectedEntity));
+        verify(repository).save(refEq(expectedEntity));
     }
 
     @Test
