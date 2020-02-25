@@ -13,7 +13,7 @@
       "type": "java.lang.String"
     },
     {
-      "name": "springfo.documentation.swagger.v2.path",
+      "name": "springfox.documentation.swagger.v2.path",
       "type": "java.lang.String",
       "description": "OpenAPI JSON endpoint path."
     },
@@ -31,22 +31,6 @@
     },
     {
       "name": "cors.allowCredentials",
-      "type": "java.lang.Boolean"
-    },
-    {
-      "name": "hibernate.hbm2ddl.auto",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "hibernate.dialect",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "hibernate.show_sql",
-      "type": "java.lang.Boolean"
-    },
-    {
-      "name": "hibernate.format_sql",
       "type": "java.lang.Boolean"
     }
   ]
