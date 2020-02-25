@@ -9,14 +9,20 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3311/budgetgo
-    password: budgetgo-pass
     username: budgetgo-user
+    password: budgetgo-pass
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     open-in-view: false
     properties:
       hibernate.format_sql: true
+  flyway:
+    enabled: true
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    schemas: budgetgo
 
 server.port: 8080
 
@@ -26,4 +32,4 @@ cors:
   allowedHeaders: "*"
   allowCredentials: true
 
-springfo.documentation.swagger.v2.path: /api/docs
+springfox.documentation.swagger.v2.path: /api/docs
