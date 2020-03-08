@@ -1,6 +1,7 @@
 package com.godev.budgetgo.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.godev.budgetgo.properties.ContactProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -25,12 +26,13 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
+@EnableConfigurationProperties(ContactProperties.class)
 public class SwaggerConfig {
 
     private final Contact contact;
 
-    public SwaggerConfig(@Value("${contact.name}") String name, @Value("${contact.url}") String url, @Value("${contact.email}") String email) {
-        contact = new Contact(name, url, email);
+    public SwaggerConfig(ContactProperties contactProperties) {
+        contact = new Contact(contactProperties.getName(), contactProperties.getUrl(), contactProperties.getEmail());
     }
 
     @Bean

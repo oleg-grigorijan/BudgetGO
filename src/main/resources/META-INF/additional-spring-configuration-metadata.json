@@ -1,37 +1,9 @@
 {
   "properties": [
     {
-      "name": "contact.name",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "contact.url",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "contact.email",
-      "type": "java.lang.String"
-    },
-    {
       "name": "springfox.documentation.swagger.v2.path",
       "type": "java.lang.String",
       "description": "OpenAPI JSON endpoint path."
-    },
-    {
-      "name": "cors.allowedOrigins",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "cors.allowedMethods",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "cors.allowedHeaders",
-      "type": "java.lang.String"
-    },
-    {
-      "name": "cors.allowCredentials",
-      "type": "java.lang.Boolean"
     }
   ]
 }

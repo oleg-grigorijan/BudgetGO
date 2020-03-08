@@ -27,8 +27,16 @@ spring:
 server.port: 8080
 
 cors:
-  allowedOrigins: http://localhost:4200, http://localhost:4201
-  allowedMethods: GET, HEAD, POST, PATCH, DELETE, OPTIONS
+  allowedOrigins:
+    - http://localhost:4200
+    - http://localhost:4201
+  allowedMethods:
+    - GET
+    - HEAD
+    - POST
+    - PATCH
+    - DELETE
+    - OPTIONS
   allowedHeaders: "*"
   allowCredentials: true
 
