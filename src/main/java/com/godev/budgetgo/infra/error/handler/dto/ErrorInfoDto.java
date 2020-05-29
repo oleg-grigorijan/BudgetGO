@@ -1,8 +1,6 @@
 package com.godev.budgetgo.infra.error.handler.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.godev.budgetgo.infra.json.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,6 @@ public class ErrorInfoDto {
 
     private int statusCode;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime timestamp = LocalDateTime.now();
 
     private String message;
