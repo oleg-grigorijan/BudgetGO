@@ -1,19 +1,20 @@
 package com.godev.budgetgo.config.swagger;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConfigurationProperties(prefix = "contact")
-@NoArgsConstructor
+@ConstructorBinding
+@RequiredArgsConstructor
 @Getter
-@Setter
 public class ContactProperties {
 
-    private String name;
+    private final @NonNull String name;
 
-    private String url;
+    private final @NonNull String url;
 
-    private String email;
+    private final @NonNull String email;
 }

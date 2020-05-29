@@ -1,23 +1,24 @@
 package com.godev.budgetgo.config.security;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 import java.util.List;
 
 @ConfigurationProperties(prefix = "cors")
-@NoArgsConstructor
+@ConstructorBinding
+@RequiredArgsConstructor
 @Getter
-@Setter
 public class CorsProperties {
 
-    private List<String> allowedOrigins;
+    private final @NonNull List<String> allowedOrigins;
 
-    private List<String> allowedMethods;
+    private final @NonNull List<String> allowedMethods;
 
-    private List<String> allowedHeaders;
+    private final @NonNull List<String> allowedHeaders;
 
-    private boolean allowCredentials;
+    private final boolean allowCredentials;
 }
