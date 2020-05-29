@@ -36,7 +36,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.godev.budgetgo.web.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.godev.budgetgo"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())

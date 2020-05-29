@@ -1,4 +1,4 @@
-package com.godev.budgetgo.infra.json;
+package com.godev.budgetgo.infra.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -10,15 +10,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @UnitTest
-class LocalDateSerializerTest {
+class LocalDateTimeSerializerTest {
 
-    private LocalDateSerializer serializer;
+    private LocalDateTimeSerializer serializer;
 
     @Mock
     private JsonGenerator generator;
@@ -28,12 +28,12 @@ class LocalDateSerializerTest {
 
     @BeforeEach
     void setUp() {
-        serializer = new LocalDateSerializer();
+        serializer = new LocalDateTimeSerializer();
     }
 
     @Test
     void serialize_general_generatorWriteStringCallWithCorrectParameter() throws IOException {
-        serializer.serialize(LocalDate.of(1970, 1, 1), generator, provider);
-        verify(generator).writeString("1970-01-01");
+        serializer.serialize(LocalDateTime.of(1970, 1, 1, 0, 0, 0, 1), generator, provider);
+        verify(generator).writeString("1970-01-01T00:00:00.000000001");
     }
 }

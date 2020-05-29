@@ -1,8 +1,6 @@
 package com.godev.budgetgo.api.rest.operation.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.godev.budgetgo.domain.operation.Operation;
-import com.godev.budgetgo.infra.json.LocalDateDeserializer;
 import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,7 +24,6 @@ public class OperationPatchesDto {
     private Long categoryId;
 
     @PastOrPresent
-    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate date;
 
     @Size(max = Operation.DESCRIPTION_MAX_LENGTH)

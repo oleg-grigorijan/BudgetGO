@@ -1,4 +1,4 @@
-package com.godev.budgetgo.infra.json;
+package com.godev.budgetgo.infra.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
