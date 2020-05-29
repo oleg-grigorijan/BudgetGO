@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  budgetgo-mysql:
+    container_name: budgetgo-mysql
+    image: mysql:8.0.19
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3311:3306
+    environment:
+      MYSQL_DATABASE: budgetgo
+      MYSQL_ROOT_PASSWORD: budgetgo-pass
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: budgetgo-user
+      MYSQL_PASSWORD: budgetgo-pass

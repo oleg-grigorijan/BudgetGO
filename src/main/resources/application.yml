@@ -1,0 +1,43 @@
+contact:
+  name: Oleg Grigorijan
+  url: https://github.com/oleg-grigorijan/
+  email: oleg.grigorijan@gmail.com
+
+spring:
+  application:
+    name: budgetgo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3311/budgetgo
+    username: budgetgo-user
+    password: budgetgo-pass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+  flyway:
+    enabled: true
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    schemas: budgetgo
+
+server.port: 8080
+
+cors:
+  allowedOrigins:
+    - http://localhost:4200
+    - http://localhost:4201
+  allowedMethods:
+    - GET
+    - HEAD
+    - POST
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowedHeaders: "*"
+  allowCredentials: true
+
+springfox.documentation.swagger.v2.path: /api/docs
