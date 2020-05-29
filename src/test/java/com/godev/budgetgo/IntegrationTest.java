@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Tag("UnitTest")
+@Tag("IntegrationTest")
 @ActiveProfiles("test")
-public @interface UnitTest {
+public @interface IntegrationTest {
 }
