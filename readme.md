@@ -34,14 +34,14 @@ Table of contents:
 
 ## Requirements
 For building and running the application you need:
-* [JDK 12](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Maven 3](https://maven.apache.org/download.cgi)
+* [JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Gradle](https://gradle.org/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Building
 Run the command in the project root directory:
 ```shell
-mvn clean install
+./gradlew build
 ```
 
 ## Before running
@@ -55,7 +55,7 @@ docker-compose up
 Run [`com.godev.budgetgo.BudgetgoApplication#main()`](src/main/java/com/godev/budgetgo/BudgetgoApplication.java) or execute the command in the project
  root directory:
 ```shell
-mvn spring-boot:run
+./gradlew bootRun
 ```
 
 ## Consuming
