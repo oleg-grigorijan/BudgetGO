@@ -1,9 +1,11 @@
 package com.godev.budgetgo.api.rest.operation.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ExtendedOperationCreationDto extends OperationCreationDto {
 
