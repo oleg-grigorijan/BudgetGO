@@ -6,6 +6,9 @@ log/
 *.iml
 *.iws
 
+**/out/
+!src/**/out/
+
 # Gradle
 .gradle
 **/build/

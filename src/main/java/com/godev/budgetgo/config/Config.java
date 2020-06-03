@@ -1,5 +1,6 @@
 package com.godev.budgetgo.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.godev.budgetgo.infra.jackson.LocalDateDeserializer;
@@ -28,6 +29,8 @@ public class Config {
 
         objectMapperModule.addSerializer(new LocalDateTimeSerializer());
         objectMapperModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         objectMapper.registerModule(objectMapperModule);
 
