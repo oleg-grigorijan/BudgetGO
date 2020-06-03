@@ -1,11 +1,18 @@
+log/
 *.log
-*local/
 
 # Intellij
 .idea/
 *.iml
 *.iws
 
-# Maven
-log/
-target/
+**/out/
+!src/**/out/
+
+# Gradle
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
